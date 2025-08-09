@@ -1,0 +1,30 @@
+{
+  "name": "hexo-hot-config",
+  "version": "1.0.0",
+  "description": "Hexo 热配置插件，支持配置热更新",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib/"
+  ],
+  "keywords": [
+    "hexo",
+    "plugin",
+    "hot",
+    "config"
+  ],
+  "author": "huazie",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "js-yaml": "^4.1.0",
+    "hexo-util": "^3.0.1"
+  },
+  "devDependencies": {
+    "hexo": "^7.2.0"
+  },
+  "engines": {
+    "node": ">= 12.13.0",
+    "hexo": ">= 5.3.0"
+  }
+}

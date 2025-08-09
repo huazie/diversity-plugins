@@ -1,0 +1,23 @@
+{
+  "name": "diversity-plugins",
+  "version": "1.0.0",
+  "description": "Hexo Diversity 主题插件",
+  "repository": "huazie/diversity-plugins",
+  "private": true, 
+  "keywords": [
+    "hexo", 
+    "diversity", 
+    "plugins"
+  ],
+  "author": "huazie",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  }
+}
