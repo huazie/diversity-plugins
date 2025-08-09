@@ -47,3 +47,5 @@ hexo server
 - hexo-util ^3.0.1
 
 ## 许可证
+
+[MIT](LICENSE) © [huazie](https://github.com/huazie)

@@ -1,5 +1,5 @@
 # diversity-plugins
-
+[![Hexo version](https://img.shields.io/badge/hexo-%3E=5.3.0-blue?style=flat&logo=hexo)](https://hexo.io) [![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/huazie/diversity-plugins/blob/main/LICENSE) [![GitHub Repo stars](https://img.shields.io/github/stars/huazie/diversity-plugins?style=flat)](https://github.com/huazie/diversity-plugins/stargazers)
 
 Hexo Diversity 主题插件集合，旨在为 Hexo 博客提供更多功能和定制选项。
 
