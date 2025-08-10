@@ -22,7 +22,14 @@ jobs:
         id: set-matrix
         run: |
           # 获取所有修改的文件
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          if [[ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" || -z "${{ github.event.before }}" ]]; then
+            # 如果是首次推送或 before 为空，则获取所有文件
+            echo "First push or tag creation detected, checking all files in the repository"
+            CHANGED_FILES=$(find packages -type f | tr '\n' ' ')
+          else
+            # 正常情况下获取变更的文件
+            CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} || echo "")
+          fi
           
           # 检查每个包是否有变更
           PACKAGES=()
@@ -33,8 +40,9 @@ jobs:
             fi
           done
           
-          # 如果是手动触发，包含所有包
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          # 如果是手动触发或标签推送，包含所有包
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "push" && "${{ github.ref }}" == "refs/tags/"* ]]; then
+            echo "Manual trigger or tag push detected, including all packages"
             PACKAGES=()
             for dir in packages/*/; do
               PKG_NAME=$(basename $dir)
