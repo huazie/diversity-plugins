@@ -12,7 +12,7 @@ Hexo 热配置插件，支持主题配置热更新
 ## 安装
 
 ```bash
-npm install @diversity/hexo-hot-config --save
+npm install hexo-hot-config --save
 ```
 
 ## 使用方法

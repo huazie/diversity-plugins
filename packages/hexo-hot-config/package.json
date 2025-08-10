@@ -26,5 +26,19 @@
   "engines": {
     "node": ">= 12.13.0",
     "hexo": ">= 5.3.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huazie/diversity-plugins.git",
+    "directory": "packages/hexo-hot-config"
+  },
+  "bugs": {
+    "url": "https://github.com/huazie/diversity-plugins/issues"
+  },
+  "homepage": "https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-hot-config#readme"
 }

@@ -1,0 +1,100 @@
+name: NPM Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+    paths:
+      - 'packages/**'
+  workflow_dispatch:
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Detect package changes
+        id: set-matrix
+        run: |
+          # 获取所有修改的文件
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          
+          # 检查每个包是否有变更
+          PACKAGES=()
+          for dir in packages/*/; do
+            PKG_NAME=$(basename $dir)
+            if echo "$CHANGED_FILES" | grep -q "^packages/$PKG_NAME/"; then
+              PACKAGES+=("$PKG_NAME")
+            fi
+          done
+          
+          # 如果是手动触发，包含所有包
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            PACKAGES=()
+            for dir in packages/*/; do
+              PKG_NAME=$(basename $dir)
+              PACKAGES+=("$PKG_NAME")
+            done
+          fi
+          
+          # 输出矩阵
+          if [ ${#PACKAGES[@]} -eq 0 ]; then
+            echo "No package changes detected"
+            echo "matrix={\"package\":[]}" >> $GITHUB_OUTPUT
+          else
+            JSON_ARRAY=$(printf '"%s",' "${PACKAGES[@]}" | sed 's/,$//')
+            echo "matrix={\"package\":[$JSON_ARRAY]}" >> $GITHUB_OUTPUT
+            echo "Detected changes in packages: ${PACKAGES[*]}"
+          fi
+
+  publish:
+    needs: detect-changes
+    if: ${{ fromJson(needs.detect-changes.outputs.matrix).package[0] }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build package
+        run: |
+          cd packages/${{ matrix.package }}
+          npm run build --if-present
+      
+      - name: Run tests
+        run: |
+          cd packages/${{ matrix.package }}
+          npm test --if-present
+      
+      - name: Publish to NPM
+        run: |
+          cd packages/${{ matrix.package }}
+          # 获取当前版本
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          
+          # 检查NPM上是否已存在该版本
+          NPM_VERSION=$(npm view ${{ matrix.package }} version 2>/dev/null || echo "0.0.0")
+          
+          if [ "$CURRENT_VERSION" != "$NPM_VERSION" ]; then
+            echo "Publishing ${{ matrix.package }}@$CURRENT_VERSION to NPM"
+            npm publish --access public
+          else
+            echo "Version $CURRENT_VERSION already exists on NPM, skipping publish"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
