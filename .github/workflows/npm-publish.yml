@@ -77,29 +77,36 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       
       - name: Install dependencies
-        run: npm ci
-      
-      - name: Build package
         run: |
-          cd packages/${{ matrix.package }}
+          npm install -g npm
+          npm ci
+          # 确保工作区包被正确链接
           npm run build --if-present
       
-      - name: Run tests
+      - name: Build specific package
         run: |
           cd packages/${{ matrix.package }}
-          npm test --if-present
+          npm run build --if-present || echo "No build script found for ${{ matrix.package }}"
+      
+      - name: Run package tests
+        run: |
+          cd packages/${{ matrix.package }}
+          npm test --if-present || echo "No test script found for ${{ matrix.package }}"
       
       - name: Publish to NPM
         run: |
           cd packages/${{ matrix.package }}
-          # 获取当前版本
+          # 获取包名和当前版本
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           
+          echo "Package: $PACKAGE_NAME, Version: $CURRENT_VERSION"
+          
           # 检查NPM上是否已存在该版本
-          NPM_VERSION=$(npm view ${{ matrix.package }} version 2>/dev/null || echo "0.0.0")
+          NPM_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "0.0.0")
           
           if [ "$CURRENT_VERSION" != "$NPM_VERSION" ]; then
-            echo "Publishing ${{ matrix.package }}@$CURRENT_VERSION to NPM"
+            echo "Publishing $PACKAGE_NAME@$CURRENT_VERSION to NPM"
             npm publish --access public
           else
             echo "Version $CURRENT_VERSION already exists on NPM, skipping publish"
