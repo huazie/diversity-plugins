@@ -64,6 +64,10 @@ jobs:
     needs: detect-changes
     if: ${{ fromJson(needs.detect-changes.outputs.matrix).package[0] }}
     runs-on: ubuntu-latest
+    # 添加权限配置 ↓↓↓
+    permissions:
+      id-token: write   # 解决来源证明错误
+      contents: read     # 确保代码检出权限
     strategy:
       matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
     
@@ -95,20 +99,24 @@ jobs:
       - name: Publish to NPM
         run: |
           cd packages/${{ matrix.package }}
-          # 获取包名和当前版本
+          
+          # 添加认证配置
+          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
+          
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           
           echo "Package: $PACKAGE_NAME, Version: $CURRENT_VERSION"
           
-          # 检查NPM上是否已存在该版本
-          NPM_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "0.0.0")
-          
-          if [ "$CURRENT_VERSION" != "$NPM_VERSION" ]; then
-            echo "Publishing $PACKAGE_NAME@$CURRENT_VERSION to NPM"
-            npm publish --access public
+          # 健壮的版本检查
+          if npm view $PACKAGE_NAME@$CURRENT_VERSION version >/dev/null 2>&1; then
+            echo "✅ $CURRENT_VERSION already published, skipping"
           else
-            echo "Version $CURRENT_VERSION already exists on NPM, skipping publish"
+            echo "🚀 Publishing $PACKAGE_NAME@$CURRENT_VERSION to NPM"
+            npm publish --access public
           fi
+          
+          # 清理凭证
+          rm -f .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
