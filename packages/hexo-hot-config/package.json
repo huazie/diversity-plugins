@@ -23,6 +23,10 @@
   "devDependencies": {
     "hexo": "^7.2.0"
   },
+  "scripts": {
+    "build": "echo 'No build required for hexo-hot-config'",
+    "test": "echo 'No tests specified for hexo-hot-config'"
+  },
   "engines": {
     "node": ">= 14.0.0",
     "hexo": ">= 5.3.0"
