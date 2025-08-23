@@ -33,7 +33,7 @@ class ThemeConfig {
             callback && typeof callback === 'function'  && callback(themeConfig);
             this.hexo.log.info(`[ThemeConfig] 重新加载主题配置: ${this.configPath}`);
         } catch (err) {
-            this.hexo.log.error('[ThemeConfig] 配置加载失败（可能影响页面生成）:', err);
+            this.hexo.log.error('[ThemeConfig] 配置加载失败（可能影响页面生成）:', err.message);
         }
     }
 
@@ -44,7 +44,9 @@ class ThemeConfig {
             const content = readFileSync(path, "utf8");
             return yaml.load(content) || {};
         } catch (err) {
-            this.hexo.log.error('[ThemeConfig] 默认主题配置加载失败:', err);
+            if (this.updateCount === 1) {
+                this.hexo.log.warn('[ThemeConfig] 默认主题配置加载失败:', err.message);
+            }
         }
     }
 
