@@ -1,6 +1,6 @@
 {
   "name": "hexo-hot-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hexo 热配置插件，支持配置热更新",
   "main": "index.js",
   "files": [
