@@ -167,6 +167,6 @@ sequenceDiagram
 - [hexo-comments-gitalk](https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-gitalk) - Gitalk 评论插件
 - [hexo-comments-giscus](https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-giscus) - Giscus 评论插件
 
-## 📄 许可证
+## 许可证
 
 本项目基于 [MIT](LICENSE) 许可证开源。
