@@ -1,0 +1,47 @@
+{
+  "name": "hexo-comments-giscus",
+  "version": "1.0.0",
+  "description": "Hexo Giscus 评论插件，支持接入 Giscus 评论系统",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "layout/",
+    "default.yml"
+  ],
+  "keywords": [
+    "hexo",
+    "plugin",
+    "comments",
+    "giscus"
+  ],
+  "author": "huazie",
+  "license": "MIT",
+  "dependencies": {
+    "@next-theme/utils": "^1.3.0"
+  },
+  "devDependencies": {
+    "hexo": "^7.2.0"
+  },
+  "scripts": {
+    "build": "echo 'No build required for hexo-comments-giscus'",
+    "test": "echo 'No tests specified for hexo-comments-giscus'"
+  },
+  "engines": {
+    "node": ">= 14.0.0",
+    "hexo": ">= 5.3.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huazie/diversity-plugins.git",
+    "directory": "packages/hexo-comments-giscus"
+  },
+  "bugs": {
+    "url": "https://github.com/huazie/diversity-plugins/issues"
+  },
+  "homepage": "https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-giscus#readme"
+}
