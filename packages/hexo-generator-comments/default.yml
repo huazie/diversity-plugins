@@ -1,0 +1,34 @@
+# 评论系统配置
+comments:
+  # 自定义布局
+  layout: 
+  # 深色主题类名
+  darkclass:
+  # 多个评论系统启用时，选择一个默认展示风格
+  # 可选值：tabs 【选项卡】 
+  # Available values: tabs
+  style: tabs
+  # 选择一个默认显示的评论系统
+  # Choose a comment system to be displayed by default.
+  # 可选值：utterances | gitalk | giscus
+  # Available values: utterances | gitalk | giscus
+  active:
+  # 设置为 true 意味着记住访客选择的评论系统。
+  # Setting `true` means remembering the comment system selected by the visitor.
+  # 可选值：true | false
+  # Available values: true | false
+  storage: true
+  # 是否懒加载评论系统【true：是 false：否】
+  # Lazyload all comment systems. Available values: true | false
+  lazyload: false
+  # 调整导航元素的展示文本或顺序
+  # Modify texts or order for navigation elements
+  nav:
+    # 评论系统名，参考下方各评论系统定义
+    #utterances:
+    # 导航元素的展示文本
+    #  text: Utterances
+    # 导航元素的展示顺序
+    #  order: 0
+    #gitalk:
+    #  order: 1
