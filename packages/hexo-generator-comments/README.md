@@ -328,8 +328,18 @@ graph TD
 | hexo-comments-gitalk | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitalk) | ✅ 稳定 |
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ 稳定 |
 
-## 系统要求
+### 明暗模式切换
 
+Diversity.js 中 Diversity.utils 提供的 `toggleColorScheme` 方法可以实现明暗模式切换。
+
+在你接入的 Hexo 主题的切换明暗模式的代码逻辑中，添加如下调用：
+
+```javascript
+// 切换评论区域的明暗模式
+Diversity.utils.toggleColorScheme();
+```
+
+## 系统要求
 | 依赖 | 版本要求 | 说明 |
 |------|----------|------|
 | **Node.js** | >= 14.0.0 | JavaScript 运行环境 |

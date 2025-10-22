@@ -309,6 +309,21 @@ Diversity.utils = {
         return isDarkMode;
     },
     /**
+     * 切换明暗色模式
+     * 
+     * 该方法用于其他主题接入时，切换评论区域明暗色模式。
+     */
+    toggleColorScheme() {
+        document.documentElement.classList.toggle("dark-theme");
+        const isDark = document.documentElement.classList.contains("dark-theme");
+        Diversity.data.set("color_scheme", isDark ? "dark" : "light");
+        document.dispatchEvent(
+            new Event("color-scheme:refresh", {
+                bubbles: true,
+            })
+        );
+    },
+    /**
      * 加载评论模块，支持旧版回调和新版Promise风格
      * 
      * 该方法基于Intersection Observer API实现延迟加载评论的功能，
