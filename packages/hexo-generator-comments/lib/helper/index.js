@@ -6,12 +6,11 @@ module.exports = (ctx, utils) => {
     helper.register('comments_config', () => {
         const { config } = this;
         const { name, version, author} = require('../../package.json');
-        const exportConfig = {
+        const exportConfig = Object.assign({
             name: name,
             version: version,
-            author: author,
-            comments: utils.defaultConfigFile('comments', 'default.yml')
-        };
+            author: author
+        }, utils.defaultConfigFile('comments', 'default.yml'));
         return exportConfig;
     });
     // 一种在生成的HTML页面中嵌入JSON格式配置信息的辅助函数
