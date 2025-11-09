@@ -39,19 +39,14 @@ npm install hexo-generator-comments --save
 
 ```yaml
 comments:
-  # 自定义布局（可选）
+  title: 
   layout: 
-  # 深色主题类名
+  path: 
   darkclass:
-  # 多个评论系统启用时的展示风格，目前支持 tabs（选项卡）
   style: tabs
-  # 默认显示的评论系统，可选值：utterances | gitalk | giscus 等
-  active: utterances
-  # 是否记住访客选择的评论系统
+  active: 
   storage: true
-  # 是否懒加载评论系统
   lazyload: false
-  # 导航元素的展示文本或顺序
   nav:
     utterances:
       text: Utterances
@@ -60,6 +55,20 @@ comments:
       text: Gitalk
       order: 1
 ```
+
+- **comments** - 评论系统配置
+  - **title** - 自定义评论标题（可选，默认为"Comments"）
+  - **layout** - 自定义评论布局文件名（可选，不包含扩展名）
+  - **path** - 自定义评论页面路径（可选，默认为 `comments`）
+  - **darkclass** - 深色主题类名（可选）
+  - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：tabs 【选项卡】 
+  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk`
+  - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
+  - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`
+  - **nav** - 调整导航元素的展示文本或顺序
+    - **`utterances`** - 评论系统名，参考各评论系统定义即可
+      - **text** - 导航元素的展示文本【选填】，默认为评论系统名
+      - **order** - 导航元素的展示顺序【数字越大，展示越靠后】
 
 ## 评论系统
 

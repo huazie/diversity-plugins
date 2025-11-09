@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { InjectPoints, Util } = require('../util');
-const defaultExtname = '.ejs';
+const { InjectPoints } = require('../utils');
+let defaultExtname = '.ejs';
 
 /**
  * 视图注入配置类
@@ -11,11 +11,12 @@ const defaultExtname = '.ejs';
  * @see [next-theme/hexo-theme-next] - 参考来自 NexT 中的相关设计
  */
 class ViewInject {
-    constructor(hexo, base_dir) {
+    constructor(base_dir) {
         // Hexo项目的基础目录路径
         this.base_dir = base_dir;
-        // 获取hexo主题layout目录布局文件后缀
-        this.extName = Util.getThemeLayoutExtName(hexo) || defaultExtname;        // 存储视图相关的原始数据的数组
+        // hexo主题layout目录中布局文件后缀
+        this.extName = defaultExtname;
+        // 存储视图相关的原始数据的数组
         this.raws = [];
     }
 
@@ -35,7 +36,7 @@ class ViewInject {
         }
         this.raws.push({ name, raw, args });
     }
-    
+
     /**
      * 用于从文件中读取内容，并将读取到的内容作为视图相关的原始数据添加到raws数组中
      *
@@ -59,16 +60,18 @@ class ViewInject {
 }
 
 // 初始化视图注入相关的配置对象
-function initInject(hexo, base_dir) {
+function initInject(base_dir) {
     const injects = {};
     InjectPoints.views.forEach(item => {
-        injects[item] = new ViewInject(hexo, base_dir);
+        injects[item] = new ViewInject(base_dir);
     });
     return injects;
 }
 
-module.exports = hexo => {
-    const injects = initInject(hexo, hexo.base_dir);
+module.exports = (hexo, utils) => {
+    // hexo主题layout目录中布局文件后缀
+    defaultExtname = utils.getThemeLayoutExtName(null, defaultExtname);
+    const injects = initInject(hexo.base_dir);
     // 执行 theme_injects 过滤器
     hexo.execFilterSync('theme_injects', injects);
     hexo.theme.config.view_injects = {};

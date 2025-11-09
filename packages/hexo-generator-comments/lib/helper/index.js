@@ -5,12 +5,12 @@ module.exports = (ctx, utils) => {
     // 评论系统配置信息的辅助函数
     helper.register('comments_config', () => {
         const { config } = this;
-        const { name, version, author} = require('../../package.json');
+        const { name, version, author } = require('../../package.json');
         const exportConfig = Object.assign({
             name: name,
             version: version,
             author: author
-        }, utils.defaultConfigFile('comments', 'default.yml'));
+        }, utils.getMergedConfig('comments', 'default.yml'));
         return exportConfig;
     });
     // 一种在生成的HTML页面中嵌入JSON格式配置信息的辅助函数
@@ -29,9 +29,8 @@ module.exports = (ctx, utils) => {
  */
 function data(name, ...data) {
     const json = data.length === 1 ? data[0] : Object.assign({}, ...data);
-    return `<script class="diversity-config" data-name="${name}" type="application/json">${
-        JSON.stringify(json).replace(/</g, '\\u003c')
-    }</script>`;
+    return `<script class="diversity-config" data-name="${name}" type="application/json">${JSON.stringify(json).replace(/</g, '\\u003c')
+        }</script>`;
 }
 
 /**

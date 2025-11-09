@@ -7,8 +7,8 @@ const path = require('path');
  * 
  * @param {Object} injects 注入对象
  */
-module.exports = function(utils, injects) {
-    const comments = utils.defaultConfigFile('comments', 'default.yml');
+module.exports = function (utils, injects) {
+    const comments = utils.getMergedConfig('comments', 'default.yml');
     // 主题配置中的comments配置覆盖，便于评论相关的布局文件中使用
     utils.hexo.theme.config.comments = comments;
     injects.comment.raws.forEach(element => {
@@ -22,7 +22,7 @@ module.exports = function(utils, injects) {
         }, element.args[0]);
 
         const locals = element.args[0];
-        const injectObj = utils.defaultConfigFile(injectName);
+        const injectObj = utils.getMergedConfig(injectName);
         // 获取评论系统是否展示加载提示配置
         // 如果配置为true，则表示评论加载时需要展示加载提示
         if (injectObj && injectObj.loading)

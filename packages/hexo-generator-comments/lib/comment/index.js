@@ -7,12 +7,15 @@ const box_1 = __importDefault(require("hexo/dist/box"));
 const View = require("./view");
 const source_1 = require("./processors/source");
 const view_1 = require("./processors/view");
-const { Util } = require("../util");
-const defaultExtname = '.ejs';
+let defaultExtname = '.ejs';
 
 class Comment extends box_1.default {
-    constructor(ctx, base, options) {
+    constructor(ctx, base, utils, options) {
         super(ctx, base, options);
+
+        // hexo主题layout目录中布局文件后缀
+        defaultExtname = utils.getThemeLayoutExtName(null, defaultExtname);
+
         this.processors = [
             source_1.source,
             view_1.view
@@ -21,13 +24,11 @@ class Comment extends box_1.default {
         if (!View.prototype._theme)
             View.prototype._theme = {};
         View.prototype._theme[ctx.config.theme] = ctx.theme;
-        
-        const Theme = ctx.theme.constructor;
-        
 
-        Theme.prototype.setView1 = function(comment, path, data) {
+        const Theme = ctx.theme.constructor;
+        Theme.prototype.setView1 = function (comment, path, data) {
             const ext = (0, path_1.extname)(path);
-            const extName = Util.getThemeLayoutExtName(comment.context) || defaultExtname;
+            const extName = defaultExtname;
             if (ext !== extName) {
                 return;
             }
