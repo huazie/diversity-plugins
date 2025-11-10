@@ -1,6 +1,6 @@
 {
   "name": "hexo-comments-giscus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hexo Giscus 评论插件，支持接入 Giscus 评论系统",
   "main": "index.js",
   "files": [
