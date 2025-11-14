@@ -4,6 +4,8 @@
 
 Hexo 热配置插件，支持主题配置热更新
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 功能特性
 
 - 监听 `_config.{theme}.yml` 文件变化，自动重新生成页面
