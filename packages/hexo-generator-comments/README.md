@@ -4,6 +4,8 @@
 
 Hexo 多评论系统生成插件，支持多种评论系统的集成与切换，提供统一的评论界面。
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 功能特性
 
 | 特性 | 描述 |
@@ -321,11 +323,31 @@ graph TD
    themes/your-theme/layout/_custom/comments.ejs
    ```
 
-2. 在 `_config.yml` 中指定自定义布局：
+2. 在 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中指定自定义布局：
    ```yaml
    comments:
      layout: _custom/comments
    ```
+
+### 自定义默认标题
+
+在 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中指定默认标题：
+
+```yaml
+comments:
+  title: 评论
+``` 
+
+### 自定义评论页面路径
+
+在 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中指定评论页面路径：
+
+```yaml
+comments:
+  path: custom/comments
+```
+
+可以通过 http://127.0.0.1:4000/custom/comments/ 访问评论页面
 
 ### 扩展评论系统
 
@@ -339,7 +361,7 @@ graph TD
 
 ### 明暗模式切换
 
-Diversity.js 中 Diversity.utils 提供的 `toggleColorScheme` 方法可以实现明暗模式切换。
+`Diversity.js` 中 `Diversity.utils` 提供的 `toggleColorScheme` 方法可以实现明暗模式切换。
 
 在你接入的 Hexo 主题的切换明暗模式的代码逻辑中，添加如下调用：
 
