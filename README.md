@@ -3,6 +3,8 @@
 
 Hexo Diversity 主题插件集合，旨在为 Hexo 博客提供更多功能和定制选项。
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 插件列表
 
 - [hexo-hot-config](./packages/hexo-hot-config/README.md)  - Hexo 热配置插件，支持实时更新配置
