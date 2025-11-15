@@ -8,6 +8,8 @@
 
 轻松集成 [Giscus](https://giscus.app/) 评论系统到您的 Hexo 博客中，基于 GitHub Discussions 的现代化评论解决方案。
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 功能特性
 
 | 特性 | 描述 | 优势 |
@@ -39,12 +41,12 @@ npm install hexo-comments-giscus --save
 
 ### 基本配置
 
-在 Hexo 站点根目录的 `_config.yml` 文件中添加以下配置：
+在 Hexo 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中添加以下内容：
 
 ```yaml
 giscus:
   # 是否启用 Giscus 评论系统
-  enable: true
+  enable: false
   # 是否显示加载动画
   loading: true
   # GitHub 仓库，格式为 username/repo-name
@@ -70,7 +72,7 @@ giscus:
   # 暗色主题
   dark: dark
   # 评论区的语言
-  lang: zh-CN
+  lang: 
   # 评论输入框的位置
   input_position: bottom
   # 懒加载评论
@@ -83,19 +85,19 @@ giscus:
 
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| `enable` | Boolean | `false` | 否 | 是否启用 Giscus 评论系统 |
-| `loading` | Boolean | `true` | 否 | 是否显示评论加载动画 |
+| `enable` | Boolean | `false` | 是 | 是否启用 Giscus 评论系统 |
+| `loading` | Boolean | `true` | 是 | 是否显示评论加载动画 |
 | `repo` | String | - | 是 | GitHub 仓库，格式：`username/repo-name` |
 | `repo_id` | String | - | 是 | GitHub 仓库的唯一ID |
 | `category` | String | - | 是 | GitHub Discussions 分类名称 |
 | `category_id` | String | - | 是 | Discussions 分类的唯一 ID |
-| `mapping` | String | `pathname` | 否 | GitHub discussion 的匹配规则 |
+| `mapping` | String | `pathname` | 是 | GitHub discussion 的匹配规则 |
 | `term` | String | - | 否 | 当 mapping 为 specific 时的特定术语 |
-| `strict` | Number | `0` | 否 | 是否启用严格的标题匹配 |
-| `reactions_enabled` | Number | `1` | 否 | 是否启用主帖子上的反应 |
-| `emit_metadata` | Number | `0` | 否 | 是否输出 discussion 的元数据 |
-| `theme` | String | `light` | 否 | 亮色模式主题 |
-| `dark` | String | `dark` | 否 | 暗色模式主题 |
+| `strict` | Number | `0` | 是 | 是否启用严格的标题匹配 |
+| `reactions_enabled` | Number | `1` | 是 | 是否启用主帖子上的反应 |
+| `emit_metadata` | Number | `0` | 是 | 是否输出 discussion 的元数据 |
+| `theme` | String | `light` | 是 | 亮色模式主题 |
+| `dark` | String | `dark` | 是 | 暗色模式主题 |
 | `lang` | String | `navigator.language` | 否 | 评论区的语言 |
 | `input_position` | String | `bottom` | 否 | 评论输入框的位置 |
 | `data_loading` | String | `lazy` | 否 | 懒加载评论 |
@@ -143,6 +145,7 @@ giscus:
 | `es-ES` | 西班牙语 |
 | `fr` | 法语 |
 | `ru` | 俄语 |
+| ... | ... |
 
 ## 使用前提
 
