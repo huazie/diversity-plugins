@@ -8,6 +8,8 @@
 
 轻松集成 [Gitalk](https://github.com/gitalk/gitalk) 评论系统到您的 Hexo 博客中，基于 GitHub Issues 的现代化评论解决方案。
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 功能特性
 
 | 特性 | 描述 | 优势 |
@@ -38,12 +40,12 @@ npm install hexo-comments-gitalk --save
 
 ### 基本配置
 
-在 Hexo 站点根目录的 `_config.yml` 文件中添加以下配置：
+在 Hexo 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中添加以下内容：
 
 ```yaml
 gitalk:
   # 是否启用 Gitalk 评论系统
-  enable: true
+  enable: false
   # GitHub Application Client ID
   client_id: your-client-id
   # GitHub Application Client Secret
@@ -57,9 +59,9 @@ gitalk:
   # 页面唯一标识
   issue_term: pathname
   # 语言设置
-  language: zh-CN
+  language: 
   # 是否启用无干扰模式
-  distraction_free_mode: false
+  distraction_free_mode: true
   # 代理 URL（可选）
   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
 ```
@@ -70,15 +72,15 @@ gitalk:
 
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| `enable` | Boolean | `false` | 否 | 是否启用 Gitalk 评论系统 |
+| `enable` | Boolean | `false` | 是 | 是否启用 Gitalk 评论系统 |
 | `client_id` | String | - | 是 | GitHub Application 的 Client ID |
 | `client_secret` | String | - | 是 | GitHub Application 的 Client Secret |
 | `repo` | String | - | 是 | 用于存储评论的 GitHub 仓库名称 |
 | `github_id` | String | - | 是 | GitHub 仓库所有者的用户名 |
 | `admin_user` | String | - | 是 | GitHub 仓库管理员的用户名 |
-| `issue_term` | String | `pathname` | 否 | 页面唯一标识的生成方式 |
+| `issue_term` | String | `pathname` | 是 | 页面唯一标识的生成方式 |
 | `language` | String | `navigator.language` | 否 | 界面语言设置 |
-| `distraction_free_mode` | Boolean | `false` | 否 | 是否启用无干扰模式 |
+| `distraction_free_mode` | Boolean | `true` | 是 | 是否启用无干扰模式 |
 | `proxy` | String | - | 否 | 代理 URL，用于解决 CORS 问题 |
 
 ### 高级配置选项
@@ -102,6 +104,7 @@ gitalk:
 | `es-ES` | 西班牙语 |
 | `fr` | 法语 |
 | `ru` | 俄语 |
+| ... | ... |
 
 ## 使用前提
 
