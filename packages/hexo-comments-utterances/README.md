@@ -8,6 +8,8 @@
 
 轻松集成 [Utterances](https://utteranc.es/) 评论系统到您的 Hexo 博客中，基于 GitHub Issues 的轻量级评论解决方案。
 
+[英文说明/English Documentation](README_EN.md)
+
 ## 功能特性
 
 | 特性 | 描述 | 优势 |
@@ -38,17 +40,17 @@ npm install hexo-comments-utterances --save
 
 ### 基本配置
 
-在 Hexo 站点根目录的 `_config.yml` 文件中添加以下配置：
+在 Hexo 站点配置 `_config.yml` 或 主题配置 `_config.yml` 、`_config.[theme].yml` 中添加以下内容：
 
 ```yaml
 utterances:
   # 是否启用 Utterances 评论系统
-  enable: true
-  # 是否显示加载动画
+  enable: false
+  # 是否启用加载提示，可选值：`true` | `false`
   loading: true
-  # GitHub 仓库，格式为 username/repo-name
+  # GitHub仓库所有者和名称，格式为 username/repo-name
   repo: your-username/your-repo-name
-  # 用于映射评论到 issue 的方式
+  # 指定issue的匹配规则
   issue_term: pathname
   # 亮色主题
   theme: github-light
@@ -62,12 +64,12 @@ utterances:
 
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
-| `enable` | Boolean | `false` | 否 | 是否启用 Utterances 评论系统 |
-| `loading` | Boolean | `true` | 否 | 是否显示评论加载动画 |
+| `enable` | Boolean | `false` | 是 | 是否启用 Utterances 评论系统 |
+| `loading` | Boolean | `true` | 是 | 是否显示评论加载动画 |
 | `repo` | String | - | 是 | GitHub 仓库，格式：`username/repo-name` |
-| `issue_term` | String | `pathname` | 否 | 映射评论到 issue 的方式 |
-| `theme` | String | `github-light` | 否 | 亮色模式主题 |
-| `dark` | String | `github-dark` | 否 | 暗色模式主题 |
+| `issue_term` | String | `pathname` | 是 | 映射评论到 issue 的方式 |
+| `theme` | String | `github-light` | 是 | 亮色模式主题 |
+| `dark` | String | `github-dark` | 是 | 暗色模式主题 |
 
 ### 高级配置选项
 
