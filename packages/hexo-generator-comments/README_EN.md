@@ -185,14 +185,15 @@ This plugin supports all Hexo themes using the following template engines:
 |-----------------|----------------|----------------|
 | **EJS** | `.ejs` | ✅ Fully Supported |
 | **Nunjucks** | `.njk` | ✅ Fully Supported |
+| **JSX + Inferno** | `.jsx` | ✅ Fully Supported |
 
-### Integration Steps
+### Integration Methods
 
-#### 1. Preview Effect
-- **Local Development**: Visit `http://127.0.0.1:4000/comments/`
-- **Production Environment**: Visit `https://your-domain.com/comments/`
+#### 1. Direct Access via Theme Integration
+- **Local Development**: Access `http://127.0.0.1:4000/comments/`
+- **Production Environment**: Access `https://your-domain.com/comments/`
 
-#### 2. Theme Integration Code
+#### 2. Theme Layout Integration Code
 
 **EJS Theme Integration**
 
@@ -208,6 +209,28 @@ This plugin supports all Hexo themes using the following template engines:
 {% if page.comments %}
     {{ partial('comments') }}
 {% endif %}
+```
+
+**JSX + Inferno Theme Integration**
+
+```diff
+  const { Component } = require('inferno');
+  const Article = require('./common/article');
++ const Comments = require('hexo-generator-comments/layout/comments')
+
+  module.exports = class extends Component {
+      render() {
+-         const { config, page, helper } = this.props;
++         const { config, theme, page, helper } = this.props;
+
+          return (
++             <div>
+                  <Article config={config} page={page} helper={helper} index={false} />
++                 {page.comments && <Comments theme={theme} helper={helper} />}
++             </div>
+          );
+      }
+  };
 ```
 
 #### 3. Disable Comments on Specific Pages
@@ -303,14 +326,6 @@ Add the following call in your Hexo theme's color scheme switching logic:
 // Toggle color scheme for comment area
 Diversity.utils.toggleColorScheme();
 ```
-
-## System Requirements
-| Dependency | Version Requirement | Description |
-|------------|---------------------|-------------|
-| **Node.js** | >= 14.0.0 | JavaScript Runtime Environment |
-| **Hexo** | >= 5.3.0 | Static Site Generator |
-| **@next-theme/utils** | ^1.3.0 | Theme Utilities Library |
-| **hexo-util** | ^3.0.1 | Hexo Utilities Library |
 
 ## Contribution Guide
 

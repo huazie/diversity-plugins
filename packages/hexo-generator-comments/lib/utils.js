@@ -68,7 +68,7 @@ class Utils {
         try {
             hexo = hexo || this.hexo;
             const layoutFiles = ['index', 'post', 'page', 'archive'];
-            const templateExts = ['.ejs', '.swig', '.njk', '.nunjucks', '.pug', '.jade', '.hbs', '.handlebars'];
+            const templateExts = ['.ejs', '.njk', '.jsx', '.swig', '.nunjucks', '.pug', '.jade', '.hbs', '.handlebars'];
 
             // 检查视图文件扩展名
             const checkViewExt = (view) => {

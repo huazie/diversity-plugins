@@ -84,7 +84,20 @@ module.exports = (hexo, utils) => {
         injects[type].raws.forEach((injectObj, index) => {
             // 举例： 评论系统 utterances
             // name 形如 landscape/inject/comment/utterances
-            const name = `${hexo.config.theme}/inject/${type}/${injectObj.name}`;
+            let name;
+            if (defaultExtname === '.jsx') {
+                const commentName = injectObj.name.substring(0, injectObj.name.lastIndexOf(defaultExtname));
+                const basePath = `hexo-comments-${commentName}/layout/${type === 'comment' ? `${type}/` : ''}`;
+                // name 分两种场景【针对 comment视图】：
+                // 1. 如果主题是npm安装的，则 name 形如 ../../hexo-comments-utterances/layout/comment/utterances.jsx
+                // 2. 如果主题是theme目录加载的，则 name 形如 ../../../node_modules/hexo-comments-utterances/layout/comment/utterances.jsx
+                // name 分两种场景【针对 pageEnd视图】：
+                // 1. 如果主题是npm安装的，则 name 形如 ../../hexo-comments-utterances/layout/utterances.jsx
+                // 2. 如果主题是theme目录加载的，则 name 形如 ../../../node_modules/hexo-comments-utterances/layout/utterances.jsx
+                name = `${hexo.theme_dir.includes('node_modules') ? '../../' : '../../../node_modules/'}${basePath}${injectObj.name}`;
+            } else {
+                name = `${hexo.config.theme}/inject/${type}/${injectObj.name}`;
+            }
             // 将视图相关的原始数据与视图名称关联
             hexo.theme.setView(name, injectObj.raw);
             configs[name] = {

@@ -251,14 +251,15 @@ giscus:
 |----------|------------|----------|
 | **EJS** | `.ejs` | ✅ 完全支持 |
 | **Nunjucks** | `.njk` | ✅ 完全支持 |
+| **JSX + Inferno** | `.jsx` | ✅ 完全支持 |
 
-### 集成步骤
+### 集成方式
 
-#### 1. 预览效果
+#### 1. 主题接入直接访问
 - **本地开发**：访问 `http://127.0.0.1:4000/comments/`
 - **生产环境**：访问 `https://your-domain.com/comments/`
 
-#### 2. 主题集成代码
+#### 2. 主题布局集成代码
 
 **EJS 主题集成**
 
@@ -274,6 +275,28 @@ giscus:
 {% if page.comments %}
     {{ partial('comments') }}
 {% endif %}
+```
+
+**JSX + Inferno 主题集成**
+
+```diff
+  const { Component } = require('inferno');
+  const Article = require('./common/article');
++ const Comments = require('hexo-generator-comments/layout/comments')
+
+  module.exports = class extends Component {
+      render() {
+-         const { config, page, helper } = this.props;
++         const { config, theme, page, helper } = this.props;
+
+          return (
++             <div>
+                  <Article config={config} page={page} helper={helper} index={false} />
++                 {page.comments && <Comments theme={theme} helper={helper} />}
++             </div>
+          );
+      }
+  };
 ```
 
 #### 3. 禁用特定页面评论
@@ -369,14 +392,6 @@ comments:
 // 切换评论区域的明暗模式
 Diversity.utils.toggleColorScheme();
 ```
-
-## 系统要求
-| 依赖 | 版本要求 | 说明 |
-|------|----------|------|
-| **Node.js** | >= 14.0.0 | JavaScript 运行环境 |
-| **Hexo** | >= 5.3.0 | 静态站点生成器 |
-| **@next-theme/utils** | ^1.3.0 | 主题工具库 |
-| **hexo-util** | ^3.0.1 | Hexo 工具库 |
 
 ## 贡献指南
 
