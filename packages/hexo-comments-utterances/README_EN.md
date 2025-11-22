@@ -97,6 +97,16 @@ utterances:
 | `photon-dark` | Photon dark theme |
 | `preferred-color-scheme` | Auto-follow system theme |
 
+### Supported Template Engines
+
+This plugin supports all Hexo themes using the following template engines:
+
+| Template Engine | File Extension | Support Status |
+|-----------------|----------------|----------------|
+| **EJS** | `.ejs` | ✅ Fully Supported |
+| **Nunjucks** | `.njk` | ✅ Fully Supported |
+| **JSX + Inferno** | `.jsx` | ✅ Fully Supported |
+
 ## Prerequisites
 
 Before getting started, please ensure the following requirements are met:
@@ -143,14 +153,6 @@ sequenceDiagram
 3. **Display Comments**: If corresponding issue is found, display comments from it
 4. **Create Issue**: When commenting for the first time, automatically create a new issue
 5. **GitHub Login**: Visitors need a GitHub account to participate in comments
-
-## System Requirements
-
-| Dependency | Version Requirement | Description |
-|------|----------|------|
-| **Node.js** | >= 14.0.0 | JavaScript runtime environment |
-| **Hexo** | >= 5.3.0 | Static site generator |
-| **GitHub Repository** | Public repository | Stores comment data |
 
 ## Related Links
 

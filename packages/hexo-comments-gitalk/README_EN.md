@@ -106,6 +106,16 @@ gitalk:
 | `ru` | Russian |
 | ... | ... |
 
+### Supported Template Engines
+
+This plugin supports all Hexo themes using the following template engines:
+
+| Template Engine | File Extension | Support Status |
+|-----------------|----------------|----------------|
+| **EJS** | `.ejs` | ✅ Fully Supported |
+| **Nunjucks** | `.njk` | ✅ Fully Supported |
+| **JSX + Inferno** | `.jsx` | ✅ Fully Supported |
+
 ## Prerequisites
 
 Before getting started, please ensure the following requirements are met:
