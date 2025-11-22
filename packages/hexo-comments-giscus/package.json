@@ -1,6 +1,6 @@
 {
   "name": "hexo-comments-giscus",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Hexo Giscus 评论插件，支持接入 Giscus 评论系统",
   "main": "index.js",
   "files": [
@@ -17,7 +17,7 @@
   "author": "huazie",
   "license": "MIT",
   "dependencies": {
-    "hexo-generator-comments": "^1.0.3"
+    "hexo-generator-comments": "^1.0.4"
   },
   "devDependencies": {
     "hexo": "^7.2.0"
