@@ -27,7 +27,11 @@ hexo.extend.filter.register('theme_injects', injects => {
     }
 
     // comment 视图添加 giscus
-    injects.comment.raw('giscus', '<div class="comments giscus-container"><div class="giscus"></div></div>', {}, { cache: true });
+    if (injects.comment.extName === '.jsx') {
+        injects.comment.raw('giscus', utils.getFileContent('layout/comment/giscus' + injects.comment.extName));
+    } else {
+        injects.comment.raw('giscus', '<div class="comments giscus-container"><div class="giscus"></div></div>');
+    }
 
     // pageEnd 视图添加 giscus
     injects.pageEnd.raw('giscus', utils.getFileContent('layout/giscus' + injects.pageEnd.extName));
