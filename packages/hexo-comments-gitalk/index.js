@@ -45,7 +45,11 @@ hexo.extend.filter.register('theme_injects', injects => {
     }
 
     // comment 视图添加 gitalk
-    injects.comment.raw('gitalk', '<div class="comments gitalk-container"></div>', {}, { cache: true });
+    if (injects.comment.extName === '.jsx') {
+        injects.comment.raw('gitalk', utils.getFileContent('layout/comment/gitalk' + injects.comment.extName));
+    } else {
+        injects.comment.raw('gitalk', '<div class="comments gitalk-container"></div>');
+    }
 
     // pageEnd 视图添加 gitalk
     injects.pageEnd.raw('gitalk', utils.getFileContent('layout/gitalk' + injects.pageEnd.extName));
