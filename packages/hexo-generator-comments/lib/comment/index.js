@@ -14,7 +14,8 @@ class Comment extends box_1.default {
 
         this.processors = [
             source_1.source,
-            view_1.view
+            // 只处理与hexo主题layout目录中布局文件后缀相同的评论布局文件
+            view_1.view(utils.getThemeLayoutExtName(this.context, '.ejs'))
         ];
 
         if (!View.prototype._theme)
@@ -24,11 +25,6 @@ class Comment extends box_1.default {
         const Theme = ctx.theme.constructor;
         Theme.prototype.setView1 = function (comment, path, data) {
             const ext = (0, path_1.extname)(path);
-            // hexo主题layout目录中布局文件后缀
-            const extName = utils.getThemeLayoutExtName(this.context, '.ejs');
-            if (ext !== extName) {
-                return;
-            }
             const name = path.substring(0, path.length - ext.length);
             this.views[name] = this.views[name] || {};
             const views = this.views[name];

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.view = void 0;
 const hexo_util_1 = require("hexo-util");
+const path_1 = require("path");
 function process(file) {
     const { path } = file.params;
     if (file.type === 'delete') {
@@ -12,8 +13,19 @@ function process(file) {
         file.box.setView(path, result);
     });
 }
-const pattern = new hexo_util_1.Pattern('layout/*path');
-exports.view = {
-    pattern,
-    process
-};
+function createView(extName) {
+    const pattern = new hexo_util_1.Pattern(path => {
+        if (!path.startsWith('layout/'))
+            return false;
+        path = path.substring(7);
+        const ext = (0, path_1.extname)(path);
+        if (ext !== extName)
+            return false;
+        return { path };
+    });
+    return {
+        pattern,
+        process
+    };
+}
+exports.view = createView;
