@@ -30,7 +30,7 @@ hexo.extend.filter.register('theme_injects', injects => {
     if (injects.comment.extName === '.jsx') {
         injects.comment.raw('utterances', utils.getFileContent('layout/comment/utterances' + injects.comment.extName));
     } else {
-        injects.comment.raw('utterances', '<div class="comments utterances-container"></div>');
+        injects.comment.raw('utterances', '<div class="comments utterances-wrap"></div>');
     }
 
     // pageEnd 视图添加 utterances

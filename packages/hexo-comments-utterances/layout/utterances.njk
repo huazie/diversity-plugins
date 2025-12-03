@@ -16,16 +16,16 @@
         loadingElement.classList.remove('hidden');
 
         // 加载评论模块
-        Diversity.utils.loadComments('.utterances-container')
-            .then(() => Diversity.utils.getScript(config.utterances.js, {
+        Diversity.utils.loadComments('.utterances-wrap')
+            .then(() => Diversity.utils.getScript(conf.utterances.js, {
                 attributes: {
                     async: true,
                     crossOrigin: 'anonymous',
-                    'repo': config.utterances.repo,
-                    'issue-term': config.utterances.issue_term,
-                    'theme': Diversity.utils.isDarkMode() ? config.utterances.dark : config.utterances.theme
+                    'repo': conf.utterances.repo,
+                    'issue-term': conf.utterances.issue_term,
+                    'theme': Diversity.utils.isDarkMode() ? conf.utterances.dark : conf.utterances.theme
                 },
-                parentNode: document.querySelector('.utterances-container')
+                parentNode: document.querySelector('.utterances-wrap')
             }));
 
         // Utterances加载
