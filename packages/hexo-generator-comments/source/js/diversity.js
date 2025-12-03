@@ -19,7 +19,7 @@
     // 提前获取Diversity主要配置信息
     update('main');
 
-    window.config = new Proxy({}, {
+    window.conf = new Proxy({}, {
         get(overrideConfig, name) {
             let existing;
             if (name in staticConfig) {
@@ -304,8 +304,8 @@ Diversity.utils = {
         let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         if (!isDarkMode)
             isDarkMode = document.documentElement.classList.contains('dark-theme');
-        if (!isDarkMode && config.comments.darkClass) 
-            isDarkMode = document.documentElement.classList.contains(config.comments.darkClass);
+        if (!isDarkMode && conf.comments.darkClass) 
+            isDarkMode = document.documentElement.classList.contains(conf.comments.darkClass);
         return isDarkMode;
     },
     /**
@@ -346,7 +346,7 @@ Diversity.utils = {
             if (element && element.innerHTML.trim() !== '') {
                 element.innerHTML = '';
             }
-            if (!config.comments.lazyload || !element) {
+            if (!conf.comments.lazyload || !element) {
                 resolve();
                 return;
             }

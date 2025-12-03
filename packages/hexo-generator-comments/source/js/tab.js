@@ -1,4 +1,14 @@
 (function () {
+    // 兼容老的Diversity主题
+    if (!window.conf && window.config) {
+        window.conf = window.config;
+    }
+
+    // 兼容老版本评论插件
+    if (window.conf && !window.config) {
+        window.config = window.conf;
+    }
+
     /**
      * Tab 切换功能实现
      * 模拟 Bootstrap 的 tab 功能，实现标签页切换
@@ -12,7 +22,7 @@
     // 初始化标签页
     function initTabs() {
         // 初始化评论系统
-        const storage = config.comments.storage;
+        const storage = conf.comments.storage;
         if (!storage) {
             Diversity.data.remove("selected_comment");
         }
@@ -51,7 +61,7 @@
         const navTab = document.getElementById("comment-nav-tab");
         if (!navTab) return;
         
-        const storage = config.comments.storage;
+        const storage = conf.comments.storage;
         
         navTab.addEventListener('click', function(event) {
             const target = event.target.closest('a[data-toggle="tab"]');
