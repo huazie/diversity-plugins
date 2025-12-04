@@ -1,6 +1,6 @@
 {
   "name": "hexo-comments-gitalk",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Hexo Gitalk 评论插件，支持接入 Gitalk 评论系统",
   "main": "index.js",
   "files": [
@@ -17,7 +17,7 @@
   "author": "huazie",
   "license": "MIT",
   "dependencies": {
-    "hexo-generator-comments": "^1.0.4"
+    "hexo-generator-comments": "^1.0.6"
   },
   "devDependencies": {
     "hexo": "^7.2.0"
