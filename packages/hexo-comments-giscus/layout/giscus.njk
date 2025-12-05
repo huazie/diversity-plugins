@@ -11,31 +11,31 @@
 
         let lang;
         // 加载评论模块
-        Diversity.utils.loadComments('.giscus')
+        Diversity.utils.loadComments('.giscus-wrap')
             .then(() => {
-                lang = config.giscus.lang;
+                lang = conf.giscus.lang;
                 if (!lang)
                     lang = window.navigator.language;
             })
-            .then(() => Diversity.utils.getScript(config.giscus.js, {
+            .then(() => Diversity.utils.getScript(conf.giscus.js, {
                 attributes: {
                     async                   : true,
                     crossOrigin             : 'anonymous',
-                    'data-repo'             : config.giscus.repo,
-                    'data-repo-id'          : config.giscus.repo_id,
-                    'data-category'         : config.giscus.category,
-                    'data-category-id'      : config.giscus.category_id,
-                    'data-mapping'          : config.giscus.mapping,
-                    'data-term'             : config.giscus.term,
-                    'data-strict'           : config.giscus.strict,
-                    'data-reactions-enabled': config.giscus.reactions_enabled,
-                    'data-emit-metadata'    : config.giscus.emit_metadata,
-                    'data-theme'            : Diversity.utils.isDarkMode() ? config.giscus.dark : config.giscus.theme,
+                    'data-repo'             : conf.giscus.repo,
+                    'data-repo-id'          : conf.giscus.repo_id,
+                    'data-category'         : conf.giscus.category,
+                    'data-category-id'      : conf.giscus.category_id,
+                    'data-mapping'          : conf.giscus.mapping,
+                    'data-term'             : conf.giscus.term,
+                    'data-strict'           : conf.giscus.strict,
+                    'data-reactions-enabled': conf.giscus.reactions_enabled,
+                    'data-emit-metadata'    : conf.giscus.emit_metadata,
+                    'data-theme'            : Diversity.utils.isDarkMode() ? conf.giscus.dark : conf.giscus.theme,
                     'data-lang'             : lang,
-                    'data-input-position'   : config.giscus.input_position,
-                    'data-loading'          : config.giscus.data_loading
+                    'data-input-position'   : conf.giscus.input_position,
+                    'data-loading'          : conf.giscus.data_loading
                 },
-                parentNode: document.querySelector('.giscus')
+                parentNode: document.querySelector('.giscus-wrap')
             }));
 
         // Giscus加载

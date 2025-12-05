@@ -30,7 +30,7 @@ hexo.extend.filter.register('theme_injects', injects => {
     if (injects.comment.extName === '.jsx') {
         injects.comment.raw('giscus', utils.getFileContent('layout/comment/giscus' + injects.comment.extName));
     } else {
-        injects.comment.raw('giscus', '<div class="comments giscus-container"><div class="giscus"></div></div>');
+        injects.comment.raw('giscus', '<div class="comments giscus-wrap"></div>');
     }
 
     // pageEnd 视图添加 giscus
