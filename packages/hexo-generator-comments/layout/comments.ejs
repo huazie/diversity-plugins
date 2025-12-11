@@ -16,7 +16,7 @@
                         <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <li class="<%= inject_item.locals.active %>">
-                                <a data-toggle="tab" href="#comment-<%= inject_item.locals.class %>" data-comment="<%= inject_item.locals.class %>">
+                                <a data-toggle="tab" href="#comments-<%= inject_item.locals.class %>" data-comments="<%= inject_item.locals.class %>">
                                     <%= inject_item.locals.text %>
                                 </a>
                             </li>
@@ -26,7 +26,7 @@
                     <div class="tab-content">
                         <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                             <% const inject_item = theme.view_injects.comment[i] %>
-                            <div id="comment-<%= inject_item.locals.class %>" 
+                            <div id="comments-<%= inject_item.locals.class %>" 
                                 class="tab-pane <%= inject_item.locals.active %>">
                                 <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
                                 <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>

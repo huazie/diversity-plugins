@@ -14,7 +14,7 @@ module.exports = class MultiCommentTabs extends Component {
                     <ul id="comment-nav-tab" class="nav nav-tabs">
                         {injectItems.map((item) => (
                             <li class={item.locals.active}>
-                                <a data-toggle="tab" href={`#comment-${item.locals.class}`} data-comment={item.locals.class}>
+                                <a data-toggle="tab" href={`#comments-${item.locals.class}`} data-comments={item.locals.class}>
                                     {item.locals.text}
                                 </a>
                             </li>
@@ -27,7 +27,7 @@ module.exports = class MultiCommentTabs extends Component {
                             const CommentComponent = require(`../../${layout}`);
                             
                             return (
-                                <div id={`comment-${locals.class}`} class={`tab-pane ${locals.active}`}>
+                                <div id={`comments-${locals.class}`} class={`tab-pane ${locals.active}`}>
                                     {locals.showLoading && (
                                         <Loading 
                                             showLoading={locals.showLoading}

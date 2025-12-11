@@ -32,7 +32,7 @@
         
         // 如果有记忆的评论系统，则显示对应标签页
         if (comment) {
-            const element = document.querySelector(`a[data-comment="${comment}"]`);
+            const element = document.querySelector(`a[data-comments="${comment}"]`);
             if (element) {
                 activateTab(element);
             } else {
@@ -75,7 +75,7 @@
             
             // 如果启用了存储功能，则记住用户选择
             if (storage) {
-                const comment = target.dataset.comment;
+                const comment = target.dataset.comments;
                 if (comment) {
                     Diversity.data.set("selected_comment", comment);
                 }
