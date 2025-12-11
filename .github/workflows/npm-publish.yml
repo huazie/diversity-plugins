@@ -8,6 +8,10 @@ on:
       - 'packages/**'
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
@@ -64,20 +68,16 @@ jobs:
     needs: detect-changes
     if: ${{ fromJson(needs.detect-changes.outputs.matrix).package[0] }}
     runs-on: ubuntu-latest
-    # 添加权限配置 ↓↓↓
-    permissions:
-      id-token: write   # 解决来源证明错误
-      contents: read     # 确保代码检出权限
     strategy:
       matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20.17.0'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
       
       - name: Install dependencies
@@ -100,23 +100,16 @@ jobs:
         run: |
           cd packages/${{ matrix.package }}
           
-          # 添加认证配置
-          echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > .npmrc
-          
           PACKAGE_NAME=$(node -p "require('./package.json').name")
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           
           echo "Package: $PACKAGE_NAME, Version: $CURRENT_VERSION"
-          
+
           # 健壮的版本检查
           if npm view $PACKAGE_NAME@$CURRENT_VERSION version >/dev/null 2>&1; then
             echo "✅ $CURRENT_VERSION already published, skipping"
           else
             echo "🚀 Publishing $PACKAGE_NAME@$CURRENT_VERSION to NPM"
-            npm publish --access public
+            npm publish
           fi
           
-          # 清理凭证
-          rm -f .npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
