@@ -46,6 +46,8 @@ Add the following content to your Hexo site configuration `_config.yml` or theme
 gitalk:
   # Enable Gitalk comment system
   enable: false
+  # Enable loading indicator (shows loading animation while comments are loading)
+  loading: true
   # GitHub Application Client ID
   client_id: your-client-id
   # GitHub Application Client Secret
@@ -73,6 +75,7 @@ gitalk:
 | Option | Type | Default | Required | Description |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | Yes | Enable Gitalk comment system |
+| `loading` | Boolean | `true` | No | Enable loading indicator (shows loading animation while comments are loading) |
 | `client_id` | String | - | Yes | GitHub Application Client ID |
 | `client_secret` | String | - | Yes | GitHub Application Client Secret |
 | `repo` | String | - | Yes | GitHub repository name for storing comments |

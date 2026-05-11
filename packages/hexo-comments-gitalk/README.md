@@ -46,6 +46,8 @@ npm install hexo-comments-gitalk --save
 gitalk:
   # 是否启用 Gitalk 评论系统
   enable: false
+  # 是否启用加载提示（评论加载时显示加载动画）
+  loading: true
   # GitHub Application Client ID
   client_id: your-client-id
   # GitHub Application Client Secret
@@ -73,6 +75,7 @@ gitalk:
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | 是 | 是否启用 Gitalk 评论系统 |
+| `loading` | Boolean | `true` | 否 | 是否启用加载提示（评论加载时显示加载动画） |
 | `client_id` | String | - | 是 | GitHub Application 的 Client ID |
 | `client_secret` | String | - | 是 | GitHub Application 的 Client Secret |
 | `repo` | String | - | 是 | 用于存储评论的 GitHub 仓库名称 |

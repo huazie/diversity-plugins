@@ -97,6 +97,11 @@
 
 <script>
     const loadGitalk = () => {
+        const loadingElement = document.getElementById('loading-gitalk');
+        // 配色方案刷新，重新加载评论
+        // 加载提示被隐藏，需要再次显示
+        loadingElement?.classList.remove('hidden');
+
         let gitalkId;
         let number = -1;
         // 加载评论模块
@@ -136,6 +141,20 @@
                 const gitalk = new Gitalk(confgObj);
                 gitalk.render(document.querySelector('.gitalk-wrap'));
             });
+
+        // Gitalk加载检测（Gitalk通过DOM渲染，非iframe方案）
+        const observeGitalkLoaded = () => {
+            const container = document.querySelector('.gitalk-wrap');
+            if (!container) return;
+            const observer = new MutationObserver((mutations, obs) => {
+                if (container.querySelector('.gt-container')) {
+                    loadingElement?.classList.add('hidden');
+                    obs.disconnect();
+                }
+            });
+            observer.observe(container, { childList: true, subtree: true });
+        };
+        observeGitalkLoaded();
     }
 
     document.addEventListener('page:loaded', loadGitalk);
