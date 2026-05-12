@@ -46,7 +46,7 @@ Add the following content to your Hexo site configuration `_config.yml` or theme
 utterances:
   # Enable Utterances comment system
   enable: false
-  # Enable loading prompt, optional values: `true` | `false`
+  # Enable loading indicator, optional values: `true` | `false`
   loading: true
   # GitHub repository owner and name, format: username/repo-name
   repo: your-username/your-repo-name
@@ -65,7 +65,7 @@ utterances:
 | Option | Type | Default | Required | Description |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | Yes | Enable Utterances comment system |
-| `loading` | Boolean | `true` | Yes | Show comment loading animation |
+| `loading` | Boolean | `true` | No | Enable loading indicator (shows loading animation while comments are loading) |
 | `repo` | String | - | Yes | GitHub repository, format: `username/repo-name` |
 | `issue_term` | String | `pathname` | Yes | How to map comments to issues |
 | `theme` | String | `github-light` | Yes | Light mode theme |

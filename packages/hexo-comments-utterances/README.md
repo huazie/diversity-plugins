@@ -65,7 +65,7 @@ utterances:
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | 是 | 是否启用 Utterances 评论系统 |
-| `loading` | Boolean | `true` | 是 | 是否显示评论加载动画 |
+| `loading` | Boolean | `true` | 否 | 是否启用加载提示（评论加载时显示加载动画） |
 | `repo` | String | - | 是 | GitHub 仓库，格式：`username/repo-name` |
 | `issue_term` | String | `pathname` | 是 | 映射评论到 issue 的方式 |
 | `theme` | String | `github-light` | 是 | 亮色模式主题 |
