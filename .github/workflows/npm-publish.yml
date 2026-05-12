@@ -72,13 +72,14 @@ jobs:
       matrix: ${{ fromJson(needs.detect-changes.outputs.matrix) }}
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false  # never use caching in release builds
       
       - name: Install dependencies
         run: |
