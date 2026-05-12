@@ -21,7 +21,7 @@ module.exports = class extends Component {
                     const loadingElement = document.getElementById('loading-utterances');
                     // 配色方案刷新，重新加载评论
                     // 加载提示被隐藏，需要再次显示
-                    loadingElement.classList.remove('hidden');
+                    loadingElement?.classList.remove('hidden');
 
                     // 加载评论模块
                     Diversity.utils.loadComments('.utterances-wrap')
@@ -41,7 +41,7 @@ module.exports = class extends Component {
                         if (e.data && e.data.type == 'resize') {
                             // 检测到Utterances iframe发送了消息，且数据中type为resize，
                             // 则认为Utterances评论已加载，隐藏加载提示
-                            loadingElement.classList.add('hidden');
+                            loadingElement?.classList.add('hidden');
                         }
                     });
                 }
