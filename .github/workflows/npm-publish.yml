@@ -110,6 +110,6 @@ jobs:
             echo "✅ $CURRENT_VERSION already published, skipping"
           else
             echo "🚀 Publishing $PACKAGE_NAME@$CURRENT_VERSION to NPM"
-            npm publish
+            npm publish --provenance --access public
           fi
           
