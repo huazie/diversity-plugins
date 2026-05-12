@@ -47,7 +47,7 @@ Add the following content to your Hexo site configuration `_config.yml` or theme
 giscus:
   # Enable Giscus comment system
   enable: false
-  # Show loading animation
+  # Enable loading indicator, optional values: `true` | `false`
   loading: true
   # GitHub repository, format: username/repo-name
   repo: your-username/your-repo-name
@@ -86,7 +86,7 @@ giscus:
 | Option | Type | Default | Required | Description |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | Yes | Enable Giscus comment system |
-| `loading` | Boolean | `true` | Yes | Show comment loading animation |
+| `loading` | Boolean | `true` | No | Enable loading indicator (shows loading animation while comments are loading) |
 | `repo` | String | - | Yes | GitHub repository, format: `username/repo-name` |
 | `repo_id` | String | - | Yes | GitHub repository unique ID |
 | `category` | String | - | Yes | GitHub Discussions category name |

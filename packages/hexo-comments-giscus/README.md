@@ -47,7 +47,7 @@ npm install hexo-comments-giscus --save
 giscus:
   # 是否启用 Giscus 评论系统
   enable: false
-  # 是否显示加载动画
+  # 是否启用加载提示，可选值：`true` | `false`
   loading: true
   # GitHub 仓库，格式为 username/repo-name
   repo: your-username/your-repo-name
@@ -86,7 +86,7 @@ giscus:
 | 选项 | 类型 | 默认值 | 必填 | 描述 |
 |------|------|--------|------|------|
 | `enable` | Boolean | `false` | 是 | 是否启用 Giscus 评论系统 |
-| `loading` | Boolean | `true` | 是 | 是否显示评论加载动画 |
+| `loading` | Boolean | `true` | 否 | 是否启用加载提示（评论加载时显示加载动画） |
 | `repo` | String | - | 是 | GitHub 仓库，格式：`username/repo-name` |
 | `repo_id` | String | - | 是 | GitHub 仓库的唯一ID |
 | `category` | String | - | 是 | GitHub Discussions 分类名称 |
