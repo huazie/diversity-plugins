@@ -14,7 +14,7 @@ module.exports = class extends Component {
                     const loadingElement = document.getElementById('loading-giscus');
                     // 配色方案刷新，重新加载评论
                     // 加载提示被隐藏，需要再次显示
-                    loadingElement.classList.remove('hidden');
+                    loadingElement?.classList.remove('hidden');
 
                     let lang;
                     // 加载评论模块
@@ -50,7 +50,7 @@ module.exports = class extends Component {
                         if (e.data && e.data.giscus) {
                             // 检测到Giscus iframe发送了消息，且数据中存在giscus
                             // 则认为Giscus评论已加载，隐藏加载提示
-                            loadingElement.classList.add('hidden');
+                            loadingElement?.classList.add('hidden');
                         }
                     });
                 }
