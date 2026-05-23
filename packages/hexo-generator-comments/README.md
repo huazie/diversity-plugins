@@ -50,12 +50,11 @@ comments:
   storage: true
   lazyload: false
   nav:
-    utterances:
-      text: Utterances
-      order: 0
-    gitalk:
-      text: Gitalk
-      order: 1
+    #utterances:
+    #  text: Utterances
+    #  order: 0
+    #gitalk:
+    #  order: 1
 ```
 
 - **comments** - 评论系统配置
@@ -64,7 +63,7 @@ comments:
   - **path** - 自定义评论页面路径（可选，默认为 `comments`）
   - **darkclass** - 深色主题类名（可选）
   - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：tabs 【选项卡】 
-  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk`
+  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` 等等
   - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
   - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`
   - **nav** - 调整导航元素的展示文本或顺序
@@ -96,25 +95,27 @@ npm install hexo-comments-utterances --save
 # 一个由开源社区构建的评论插件，它提供了一种在博客、文章或任何静态网站上添加互动式评论功能的高效解决方案。
 # For more information: https://utteranc.es
 utterances:
-  # 可选值：true 【启用】 | false 【禁用】
-  # Available values: true | false
   enable: false
-  # 是否启用加载提示，可选值：true | false
-  # Whether to enable loading indicator, Available values: true | false
   loading: true
-  # GitHub 仓库所有者 user-name 和 名称 repo-name
-  # Github repository owner and name
   repo: user-name/repo-name
-  # 指定GitHub issue的匹配规则
-  # Available values: pathname | url | title | og:title | `issue number` | `specific term`
   issue_term: pathname
-  # 默认主题
-  # Available values: github-light | github-dark | preferred-color-scheme | github-dark-orange | icy-dark | dark-blue | photon-dark | boxy-light
   theme: github-light
-  # 深色主题
-  # Dark Theme
   dark: github-dark
 ```
+
+- **utterances** - Utterances 配置，更多信息查看：https://utteranc.es
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **repo** - GitHub仓库所有者和名称
+  - **issue_term** - 指定issue的匹配规则，可选值： `pathname` | `url` | `title` | `og:title` | `issue number` | `specific term`
+    - **`pathname`** - issue标题包含页面路径名。Utterances 会搜索标题包含页面路径名的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
+    - **`url`** - issue标题包含页面URL。Utterances 会搜索标题包含页面URL 的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
+    - **`title`** - issue标题包含页面标题。Utterances 会搜索标题包含页面标题的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
+    - **`og:title`** - issue标题包含页面 `og:title`。Utterances 会搜索标题包含页面 Open Graph 标题元数据的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个。
+    - **`issue number`** - 特定issue编号。您可以通过该编号配置 Utterances 以加载特定issue。不会自动创建issue。
+    - **`specific term`** - issue标题包含特定术语。您可以配置 Utterances 以搜索标题包含您配置的特定术语的issue。如果未找到匹配的议题，当有人首次发表评论时，Utterances 将自动创建一个，且该issue的标题将是您设置的术语。
+  - **theme** - Utterances 默认主题，可选值： `github-light` | `github-dark` | `preferred-color-scheme` | `github-dark-orange` | `icy-dark` | `dark-blue` | `photon-dark` | `boxy-light`
+  - **dark** - Utterances 深色主题
 
 #### Gitalk
 
@@ -129,43 +130,35 @@ npm install hexo-comments-gitalk --save
 # 它允许网站访客使用GitHub账号登录并发表评论，所有评论数据都储存在相应的GitHub仓库中。
 # For more information: https://gitalk.github.io
 gitalk:
-  # 可选值：true 【启用】 | false 【禁用】
-  # Available values: true | false
   enable: false
-  # GitHub 仓库所有者
-  # GitHub repo owner 
+  loading: true
   github_id: 
-  # 用于存储评论issues的GitHub仓库名
-  # Repository name to store issues
   repo: 
-  # GitHub 应用客户端 ID
-  # GitHub Application Client ID
   client_id: 
-  # GitHub 应用客户端密钥
-  # GitHub Application Client Secret
   client_secret: 
-  # GitHub 仓库所有者和协作者，只有这些人可以创建 GitHub issues。
-  # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   admin_user: 
-  # 类似 Facebook 的免打扰模式
-  # Facebook-like distraction free mode
-  distraction_free_mode: true 
-  # 当官方代理不可用时，您可以将其更改为自己的代理地址。
-  # When the official proxy is not available, you can change it to your own proxy address
-  # 下面是官方代理地址
-  # This is official proxy address
+  distraction_free_mode: true
   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
-  # 指定GitHub issue的匹配规则
-  # 其中 pathname | url | title 用来匹配 issue 的标签，`issue number` 是 issue的编号（一个正数）
-  # Available values: pathname | url | title | `issue number`
   issue_term: pathname
-  # Gitalk 的显示语言取决于用户的浏览器或系统环境。
-  # Gitalk's display language depends on user's browser or system environment
-  # 如果您希望所有访问您网站的用户看到统一的语言，您可以设置一个强制语言值。
-  # If you want everyone visiting your site to see a uniform language, you can set a force language value
-  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
   language:
 ```
+
+- **gitalk** - Gitalk 配置，更多信息查看：https://gitalk.github.io/
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **github_id** - GitHub 仓库所有者
+  - **repo** - 用于存储评论issues的 GitHub 仓库名
+  - **client_id** - GitHub 应用客户端 ID
+  - **client_secret** - GitHub 应用客户端密钥
+  - **admin_user** - GitHub 仓库所有者和协作者，只有这些人可以创建 GitHub issues。
+  - **distraction_free_mode** - 类似 Facebook 的免打扰模式，可选值： `true` | `false`
+  - **proxy** - 代理地址。当官方代理不可用时，您可以将其更改为自己的代理地址。
+  - **issue_term** - 指定issue的匹配规则，可选值： `pathname` | `url` | `title` | `issue number`
+    - **`pathname`** - issue的标签包含页面路径名。
+    - **`url`** - issue的标签包含页面URL。
+    - **`title`** - issue的标签包含页面标题。
+    - **`issue number`** - 特定issue编号。您可以通过该编号配置 Gitalk 以加载特定issue。
+  - **language** - Gitalk 的显示语言取决于用户的浏览器或系统环境。如果您希望所有访问您网站的用户看到统一的语言，您可以设置一个强制语言值。 可选值：`zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`
 
 #### Giscus
 
@@ -179,67 +172,50 @@ npm install hexo-comments-giscus --save
 # 一个利用 GitHub Discussions 实现的评论系统
 # For more information: https://giscus.app/
 giscus:
-  # 可选值：true 【启用】 | false 【禁用】
-  # Available values: true | false
   enable: false
-  # 是否启用加载提示，可选值：true | false
-  # Whether to enable loading indicator, Available values: true | false
   loading: true
-  # GitHub 仓库名称，指定评论数据存储在哪个 GitHub 仓库的 Discussions 中。
-  # Github repository name
   repo: your-username/your-repo-name
-  # GitHub 仓库的唯一ID
-  # 调用 GitHub API https://api.github.com/repos/your-username/your-repo-name，
-  # 返回的 JSON 中 node_id 字段即为仓库 ID
-  # Github repository id
   repo_id: 
-  # GitHub Discussions 分类名称。将评论归类到特定讨论板块，方便管理
-  # Github discussion category
   category: 
-  # Discussions 分类的唯一 ID。 需从 GitHub 获取，与 category 配合使用
-  # Github discussion category id
   category_id: 
-  # 指定GitHub discussion的匹配规则
-  # 可选值： pathname | url | title | og:title | specific
-  # Available values: pathname | url | title | og:title | specific
   mapping: pathname
-  # 当 mapping 为 specific 时，该值必须配置，如下：
-  # - Discussion 的标题包含特定字符串
-  # - 特定 discussion 号
   term: 
-  # 是否启用严格的标题匹配。当有多个具有相似标题的讨论时，避免由于 GitHub 的模糊搜索方法而导致的不匹配。
-  # 可选值: 0（关闭）| 1（启用）
-  # Available values: 0 | 1
   strict: 0
-  # 是否启用主帖子上的反应。启用后，Discussion 的主帖子上的反应将会显示在评论前
-  # 可选值：0（关闭）| 1（启用）
-  # Available values: 0 | 1
   reactions_enabled: 1
-  # 是否输出 discussion 的元数据。Discussion 的元数据将定期被发送到父页面（被嵌入的页面）。
-  # 可选值：0（否）| 1（是）
-  # Available values: 0 | 1
   emit_metadata: 0
-  # 评论区的主题样式(默认主题)
-  # 可选值：light | light_high_contrast | light_protanopia | light_tritanopia | dark | dark_high_contrast | dark_protanopia | dark_tritanopia | dark_dimmed | preferred_color_scheme | transparent_dark | noborder_light | noborder_dark | noborder_gray | cobalt | purple_dark
-  # Available values: light | light_high_contrast | light_protanopia | light_tritanopia | dark | dark_high_contrast | dark_protanopia | dark_tritanopia | dark_dimmed | preferred_color_scheme | transparent_dark | noborder_light | noborder_dark | noborder_gray | cobalt | purple_dark
   theme: light
-  # 深色主题
-  # Dark Theme
   dark: dark
-  # 评论区的语言（界面文本） 如果配置为空，则取 window.navigator.language
-  # 可选值：zh-CN | zh-TW | en | es-ES | fr | ru 
-  # Available values: zh-CN | zh-TW | en | es-ES | fr | ru 
   lang: 
-  # 评论输入框的位置
-  # 可选值：
-  # bottom-将评论输入框固定在页面的底部（评论列表下方）
-  # top-将评论输入框固定在页面的顶部（评论列表上方）
-  # Place the comment box above the comments
   input_position: bottom
-  # 懒加载评论
-  # Load the comments lazily
   data_loading: lazy
 ```
+
+- **giscus** - Giscus 配置，更多信息查看：https://giscus.app/
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **repo** - GitHub 仓库名称【格式：用户名/仓库名】，指定评论数据存储在哪个 GitHub 仓库的 Discussions 中。
+  - **repo_id** - GitHub 仓库的唯一ID。用户可以在 https://giscus.app/ 填写仓库后查看`<script>`内容。
+  - **category** - GitHub Discussions 分类名称。将评论归类到特定讨论板块，方便管理。可选值： `Announcements` | `General` | `Ideas` | `Polls` | `Q&A` | `Show and tell`
+  - **category_id** - Discussions 分类的唯一 ID。用户可以在 https://giscus.app/ 选择Discussion 分类后查看`<script>`内容。
+  - **mapping** - 指定GitHub discussion的匹配规则，可选值： `pathname` | `url` | `title` | `og:title` | `specific`
+    - **`pathname`** - Discussion 的标题包含页面的 pathname。giscus 将查找标题中包含页面 URL 的 pathname 部分的 discussion。
+    - **`url`** - Discussion 的标题包含页面的 URL。giscus 将查找标题中包含页面 URL 的 discussion。
+    - **`title`** - Discussion 的标题包含页面的 `<title>`。giscus 将查找标题中包含页面的 `<title>` 标签的 discussion。
+    - **`og:title`** - Discussion 的标题包含页面的 og:title。giscus 将查找标题中包含页面的 `<meta property="og:title">`标签的 discussion。
+    - **`specific`** - 特别指定，需要搭配 **term** 配置属性使用。
+  - **term** - 指定GitHub discussion的匹配值，当 mapping 为 `specific` 时，该值必须配置，如下：
+    - Discussion 的标题包含特定字符串
+    - 特定 Discussion 号
+  - **strict** - 是否启用严格的标题匹配。当有多个具有相似标题的讨论时，避免由于 GitHub 的模糊搜索方法而导致的不匹配。可选值: 0（关闭）| 1（启用）
+  - **reactions_enabled** - 是否启用主帖子上的反应。启用后，Discussion 的主帖子上的反应将会显示在评论前。可选值：0（关闭）| 1（启用）
+  - **emit_metadata** - 是否输出 discussion 的元数据。Discussion 的元数据将定期被发送到父页面（被嵌入的页面）。
+  - **theme** - Giscus 默认主题，可选值：`light` | `light_high_contrast` | `light_protanopia` | `light_tritanopia` | `dark` | `dark_high_contrast` | `dark_protanopia` | `dark_tritanopia` | `dark_dimmed` | `preferred_color_scheme` | `transparent_dark` | `noborder_light` | `noborder_dark` | `noborder_gray` | `cobalt` | `purple_dark`
+  - **dark** - Giscus 深色主题
+  - **lang** - 评论区的语言（界面文本）。如果配置为空，则取 `window.navigator.language`。 可选值：`zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`
+  - **input_position** - 评论输入框的位置，可选值：
+    - **`bottom`** - 将评论输入框固定在页面的底部（评论列表下方）
+    - **`top`** - 将评论输入框固定在页面的顶部（评论列表上方）
+  - **data_loading** - 懒加载评论。评论的加载将延迟到用户滚动到评论容器附近。 这是通过将 loading="lazy" 添加到 `<iframe>` 元素来完成的。
 
 ## 主题集成
 
