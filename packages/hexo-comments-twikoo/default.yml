@@ -1,0 +1,25 @@
+# Twikoo
+# 一个简洁、安全、免费的静态网站评论系统，支持自部署。
+# A simple, safe, and free static site comment system, supports self-hosting.
+# For more information: https://twikoo.js.org
+twikoo:
+  # 可选值：true 【启用】 | false 【禁用】
+  # Available values: true | false
+  enable: false
+  # 是否启用加载提示，可选值：true | false
+  # Whether to enable loading indicator, Available values: true | false
+  loading: true
+  # Twikoo 环境 ID (envId)，必填项
+  # Twikoo environment ID (envId), required
+  env_id:
+  # 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+  # Environment region, defaults to ap-shanghai. For Tencent CloudBase: ap-shanghai or ap-guangzhou; For Vercel: leave empty
+  region:
+  # 页面路径，用于区分不同页面的评论，默认使用 window.location.pathname
+  # Page path to distinguish comments on different pages, defaults to window.location.pathname
+  path:
+  # 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
+  # Manually set the comment area language, supported languages: https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
+  lang: zh-CN
+  # Twikoo JS SDK CDN URL
+  js: https://cdn.jsdelivr.net/npm/twikoo@1.7.9/dist/twikoo.min.js

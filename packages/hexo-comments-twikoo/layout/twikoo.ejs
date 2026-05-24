@@ -1,0 +1,126 @@
+<%- diversity_data('twikoo', theme.twikoo, {
+    el: '#twikoo-comments'
+}) %>
+
+<style>
+    :root {
+        --tk-input-bg-color: #fff;
+        --tk-comment-bg-color: #f9f9f9;
+        --tk-admin-comment-bg-color: #f6f9fe;
+        --tk-border-color: #eee;
+        color-scheme: light;
+    }
+
+    .dark-theme {
+        --tk-input-bg-color: #333;
+        --tk-comment-bg-color: #202020;
+        --tk-admin-comment-bg-color: #182030;
+        --tk-border-color: #444;
+        color-scheme: dark;
+    }
+
+    .twikoo .tk-comments {
+        margin-top: 20px;
+    }
+
+    .twikoo .tk-comments-title,
+    .twikoo .tk-comments-count,
+    .twikoo .tk-comment,
+    .twikoo .tk-main,
+    .twikoo .tk-content,
+    .twikoo .tk-row,
+    .twikoo .tk-nick,
+    .twikoo .tk-extra,
+    .twikoo .tk-time,
+    .twikoo .tk-actions {
+        color: var(--text-color) !important;
+    }
+
+    .twikoo .tk-input textarea,
+    .twikoo .tk-input input {
+        background-color: var(--tk-input-bg-color) !important;
+        color: var(--text-color) !important;
+        border-color: var(--tk-border-color) !important;
+    }
+
+    .twikoo .tk-comment-content {
+        background-color: var(--tk-comment-bg-color) !important;
+    }
+
+    .twikoo .tk-admin-comment .tk-comment-content {
+        background-color: var(--tk-admin-comment-bg-color) !important;
+    }
+
+    .twikoo .el-input__inner {
+        background-color: var(--tk-input-bg-color) !important;
+        color: var(--text-color) !important;
+        border-color: var(--tk-border-color) !important;
+    }
+
+    .twikoo .tk-row {
+        border-bottom-color: var(--tk-border-color) !important;
+    }
+
+    .twikoo a {
+        border-bottom: 0;
+    }
+</style>
+
+<script>
+    const loadTwikoo = () => {
+        const loadingElement = document.getElementById('loading-twikoo');
+        // 配色方案刷新，重新加载评论
+        // 加载提示被隐藏，需要再次显示
+        loadingElement?.classList.remove('hidden');
+
+        const twikooWrap = document.querySelector('.twikoo-wrap');
+        let twikooComments = document.getElementById(conf.twikoo.el);
+        if (!twikooComments) {
+            twikooWrap.innerHTML = `<div id="${conf.twikoo.el.replace('#', '')}"></div>`;
+        }
+
+        // 加载评论模块
+        Diversity.utils.loadComments(conf.twikoo.el)
+            .then(() => Diversity.utils.getScript(conf.twikoo.js, {
+                condition: window.twikoo
+            }))
+            .then(() => {
+                if (typeof twikoo !== 'undefined') {
+                    const initOptions = {
+                        envId: conf.twikoo.env_id,
+                        el: conf.twikoo.el,
+                        lang: conf.twikoo.lang || 'zh-CN'
+                    };
+
+                    // 配置了页面路径
+                    if (conf.twikoo.path) {
+                        initOptions.path = conf.twikoo.path;
+                    }
+
+                    // 配置了地域
+                    if (conf.twikoo.region) {
+                        initOptions.region = conf.twikoo.region;
+                    }
+
+                    twikoo.init(initOptions);
+                }
+            });
+
+        // Twikoo加载检测（Twikoo通过DOM渲染，非iframe方案）
+        const observeTwikooLoaded = () => {
+            const container = document.querySelector('.twikoo-wrap');
+            if (!container) return;
+            const observer = new MutationObserver((mutations, obs) => {
+                if (container.querySelector('.tk-comments')) {
+                    loadingElement?.classList.add('hidden');
+                    obs.disconnect();
+                }
+            });
+            observer.observe(container, { childList: true, subtree: true });
+        };
+        observeTwikooLoaded();
+    }
+
+    document.addEventListener('page:loaded', loadTwikoo);
+    document.addEventListener('color-scheme:refresh', loadTwikoo);
+</script>
