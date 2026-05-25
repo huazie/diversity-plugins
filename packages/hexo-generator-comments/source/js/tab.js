@@ -46,6 +46,9 @@
         
         // 绑定点击事件
         bindTabEvents();
+        
+        // 绑定滚轮横向滚动事件
+        bindWheelScroll();
     }
     
     // 激活第一个标签页
@@ -113,5 +116,18 @@
         if (targetPane) {
             targetPane.classList.add('active');
         }
+    }
+    
+    // 滚轮横向滚动（tab 过多时支持鼠标滚轮左右滑动）
+    function bindWheelScroll() {
+        const navTabs = document.getElementById('comment-nav-tab');
+        if (!navTabs) return;
+        
+        navTabs.addEventListener('wheel', function(e) {
+            if (e.deltaY !== 0) {
+                e.preventDefault();
+                navTabs.scrollLeft += e.deltaY;
+            }
+        }, { passive: false });
     }
 })();

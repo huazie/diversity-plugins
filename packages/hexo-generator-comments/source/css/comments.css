@@ -88,9 +88,24 @@
   background-color: transparent;
 }
 
+.tabbable {
+  position: relative;
+}
+
 .nav-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   border-bottom: 1px solid #c5d0dc;
   zoom: 1;
+}
+
+.nav-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-tabs:before,
@@ -104,7 +119,7 @@
 }
 
 .nav-tabs > li {
-  float: left;
+  flex-shrink: 0;
   margin-right: -1px;
 }
 
