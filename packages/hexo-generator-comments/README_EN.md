@@ -80,6 +80,7 @@ The plugin supports multiple comment systems. Here are the currently supported o
 | **Utterances** | Lightweight, based on GitHub Issues | Technical blogs, open-source projects |
 | **Gitalk** | Feature-rich, based on GitHub Issues | Personal blogs, technical sharing |
 | **Giscus** | Modern, based on GitHub Discussions | Community discussions, interactive blogs |
+| **Twikoo** | Free self-hosted, simple and secure | Data sovereignty, personal blogs |
 
 ### Installation and Configuration Examples
 
@@ -214,6 +215,36 @@ giscus:
     - **`bottom`** - The comment input box will be placed below the comments
     - **`top`** - The comment input box will be placed above the comments, so that users can leave a comment without scrolling to the bottom of the discussion.
   - **data_loading** - Load the comments lazily. Loading of the comments will be deferred until the user scrolls near the comments container. This is done by adding loading="lazy" to the `<iframe>` element.
+
+#### Twikoo
+
+```bash
+# Install
+npm install hexo-comments-twikoo --save
+```
+
+```yaml
+# Twikoo
+# A simple, secure, and free static website comment system.
+# For more information: https://twikoo.js.org/
+twikoo:
+  enable: false
+  loading: true
+  env_id: your-env-id
+  region:
+  path:
+  lang: zh-CN
+  js: https://cdn.jsdelivr.net/npm/twikoo@1.7.9/dist/twikoo.min.js
+```
+
+- **twikoo** - Twikoo Configuration, For more information: https://twikoo.js.org/
+  - **enable** - Whether to enable. Available values: `true` | `false`
+  - **loading** - Whether to enable loading indicator, Available values: `true` | `false`
+  - **env_id** - Twikoo environment ID (required), obtained from the backend deployment system
+  - **region** - Environment region. For Tencent Cloud, use `ap-shanghai` or `ap-guangzhou`; leave empty for Vercel
+  - **path** - Page path, used to distinguish comments across different pages, defaults to `window.location.pathname`
+  - **lang** - Comment area language. Available values: `zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`, default `zh-CN`
+  - **js** - Twikoo JS SDK CDN URL, can specify a specific version or self-hosted address
 
 ## Theme Integration
 
@@ -355,6 +386,7 @@ This plugin uses modular design and supports adding new comment systems:
 | hexo-comments-utterances | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-utterances) | ✅ Stable |
 | hexo-comments-gitalk | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitalk) | ✅ Stable |
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ Stable |
+| hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ Stable |
 
 ### Light/Dark Mode Toggle
 

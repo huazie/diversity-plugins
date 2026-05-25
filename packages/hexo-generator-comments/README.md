@@ -80,6 +80,7 @@ comments:
 | **Utterances** | 基于 GitHub Issues，轻量级 | 技术博客、开源项目 |
 | **Gitalk** | 基于 GitHub Issues，功能丰富 | 个人博客、技术分享 |
 | **Giscus** | 基于 GitHub Discussions，现代化 | 社区讨论、互动博客 |
+| **Twikoo** | 免费私有部署，简洁安全 | 数据自主可控、个人博客 |
 
 ### 评论系统安装和配置示例
 
@@ -216,6 +217,36 @@ giscus:
     - **`bottom`** - 将评论输入框固定在页面的底部（评论列表下方）
     - **`top`** - 将评论输入框固定在页面的顶部（评论列表上方）
   - **data_loading** - 懒加载评论。评论的加载将延迟到用户滚动到评论容器附近。 这是通过将 loading="lazy" 添加到 `<iframe>` 元素来完成的。
+
+#### Twikoo
+
+```bash
+# 安装
+npm install hexo-comments-twikoo --save
+```
+
+```yaml
+# Twikoo
+# 一个简洁、安全、免费的静态网站评论系统。
+# For more information: https://twikoo.js.org/
+twikoo:
+  enable: false
+  loading: true
+  env_id: your-env-id
+  region:
+  path:
+  lang: zh-CN
+  js: https://cdn.jsdelivr.net/npm/twikoo@1.7.9/dist/twikoo.min.js
+```
+
+- **twikoo** - Twikoo 配置，更多信息查看：https://twikoo.js.org/
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **env_id** - Twikoo 环境 ID（必填），在部署后台系统中获取
+  - **region** - 环境地域。腾讯云环境填 `ap-shanghai` 或 `ap-guangzhou`；Vercel 环境不填
+  - **path** - 页面路径，用于区分不同页面的评论，默认使用 `window.location.pathname`
+  - **lang** - 评论区语言。可选值：`zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`，默认 `zh-CN`
+  - **js** - Twikoo JS SDK CDN 地址，可指定特定版本或自部署地址
 
 ## 主题集成
 
@@ -357,6 +388,7 @@ comments:
 | hexo-comments-utterances | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-utterances) | ✅ 稳定 |
 | hexo-comments-gitalk | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitalk) | ✅ 稳定 |
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ 稳定 |
+| hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ 稳定 |
 
 ### 明暗模式切换
 
