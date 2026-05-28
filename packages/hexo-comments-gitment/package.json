@@ -1,0 +1,47 @@
+{
+  "name": "hexo-comments-gitment",
+  "version": "1.0.0",
+  "description": "Hexo Gitment 评论插件，支持接入 Gitment 评论系统",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "layout/",
+    "default.yml"
+  ],
+  "keywords": [
+    "hexo",
+    "plugin",
+    "comments",
+    "gitment"
+  ],
+  "author": "huazie",
+  "license": "MIT",
+  "dependencies": {
+    "hexo-generator-comments": "^1.0.6"
+  },
+  "devDependencies": {
+    "hexo": "^7.2.0"
+  },
+  "scripts": {
+    "build": "echo 'No build required for hexo-comments-gitment'",
+    "test": "echo 'No tests specified for hexo-comments-gitment'"
+  },
+  "engines": {
+    "node": ">= 14.0.0",
+    "hexo": ">= 5.3.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huazie/diversity-plugins.git",
+    "directory": "packages/hexo-comments-gitment"
+  },
+  "bugs": {
+    "url": "https://github.com/huazie/diversity-plugins/issues"
+  },
+  "homepage": "https://github.com/huazie/diversity-plugins/tree/main/packages/hexo-comments-gitment#readme"
+}

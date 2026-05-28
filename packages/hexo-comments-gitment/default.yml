@@ -1,0 +1,53 @@
+# Gitment
+# 一个基于 GitHub Issues 的评论系统。
+# A comment system based on GitHub Issues.
+# For more information: https://github.com/imsun/gitment
+gitment:
+  # 可选值：true 【启用】 | false 【禁用】
+  # Available values: true | false
+  enable: false
+  # 是否启用加载提示，可选值：true | false
+  # Whether to enable loading indicator, Available values: true | false
+  loading: true
+  # GitHub 仓库所有者
+  # GitHub repo owner 
+  owner:
+  # 用于存储评论的 GitHub 仓库名
+  # Repository name to store comments
+  repo:
+  # GitHub 应用客户端 ID
+  # GitHub Application Client ID
+  client_id:
+  # GitHub 应用客户端密钥
+  # GitHub Application Client Secret
+  client_secret:
+  # 指定GitHub issue的匹配规则，配置了这个会替换 id 属性的值
+  # 其中 pathname | url | title 用来匹配 issue 的标签，`other string` 是 自定义其他页面唯一标识
+  # Available values: pathname | url | title | `other string`
+  issue_term: pathname
+  # 页面唯一标识，用于区分不同页面的评论，默认使用 window.location.href
+  # Page unique identifier, used to distinguish comments on different pages, default to window.location.href
+  id:
+  # 页面标题，用作 issue 的标题，默认使用 document.title
+  # Page title, used as issue's title, default to document.title
+  title:
+  # 页面链接，用于 issue 的正文中，默认使用 window.location.href
+  # Page link, used in issue's body, default to window.location.href
+  link:
+  # 页面描述，用于 issue 的正文中
+  # Page description, used in issue's body
+  desc:
+  # issue 标签列表，创建 issue 时添加的标签
+  # An array of labels to add when creating the issue
+  labels: []
+  # 评论分页数，默认 20
+  # Number of comments per page, default 20
+  per_page: 20
+  # 评论最大高度限制（px），超过则折叠
+  # Max height of comments (px), over which comments will be folded
+  max_comment_height: 250
+  # OAuth 代理地址（可选），用于解决 OAuth 认证问题
+  # 由于默认代理 gh-oauth.imsun.net 已失效，需自行部署代理服务
+  # OAuth proxy URL (optional), used to resolve OAuth authentication issues
+  # The default proxy gh-oauth.imsun.net is no longer available, you need to deploy your own proxy
+  proxy:

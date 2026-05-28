@@ -1,0 +1,478 @@
+﻿<%- css('https://imsun.github.io/gitment/style/default.css') %>
+
+<style>
+    :root {
+        --gm-bg-color: #fff;
+        --gm-bg-secondary-color: #f5f5f5;
+        --gm-bg-tertiary-color: #fafbfc;
+        --gm-text-secondary-color: #666;
+        --gm-comment-header-bg: #fff;
+        --gm-comment-header-color: #666;
+        --gm-text-heading-color: #1b1f23;
+        --gm-border-color: #cfd8dc;
+        --gm-btn-primary-bg: #00BCD4;
+        --gm-btn-primary-hover-bg: #00ACC1;
+        --gm-btn-primary-disabled-bg: #4DD0E1;
+        --gm-btn-primary-text: #fff;
+        --gm-like-color: #F44336;
+        --gm-footer-tip-hover-color: #2196F3;
+        --gm-spinner-fill: #333;
+        --gm-code-bg: rgba(27,31,35,0.05);
+        --gm-code-block-bg: #f5f5f5;
+        --gm-table-border: #dfe2e5;
+        --gm-kbd-border: #c6cbd1;
+        --gm-kbd-border-bottom: #959da5;
+        --gm-kbd-text: #444d56;
+        --gm-kbd-shadow: inset 0 -1px 0 #959da5;
+        --gm-blockquote-color: #6a737d;
+        --gm-blockquote-border: #dfe2e5;
+        --gm-hr-color: #e1e4e8;
+        --gm-h1-h2-border: #eaecef;
+        --gm-github-icon-fill: #fff;
+        --gm-github-icon-bg: #333;
+        --gm-comment-arrow-bg: #fff;
+        --gm-fold-gradient-end: rgba(255, 255, 255, .9);
+        --gm-header-textarea-bg-color: #fff;
+        --gm-header-textarea-border-color: #d1d5da;
+        --gm-comment-bg-color: #f9f9f9;
+        --gm-comment-body-color: #333;
+        --gm-admin-comment-bg-color: #f6f9fe;
+        --gm-btn-bg-color: #fff;
+        --gm-btn-hover-bg-color: #f3f4f6;
+        --gm-btn-border-color: #d1d5da;
+        color-scheme: light;
+    }
+
+    .dark-theme {
+        --gm-bg-color: #1a1a1a;
+        --gm-bg-secondary-color: #2a2a2a;
+        --gm-bg-tertiary-color: #333;
+        --gm-text-secondary-color: #999;
+        --gm-comment-header-bg: #444;
+        --gm-comment-header-color: #ccc;
+        --gm-text-heading-color: #e1e4e8;
+        --gm-border-color: #666;
+        --gm-btn-primary-bg: #0088a3;
+        --gm-btn-primary-hover-bg: #007a91;
+        --gm-btn-primary-disabled-bg: #3a6b7a;
+        --gm-btn-primary-text: #fff;
+        --gm-like-color: #F44336;
+        --gm-footer-tip-hover-color: #2196F3;
+        --gm-spinner-fill: #e1e4e8;
+        --gm-code-bg: rgba(240,246,252,0.15);
+        --gm-code-block-bg: #161b22;
+        --gm-table-border: #30363d;
+        --gm-kbd-border: #555;
+        --gm-kbd-border-bottom: #555;
+        --gm-kbd-text: #e1e4e8;
+        --gm-kbd-shadow: inset 0 -1px 0 #555;
+        --gm-blockquote-color: #8b949e;
+        --gm-blockquote-border: #3b434b;
+        --gm-hr-color: #30363d;
+        --gm-h1-h2-border: #666;
+        --gm-github-icon-fill: #e1e4e8;
+        --gm-github-icon-bg: #333;
+        --gm-comment-arrow-bg: #1a1a1a;
+        --gm-fold-gradient-end: rgba(26, 26, 26, .9);
+        --gm-header-textarea-bg-color: #333;
+        --gm-header-textarea-border-color: #555;
+        --gm-comment-bg-color: #252525;
+        --gm-comment-body-color: #e1e4e8;
+        --gm-admin-comment-bg-color: #1a2535;
+        --gm-btn-bg-color: #444;
+        --gm-btn-hover-bg-color: #333;
+        --gm-btn-border-color: #555;
+        color-scheme: dark;
+    }
+
+    .gitment-container {
+        color: var(--text-color) !important;
+
+        /* Links */
+        & a,
+        & a:visited {
+            color: var(--text-color) !important;
+            border-bottom: 0;
+        }
+        & a:hover {
+            color: var(--text-color) !important;
+        }
+
+        /* Spinner */
+        & .gitment-spinner-icon {
+            fill: var(--gm-spinner-fill) !important;
+        }
+
+        /* Header */
+        & .gitment-header {
+            border-color: var(--gm-border-color) !important;
+        }
+
+        & .gitment-header-issue-link,
+        & .gitment-header-issue-link:visited,
+        & .gitment-header-issue-link:hover {
+            color: var(--gm-text-secondary-color) !important;
+        }
+
+        /* Buttons */
+        & .gitment-btn {
+            background-color: var(--gm-btn-bg-color) !important;
+            border-color: var(--gm-btn-border-color) !important;
+            color: var(--text-color) !important;
+
+            &:hover {
+                background-color: var(--gm-btn-hover-bg-color) !important;
+            }
+        }
+
+        & .gitment-editor-submit,
+        & .gitment-comments-init-btn {
+            color: var(--gm-btn-primary-text) !important;
+            background-color: var(--gm-btn-primary-bg) !important;
+
+            &:hover {
+                background-color: var(--gm-btn-primary-hover-bg) !important;
+            }
+
+            &:disabled {
+                color: rgba(255,255,255,0.75) !important;
+                background-color: var(--gm-btn-primary-disabled-bg) !important;
+            }
+        }
+
+        /* Like button */
+        & .gitment-comment-like-btn,
+        & .gitment-comment-like-btn svg,
+        & .gitment-header-like-btn svg {
+            color: var(--text-color) !important;
+            fill: var(--text-color) !important;
+        }
+
+        & .gitment-comment-like-btn.liked,
+        & .gitment-comment-like-btn.liked svg,
+        & .gitment-header-like-btn.liked svg {
+            color: var(--gm-like-color) !important;
+            fill: var(--gm-like-color) !important;
+        }
+
+        /* Comment */
+        & .gitment-comment {
+            border-color: var(--gm-border-color) !important;
+        }
+
+        & .gitment-comment-main,
+        & .gitment-comment-body {
+            color: var(--gm-comment-body-color) !important;
+        }
+
+        & .gitment-comment-body {
+            background-color: var(--gm-comment-bg-color) !important;
+        }
+
+        & .gitment-admin-comment .gitment-comment-body {
+            background-color: var(--gm-admin-comment-bg-color) !important;
+        }
+
+        & .gitment-comment-main {
+            border-color: var(--gm-border-color) !important;
+
+            &::before {
+                border-right-color: var(--gm-border-color) !important;
+            }
+            &::after {
+                border-right-color: var(--gm-comment-arrow-bg) !important;
+            }
+        }
+
+        & .gitment-comment-header {
+            color: var(--gm-comment-header-color) !important;
+            background-color: var(--gm-comment-header-bg) !important;
+        }
+
+        & a.gitment-comment-name,
+        & a.gitment-comment-name:visited {
+            color: var(--gm-text-secondary-color) !important;
+        }
+
+        /* Comment body folded */
+        & .gitment-comment-body-folded {
+            &::before {
+                background: -webkit-linear-gradient(top, transparent, var(--gm-fold-gradient-end)) !important;
+                background: linear-gradient(180deg, transparent, var(--gm-fold-gradient-end)) !important;
+            }
+            &::after {
+                color: var(--gm-text-secondary-color) !important;
+                background: var(--gm-fold-gradient-end) !important;
+            }
+        }
+
+        /* Editor */
+        & .gitment-editor-container {
+            color: var(--text-color) !important;
+        }
+
+        & .gitment-editor-main {
+            border-color: var(--gm-border-color) !important;
+
+            &::before {
+                border-right-color: var(--gm-border-color) !important;
+            }
+            &::after {
+                border-right-color: var(--gm-comment-arrow-bg) !important;
+            }
+        }
+
+        & .gitment-editor-header {
+            border-bottom-color: var(--gm-border-color) !important;
+        }
+
+        & .gitment-editor-tab {
+            color: var(--gm-text-secondary-color) !important;
+
+            &.gitment-selected {
+                color: var(--text-color) !important;
+                background-color: var(--gm-bg-color) !important;
+                border-color: var(--gm-border-color) !important;
+            }
+        }
+
+        & .gitment-editor-body textarea {
+            background-color: var(--gm-header-textarea-bg-color) !important;
+            color: var(--text-color) !important;
+            border-color: var(--gm-header-textarea-border-color) !important;
+
+            &:focus {
+                background-color: var(--gm-header-textarea-bg-color) !important;
+            }
+        }
+
+        & .gitment-editor-preview {
+            color: var(--text-color) !important;
+            background-color: var(--gm-header-textarea-bg-color) !important;
+        }
+
+        & .gitment-editor-footer-tip {
+            color: var(--gm-text-secondary-color) !important;
+        }
+
+        & a.gitment-editor-footer-tip:hover {
+            color: var(--gm-footer-tip-hover-color) !important;
+        }
+
+        & a.gitment-editor-login-link,
+        & a.gitment-editor-login-link:visited {
+            color: var(--text-color) !important;
+        }
+        & a.gitment-editor-login-link:hover {
+            color: var(--gm-btn-primary-hover-bg) !important;
+        }
+
+        & a.gitment-editor-logout-link,
+        & a.gitment-editor-logout-link:visited {
+            color: var(--gm-text-secondary-color) !important;
+        }
+        & a.gitment-editor-logout-link:hover {
+            color: var(--gm-btn-primary-disabled-bg) !important;
+        }
+
+        /* Footer */
+        & .gitment-footer {
+            border-color: var(--gm-border-color) !important;
+        }
+
+        & a.gitment-footer-project-link,
+        & a.gitment-footer-project-link:visited {
+            color: var(--text-color) !important;
+        }
+
+        /* Comments list */
+        & .gitment-comments-empty,
+        & .gitment-comments-loading,
+        & .gitment-comments-error,
+        & .gitment-comments-null {
+            color: var(--text-color) !important;
+        }
+
+        /* Pagination */
+        & .gitment-comments-page-item {
+            color: var(--text-color) !important;
+            border-color: var(--gm-border-color) !important;
+
+            &:hover,
+            &.gitment-selected {
+                background-color: var(--gm-bg-secondary-color) !important;
+            }
+        }
+
+        /* Markdown content */
+        & .gitment-markdown {
+            color: var(--text-color) !important;
+
+            & a {
+                color: var(--text-color) !important;
+            }
+
+            & hr {
+                background-color: var(--gm-hr-color) !important;
+                border-bottom-color: var(--gm-hr-color) !important;
+            }
+
+            & h1,
+            & h2 {
+                border-bottom-color: var(--gm-h1-h2-border) !important;
+            }
+
+            & h1, & h2, & h3, & h4, & h5, & h6 {
+                color: var(--text-color) !important;
+            }
+
+            & h6 {
+                color: var(--gm-text-secondary-color) !important;
+            }
+
+            & blockquote {
+                color: var(--gm-blockquote-color) !important;
+                border-left-color: var(--gm-blockquote-border) !important;
+            }
+
+            & code {
+                background-color: var(--gm-code-bg) !important;
+                color: var(--text-color) !important;
+            }
+
+            & pre,
+            & .highlight pre {
+                background-color: var(--gm-code-block-bg) !important;
+            }
+
+            & pre > code {
+                background-color: transparent !important;
+            }
+
+            & table tr {
+                background-color: var(--gm-bg-color) !important;
+                border-top-color: var(--gm-table-border) !important;
+
+                &:nth-child(2n) {
+                    background-color: var(--gm-bg-secondary-color) !important;
+                }
+            }
+
+            & table th,
+            & table td {
+                border-color: var(--gm-table-border) !important;
+            }
+
+            & kbd {
+                color: var(--gm-kbd-text) !important;
+                background-color: var(--gm-bg-tertiary-color) !important;
+                border-color: var(--gm-kbd-border) !important;
+                border-bottom-color: var(--gm-kbd-border-bottom) !important;
+                box-shadow: var(--gm-kbd-shadow) !important;
+            }
+
+            & .pl-s, & .pl-pds,
+            & .pl-s .pl-pse .pl-s1,
+            & .pl-sr, & .pl-sr .pl-cce,
+            & .pl-sr .pl-sre,
+            & .pl-sr .pl-sra {
+                color: var(--text-color) !important;
+            }
+
+            & .pl-smi, & .pl-s .pl-s1, & .pl-mi, & .pl-mb {
+                color: var(--text-color) !important;
+            }
+
+            & .pl-ii, & .pl-c2 {
+                color: #f8f8f8 !important;
+            }
+
+            & img {
+                background-color: var(--gm-bg-color) !important;
+            }
+        }
+
+        /* GitHub icon avatar */
+        & .gitment-editor-avatar .gitment-github-icon {
+            fill: var(--gm-github-icon-fill) !important;
+            background-color: var(--gm-github-icon-bg) !important;
+        }
+    }
+</style>
+
+<%- diversity_data('gitment', theme.gitment, {
+    js : 'https://imsun.github.io/gitment/dist/gitment.browser.js'
+}) %>
+
+<script>
+    const loadGitment = () => {
+        const loadingElement = document.getElementById('loading-gitment');
+        // 配色方案刷新，重新加载评论
+        // 加载提示被隐藏，需要再次显示
+        loadingElement?.classList.remove('hidden');
+
+        // 加载评论模块
+        Diversity.utils.loadComments('.gitment-wrap')
+            .then(() => Diversity.utils.getScript(conf.gitment.js, {
+                condition: window.Gitment
+            }))
+            .then(() => {
+                let issueTerm = conf.gitment.issue_term;
+                let gitmentId;
+                if (issueTerm === 'pathname')
+                    gitmentId = window.location.pathname;
+                else if (issueTerm === 'url')
+                    gitmentId = window.location.href;
+                else if (issueTerm === 'title')
+                    gitmentId = document.title;
+                else
+                    gitmentId = issueTerm || conf.gitment.id || window.location.href;
+
+                let confgObj = {
+                    owner: conf.gitment.owner,
+                    repo: conf.gitment.repo,
+                    oauth: {
+                        client_id: conf.gitment.client_id,
+                        client_secret: conf.gitment.client_secret
+                    },
+                    id: gitmentId,
+                    perPage: conf.gitment.per_page || 20,
+                    maxCommentHeight: conf.gitment.max_comment_height || 250
+                }
+                if (conf.gitment.title)
+                    confgObj.title = conf.gitment.title;
+                if (conf.gitment.link)
+                    confgObj.link = conf.gitment.link;
+                if (conf.gitment.desc)
+                    confgObj.desc = conf.gitment.desc;
+                if (conf.gitment.labels && Array.isArray(conf.gitment.labels) && conf.gitment.labels.length > 0)
+                    confgObj.labels = conf.gitment.labels;
+
+                const gitment = new Gitment(confgObj);
+                if (conf.gitment.proxy) {
+                    gitment.oauth.checkToken = function(data) {
+                        return this._request('POST', conf.gitment.proxy, data);
+                    };
+                }
+                gitment.render(document.querySelector('.gitment-wrap'));
+            });
+
+        // Gitment加载检测（Gitment通过DOM渲染，非iframe方案）
+        const observeGitmentLoaded = () => {
+            const container = document.querySelector('.gitment-wrap');
+            if (!container) return;
+            const observer = new MutationObserver((mutations, obs) => {
+                if (container.querySelector('.gitment-container')) {
+                    loadingElement?.classList.add('hidden');
+                    obs.disconnect();
+                }
+            });
+            observer.observe(container, { childList: true, subtree: true });
+        };
+        observeGitmentLoaded();
+    }
+
+    document.addEventListener('page:loaded', loadGitment);
+    document.addEventListener('color-scheme:refresh', loadGitment);
+</script>
+
