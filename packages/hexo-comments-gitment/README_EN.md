@@ -154,7 +154,81 @@ Before getting started, please ensure the following requirements are met:
 
 Gitment's default OAuth proxy `gh-oauth.imsun.net` is no longer available, causing `ERR_SSL_PROTOCOL_ERROR` on login.
 
-You need to deploy your own OAuth proxy. Here's a simple Vercel Serverless function example (copy the deployment URL to `proxy`):
+You need to deploy your own OAuth proxy. Here are two deployment examples (copy the deployment URL to `proxy`):
+
+- **Netlify Functions example (`netlify/functions/auth.js`):**
+
+> Full project reference: [github-oauth-netlify](https://github.com/huazie/github-oauth-netlify)
+
+```js
+exports.handler = async (event) => {
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+        "Content-Type": "application/json",
+    };
+
+    // Handle CORS preflight
+    if (event.httpMethod === "OPTIONS") {
+        return { statusCode: 204, headers, body: "" };
+    }
+
+    // Only accept POST
+    if (event.httpMethod !== "POST") {
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({ error: "Method Not Allowed" }),
+        };
+    }
+
+    try {
+        const body = JSON.parse(event.body);
+        const tokenRes = await fetch(
+            "https://github.com/login/oauth/access_token",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Accept: "application/json",
+                    "User-Agent": "github-oauth-netlify",
+                },
+                body: new URLSearchParams(body).toString(),
+            }
+        );
+        const data = await tokenRes.json();
+        if (data.error) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    error: data.error,
+                    error_description: data.error_description,
+                }),
+            };
+        }
+        return { statusCode: 200, headers, body: JSON.stringify(data) };
+    } catch (err) {
+        console.error("OAuth proxy error:", err);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: "oauth_failed" }),
+        };
+    }
+};
+```
+
+> **Tip**: For first-time Netlify functions usage, create a `netlify.toml` in the project root:
+> ```toml
+> [functions]
+>   directory = "netlify/functions"
+> ```
+
+- **Vercel Serverless function example (`api/oauth.js`):**
+
+> ⚠️ **Note**: This example has not been verified. It is recommended to use the Netlify solution above.
 
 ```js
 // api/oauth.js
@@ -185,11 +259,14 @@ module.exports = (req, res) => {
 };
 ```
 
-Then configure:
+Then configure the proxy URL:
 
 ```yaml
 gitment:
-  proxy: https://your-vercel-app.vercel.app/api/oauth
+  # Netlify
+  proxy: https://your-netlify-app.netlify.app/api/auth
+  # Vercel
+  # proxy: https://your-vercel-app.vercel.app/api/oauth
 ```
 
 ### 4. Initialize Comments

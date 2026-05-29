@@ -154,7 +154,81 @@ gitment:
 
 由于 Gitment 默认的 OAuth 代理 `gh-oauth.imsun.net` 已失效，登录时会报 `ERR_SSL_PROTOCOL_ERROR`。
 
-你需要自行部署一个 OAuth 代理服务。以下是一个简单的 Vercel Serverless 函数示例（部署后复制地址填入 `proxy`）：
+你需要自行部署一个 OAuth 代理服务。以下是两种部署方式的示例（部署后复制地址填入 `proxy`）：
+
+- **Netlify 云函数示例（`netlify/functions/auth.js`）：**
+
+> 完整项目参考：[github-oauth-netlify](https://github.com/huazie/github-oauth-netlify)
+
+```js
+exports.handler = async (event) => {
+    const headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers":
+            "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+        "Content-Type": "application/json",
+    };
+
+    // 处理 CORS 预检请求
+    if (event.httpMethod === "OPTIONS") {
+        return { statusCode: 204, headers, body: "" };
+    }
+
+    // 仅接受 POST 请求
+    if (event.httpMethod !== "POST") {
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({ error: "Method Not Allowed" }),
+        };
+    }
+
+    try {
+        const body = JSON.parse(event.body);
+        const tokenRes = await fetch(
+            "https://github.com/login/oauth/access_token",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    Accept: "application/json",
+                    "User-Agent": "github-oauth-netlify",
+                },
+                body: new URLSearchParams(body).toString(),
+            }
+        );
+        const data = await tokenRes.json();
+        if (data.error) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    error: data.error,
+                    error_description: data.error_description,
+                }),
+            };
+        }
+        return { statusCode: 200, headers, body: JSON.stringify(data) };
+    } catch (err) {
+        console.error("OAuth proxy error:", err);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: "oauth_failed" }),
+        };
+    }
+};
+```
+
+> **提示**：首次使用 Netlify 云函数，确保在项目根目录创建 `netlify.toml`：
+> ```toml
+> [functions]
+>   directory = "netlify/functions"
+> ```
+
+- **Vercel Serverless 函数示例（`api/oauth.js`）：**
+
+> ⚠️ **注意**：此示例尚未经过实际验证，建议优先使用上方的 Netlify 方案。
 
 ```js
 // api/oauth.js
@@ -185,11 +259,14 @@ module.exports = (req, res) => {
 };
 ```
 
-然后在配置中设置：
+然后在配置中设置代理地址：
 
 ```yaml
 gitment:
-  proxy: https://your-vercel-app.vercel.app/api/oauth
+  # Netlify
+  proxy: https://your-netlify-app.netlify.app/api/auth
+  # Vercel
+  # proxy: https://your-vercel-app.vercel.app/api/oauth
 ```
 
 ### 4. 初始化评论
