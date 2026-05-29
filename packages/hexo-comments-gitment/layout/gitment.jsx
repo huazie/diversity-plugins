@@ -456,12 +456,16 @@ module.exports = class extends Component {
                             if (conf.gitment.labels && Array.isArray(conf.gitment.labels) && conf.gitment.labels.length > 0)
                                 confgObj.labels = conf.gitment.labels;
 
-                            const gitment = new Gitment(confgObj);
                             if (conf.gitment.proxy) {
-                                gitment.oauth.checkToken = function(data) {
-                                    return this._request('POST', conf.gitment.proxy, data);
+                                const origOpen = XMLHttpRequest.prototype.open;
+                                XMLHttpRequest.prototype.open = function(method, url, ...args) {
+                                    if (url === 'https://gh-oauth.imsun.net') {
+                                        return origOpen.call(this, method, conf.gitment.proxy, ...args);
+                                    }
+                                    return origOpen.call(this, method, url, ...args);
                                 };
                             }
+                            const gitment = new Gitment(confgObj);
                             gitment.render(document.querySelector('.gitment-wrap'));
                         });
 
