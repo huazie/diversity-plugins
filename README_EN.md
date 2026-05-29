@@ -14,6 +14,7 @@ A collection of Hexo Diversity theme plugins designed to provide more functional
 - [hexo-comments-gitalk](./packages/hexo-comments-gitalk/README_EN.md) - Hexo Gitalk comment plugin, supporting integration of Gitalk comment system
 - [hexo-comments-giscus](./packages/hexo-comments-giscus/README_EN.md) - Hexo Giscus comment plugin, supporting integration of Giscus comment system
 - [hexo-comments-twikoo](./packages/hexo-comments-twikoo/README_EN.md) - Hexo Twikoo comment plugin, supporting integration of Twikoo comment system
+- [hexo-comments-gitment](./packages/hexo-comments-gitment/README_EN.md) - Hexo Gitment comment plugin, supporting integration of Gitment comment system
 
 ## Installation
 
