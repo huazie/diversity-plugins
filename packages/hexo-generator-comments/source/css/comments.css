@@ -4,6 +4,7 @@
   --selected-bg-color: #fff;
   --no-selected-bg-color: #eee;
   --loading-border-color: #eee;
+  --disabled-color: #999;
   color-scheme: light;
 }
 
@@ -13,6 +14,7 @@
   --selected-bg-color: #222;
   --no-selected-bg-color: #444;
   --loading-border-color: #f0f6fc;
+  --disabled-color: #888;
   color-scheme: dark;
 }
 
@@ -77,13 +79,12 @@
   padding: 10px 15px;
 }
 
-.nav > li > a:hover,
-.nav > li > a:focus {
-  background-color: #eee;
+.nav > li > a:hover {
+  background-color: var(--no-selected-bg-color);
 }
 
 .nav > li > a.disabled > a {
-  color: #999;
+  color: var(--disabled-color);
   pointer-events: none;
   background-color: transparent;
 }
