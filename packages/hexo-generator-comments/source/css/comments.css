@@ -79,8 +79,10 @@
   padding: 10px 15px;
 }
 
-.nav > li > a:hover {
-  background-color: var(--no-selected-bg-color);
+@media (hover: hover) {
+  .nav > li > a:hover {
+    background-color: var(--no-selected-bg-color);
+  }
 }
 
 .nav > li > a.disabled > a {
@@ -134,9 +136,11 @@
   z-index: 11;
 }
 
-.nav-tabs > li > a:hover {
-  background: var(--selected-bg-color);
-  color: #4c8fbd;
+@media (hover: hover) {
+  .nav-tabs > li > a:hover {
+    background: var(--selected-bg-color);
+    color: #4c8fbd;
+  }
 }
 
 .nav-tabs > li.active > a {
