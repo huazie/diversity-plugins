@@ -10,7 +10,7 @@ Hexo 多评论系统生成插件，支持多种评论系统的集成与切换，
 
 | 特性 | 描述 |
 |------|------|
-| **多评论系统支持** | 同时集成多种评论系统（Utterances、Gitalk、Giscus 等） |
+| **多评论系统支持** | 同时集成多种评论系统（Utterances、Gitalk、Giscus、Twikoo、Gitment 等） |
 | **选项卡式切换** | 优雅的选项卡界面，轻松在不同评论系统间切换 |
 | **用户偏好记忆** | 智能记住访客选择的评论系统，提升用户体验 |
 | **懒加载支持** | 可选懒加载机制，显著提高页面加载速度 |
@@ -63,7 +63,7 @@ comments:
   - **path** - 自定义评论页面路径（可选，默认为 `comments`）
   - **darkclass** - 深色主题类名（可选）
   - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：tabs 【选项卡】 
-  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` 等等
+  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` 等等
   - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
   - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`
   - **nav** - 调整导航元素的展示文本或顺序
@@ -81,6 +81,7 @@ comments:
 | **Gitalk** | 基于 GitHub Issues，功能丰富 | 个人博客、技术分享 |
 | **Giscus** | 基于 GitHub Discussions，现代化 | 社区讨论、互动博客 |
 | **Twikoo** | 免费私有部署，简洁安全 | 数据自主可控、个人博客 |
+| **Gitment** | 基于 GitHub Issues，轻量级 | 个人博客、技术分享 |
 
 ### 评论系统安装和配置示例
 
@@ -248,6 +249,47 @@ twikoo:
   - **lang** - 评论区语言。可选值：`zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`，默认 `zh-CN`
   - **js** - Twikoo JS SDK CDN 地址，可指定特定版本或自部署地址
 
+#### Gitment
+
+```bash
+# 安装
+npm install hexo-comments-gitment --save
+```
+
+```yaml
+# Gitment
+# 一个基于 GitHub Issues 的轻量级评论插件。
+# For more information: https://github.com/imsun/gitment
+gitment:
+  enable: false
+  loading: true
+  owner: your-github-id
+  repo: your-repo-name
+  client_id: your-client-id
+  client_secret: your-client-secret
+  issue_term: pathname
+  per_page: 20
+  max_comment_height: 250
+  proxy:
+```
+
+- **gitment** - Gitment 配置，更多信息查看：https://github.com/imsun/gitment
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **owner** - GitHub 仓库所有者的用户名
+  - **repo** - 用于存储评论的 GitHub 仓库名
+  - **client_id** - GitHub Application 的 Client ID
+  - **client_secret** - GitHub Application 的 Client Secret
+  - **issue_term** - 指定 issue 的匹配规则，可选值： `pathname` | `url` | `title`
+    - **`pathname`** - 使用页面路径作为页面唯一标识，适合大多数场景（推荐）
+    - **`url`** - 使用页面完整 URL 作为页面唯一标识
+    - **`title`** - 使用页面标题作为页面唯一标识
+  - **per_page** - 评论每页显示数量，默认 `20`
+  - **max_comment_height** - 评论最大高度限制（px），超过则折叠，默认 `250`
+  - **proxy** - OAuth 代理地址（可选）。Gitment 默认代理 `gh-oauth.imsun.net` 已失效，需自行部署 OAuth 代理服务，可使用 Netlify Functions 或 Vercel Serverless 方案
+
+> **注意**：由于 Gitment 默认的 OAuth 代理已失效，**强烈建议**配置 `proxy` 代理地址，否则用户将无法登录评论。推荐使用 Netlify Functions 部署 OAuth 代理，详见 [Gitment 插件文档](../hexo-comments-gitment/README.md)。
+
 ## 主题集成
 
 ### 支持的模板引擎
@@ -389,6 +431,7 @@ comments:
 | hexo-comments-gitalk | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitalk) | ✅ 稳定 |
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ 稳定 |
 | hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ 稳定 |
+| hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ 稳定 |
 
 ### 明暗模式切换
 

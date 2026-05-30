@@ -10,7 +10,7 @@ Hexo multi-comment system generator plugin, supporting integration and switching
 
 | Feature | Description |
 |------|------|
-| **Multi-comment System Support** | Integrate multiple comment systems (Utterances, Gitalk, Giscus, etc.) simultaneously |
+| **Multi-comment System Support** | Integrate multiple comment systems (Utterances, Gitalk, Giscus, Twikoo, Gitment, etc.) simultaneously |
 | **Tab-based Switching** | Elegant tab interface for easy switching between different comment systems |
 | **User Preference Memory** | Intelligently remembers the comment system chosen by visitors, enhancing user experience |
 | **Lazy Loading Support** | Optional lazy loading mechanism to significantly improve page load speed |
@@ -63,7 +63,7 @@ comments:
   - **path** - Custom comment page path (optional, default is `comments`)
   - **darkclass** - Dark theme class name (optional)
   - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based)
-  - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus`, etc.
+  - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus` | `twikoo` | `gitment`, etc.
   - **storage** - Whether to remember the comment system chosen by visitors. Options: `true` | `false`. Set to `true` to remember the visitor's choice.
   - **lazyload** - Whether to enable lazy loading for comment systems. Options: `true` | `false`
   - **nav** - Adjust the display text or order of navigation elements
@@ -81,6 +81,7 @@ The plugin supports multiple comment systems. Here are the currently supported o
 | **Gitalk** | Feature-rich, based on GitHub Issues | Personal blogs, technical sharing |
 | **Giscus** | Modern, based on GitHub Discussions | Community discussions, interactive blogs |
 | **Twikoo** | Free self-hosted, simple and secure | Data sovereignty, personal blogs |
+| **Gitment** | Lightweight, based on GitHub Issues | Personal blogs, technical sharing |
 
 ### Installation and Configuration Examples
 
@@ -132,6 +133,7 @@ npm install hexo-comments-gitalk --save
 # For more information: https://gitalk.github.io
 gitalk:
   enable: false
+  loading: true
   github_id: 
   repo: 
   client_id: 
@@ -245,6 +247,47 @@ twikoo:
   - **path** - Page path, used to distinguish comments across different pages, defaults to `window.location.pathname`
   - **lang** - Comment area language. Available values: `zh-CN` | `zh-TW` | `en` | `es-ES` | `fr` | `ru`, default `zh-CN`
   - **js** - Twikoo JS SDK CDN URL, can specify a specific version or self-hosted address
+
+#### Gitment
+
+```bash
+# Install
+npm install hexo-comments-gitment --save
+```
+
+```yaml
+# Gitment
+# A lightweight comment plugin based on GitHub Issues.
+# For more information: https://github.com/imsun/gitment
+gitment:
+  enable: false
+  loading: true
+  owner: your-github-id
+  repo: your-repo-name
+  client_id: your-client-id
+  client_secret: your-client-secret
+  issue_term: pathname
+  per_page: 20
+  max_comment_height: 250
+  proxy:
+```
+
+- **gitment** - Gitment Configuration, For more information: https://github.com/imsun/gitment
+  - **enable** - Whether to enable. Available values: `true` | `false`
+  - **loading** - Whether to enable loading indicator, Available values: `true` | `false`
+  - **owner** - GitHub repository owner's username
+  - **repo** - GitHub repository name for storing comments
+  - **client_id** - GitHub Application Client ID
+  - **client_secret** - GitHub Application Client Secret
+  - **issue_term** - Issue matching rule, Available values: `pathname` | `url` | `title`
+    - **`pathname`** - Use page path as the unique identifier, suitable for most cases (recommended)
+    - **`url`** - Use the full page URL as the unique identifier
+    - **`title`** - Use the page title as the unique identifier
+  - **per_page** - Number of comments per page, default `20`
+  - **max_comment_height** - Max height of comments (px), over which comments will be folded, default `250`
+  - **proxy** - OAuth proxy URL (optional). Gitment's default proxy `gh-oauth.imsun.net` is no longer available. You need to deploy your own OAuth proxy service using Netlify Functions or Vercel Serverless.
+
+> **Note**: Since Gitment's default OAuth proxy is no longer available, it is **strongly recommended** to configure the `proxy` URL, otherwise users will not be able to log in. We recommend using Netlify Functions to deploy the OAuth proxy, see the [Gitment plugin documentation](../hexo-comments-gitment/README_EN.md) for details.
 
 ## Theme Integration
 
@@ -387,6 +430,7 @@ This plugin uses modular design and supports adding new comment systems:
 | hexo-comments-gitalk | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitalk) | ✅ Stable |
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ Stable |
 | hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ Stable |
+| hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ Stable |
 
 ### Light/Dark Mode Toggle
 
