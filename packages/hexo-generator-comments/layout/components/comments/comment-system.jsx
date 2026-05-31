@@ -1,6 +1,7 @@
 const { Component } = require('inferno');
 const SingleComment = require('./single-comment.jsx');
 const MultiCommentTabs = require('./multi-comment-tabs.jsx');
+const MultiCommentDropdown = require('./multi-comment-dropdown.jsx');
 
 module.exports = class CommentSystem extends Component {
     render() {
@@ -18,7 +19,9 @@ module.exports = class CommentSystem extends Component {
             if (commentStyle === 'tabs') {
                 return <MultiCommentTabs injectItems={commentInjects} helper={helper} />;
             }
-            // 可以添加其他样式处理
+            if (commentStyle === 'dropdown') {
+                return <MultiCommentDropdown injectItems={commentInjects} helper={helper} />;
+            }
         }
         
         return null;

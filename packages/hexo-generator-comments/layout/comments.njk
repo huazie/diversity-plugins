@@ -32,8 +32,34 @@
                         {% endfor %}
                     </div>
                 </div>
+                {{ js('js/tab') }}
+            {% elif theme.comments.style == 'dropdown' %}
+                <div class="comment-dropdown">
+                    <div class="comment-selector">
+                        <select id="comment-nav-select">
+                            {% for inject_item in theme.view_injects.comment %}
+                                <option value="{{ inject_item.locals.class }}" data-comments="{{ inject_item.locals.class }}" {{ 'selected' if inject_item.locals.active else '' }}>
+                                    {{ inject_item.locals.text }}
+                                </option>
+                                {% if not loop.last %}
+                                    <option disabled class="dropdown-divider">──────────</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="comment-panes">
+                        {% for inject_item in theme.view_injects.comment %}
+                            <div id="comments-{{ inject_item.locals.class }}" 
+                                class="comment-pane {{ inject_item.locals.active }}">
+                                {{ partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) }}
+                                {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {{ js('js/dropdown') }}
             {% endif %}
-            {{ js('js/tab') }}
             {{ js('js/js.cookie-2.2.1.min') }}
         {% endif %}
     </div>

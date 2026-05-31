@@ -62,7 +62,7 @@ comments:
   - **layout** - 自定义评论布局文件名（可选，不包含扩展名）
   - **path** - 自定义评论页面路径（可选，默认为 `comments`）
   - **darkclass** - 深色主题类名（可选）
-  - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：tabs 【选项卡】 
+  - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：`tabs` 【选项卡】 | `dropdown` 【下拉菜单】
   - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` 等等
   - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
   - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`

@@ -9,8 +9,8 @@ comments:
   # 深色主题类名
   darkclass:
   # 多个评论系统启用时，选择一个默认展示风格
-  # 可选值：tabs 【选项卡】 
-  # Available values: tabs
+  # 可选值：tabs 【选项卡】 | dropdown 【下拉菜单】
+  # Available values: tabs | dropdown
   style: tabs
   # 选择一个默认显示的评论系统
   # Choose a comment system to be displayed by default.

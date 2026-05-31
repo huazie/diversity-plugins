@@ -62,7 +62,7 @@ comments:
   - **layout** - Custom comment layout file name (optional, without extension)
   - **path** - Custom comment page path (optional, default is `comments`)
   - **darkclass** - Dark theme class name (optional)
-  - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based)
+  - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based) | `dropdown` (dropdown menu)
   - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus` | `twikoo` | `gitment`, etc.
   - **storage** - Whether to remember the comment system chosen by visitors. Options: `true` | `false`. Set to `true` to remember the visitor's choice.
   - **lazyload** - Whether to enable lazy loading for comment systems. Options: `true` | `false`
