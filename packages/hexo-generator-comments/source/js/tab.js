@@ -53,7 +53,7 @@
     
     // 激活第一个标签页
     function activateFirstTab() {
-        const firstTab = document.querySelector('.nav-tabs a[data-toggle="tab"]');
+        const firstTab = document.querySelector('.comments-nav-tabs a[data-toggle="tab"]');
         if (firstTab) {
             activateTab(firstTab);
         }
@@ -94,10 +94,10 @@
         const targetId = tabElement.getAttribute('href');
         if (!targetId) return;
         
-        // 获取所有标签和面板
-        const allTabs = document.querySelectorAll('.nav-tabs li');
-        const allTabLinks = document.querySelectorAll('.nav-tabs a[data-toggle="tab"]');
-        const allPanes = document.querySelectorAll('.tab-content .tab-pane');
+        // 获取所有标签和面板（使用新的类名）
+        const allTabs = document.querySelectorAll('.comments-nav-tabs li');
+        const allTabLinks = document.querySelectorAll('.comments-nav-tabs a[data-toggle="tab"]');
+        const allPanes = document.querySelectorAll('.comments-tab-content .comments-tab-pane');
         
         // 移除所有标签和面板的激活状态
         allTabs.forEach(tab => tab.classList.remove('active'));

@@ -24,10 +24,10 @@
         const dropdown = document.getElementById('comment-nav-dropdown');
         if (!dropdown) return;
 
-        const trigger = dropdown.querySelector('.dropdown-trigger');
-        const menu = dropdown.querySelector('.dropdown-menu');
-        const labelText = dropdown.querySelector('.dropdown-text');
-        const items = dropdown.querySelectorAll('.dropdown-item');
+        const trigger = dropdown.querySelector('.comments-dropdown-trigger');
+        const menu = dropdown.querySelector('.comments-dropdown-menu');
+        const labelText = dropdown.querySelector('.comments-dropdown-text');
+        const items = dropdown.querySelectorAll('.comments-dropdown-item');
         
         if (!trigger || !menu || !labelText) return;
 
@@ -42,12 +42,12 @@
         // 设置初始选中项
         let activeItem = null;
         if (savedComment) {
-            activeItem = dropdown.querySelector(`.dropdown-item[data-value="${savedComment}"]`);
+            activeItem = dropdown.querySelector(`.comments-dropdown-item[data-value="${savedComment}"]`);
         }
         
         // 如果没有记忆的选中项，使用默认的 active 项
         if (!activeItem) {
-            activeItem = dropdown.querySelector('.dropdown-item.active');
+            activeItem = dropdown.querySelector('.comments-dropdown-item.active');
         }
         
         // 如果还没有，选择第一项
@@ -132,13 +132,13 @@
         
         // 更新菜单项 active 状态
         items.forEach(function(item) {
-            const checkIcon = item.querySelector('.dropdown-check');
+            const checkIcon = item.querySelector('.comments-dropdown-check');
             if (item === selectedItem) {
                 item.classList.add('active');
                 // 添加选中图标
                 if (!checkIcon) {
                     const check = document.createElement('span');
-                    check.className = 'dropdown-check';
+                    check.className = 'comments-dropdown-check';
                     check.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
                     item.appendChild(check);
                 }
@@ -159,7 +159,7 @@
     function switchPane(value) {
         if (!value) return;
 
-        const allPanes = document.querySelectorAll('.dropdown-content .dropdown-pane');
+        const allPanes = document.querySelectorAll('.comments-dropdown-content .comments-dropdown-pane');
         
         // 隐藏所有面板
         allPanes.forEach(pane => pane.classList.remove('active'));

@@ -1,6 +1,9 @@
 const { Component } = require('inferno');
 const Loading = require('../common/loading.jsx');
 
+/**
+ * 多评论系统标签页组件
+ */
 module.exports = class MultiCommentTabs extends Component {
     render() {
         const { injectItems, helper } = this.props;
@@ -10,8 +13,8 @@ module.exports = class MultiCommentTabs extends Component {
         
         return (
             <div class="comment-inner">
-                <div class="tabbable">
-                    <ul id="comment-nav-tab" class="nav nav-tabs">
+                <div class="comments-tabbable">
+                    <ul id="comment-nav-tab" class="comments-nav comments-nav-tabs">
                         {injectItems.map((item) => (
                             <li class={item.locals.active}>
                                 <a data-toggle="tab" href={`#comments-${item.locals.class}`} data-comments={item.locals.class}>
@@ -21,13 +24,13 @@ module.exports = class MultiCommentTabs extends Component {
                         ))}
                     </ul>
 
-                    <div class="tab-content">
+                    <div class="comments-tab-content">
                         {injectItems.map((item, index) => {
                             const { layout, locals} = item;
                             const CommentComponent = require(`../../${layout}`);
                             
                             return (
-                                <div id={`comments-${locals.class}`} class={`tab-pane ${locals.active}`}>
+                                <div id={`comments-${locals.class}`} class={`comments-tab-pane ${locals.active}`}>
                                     {locals.showLoading && (
                                         <Loading 
                                             showLoading={locals.showLoading}
@@ -35,7 +38,7 @@ module.exports = class MultiCommentTabs extends Component {
                                             text="Loading comments..."
                                         />
                                     )}
-                                    <CommentComponent />
+                                    <CommentComponent {...locals} />
                                 </div>
                             );
                         })}

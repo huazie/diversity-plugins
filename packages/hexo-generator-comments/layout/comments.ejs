@@ -11,8 +11,8 @@
             <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
         <% } else if (theme.view_injects.comment.length > 1) { %>
             <% if (theme.comments.style == 'tabs') { %>
-                <div class="tabbable">
-                    <ul id="comment-nav-tab" class="nav nav-tabs">
+                <div class="comments-tabbable">
+                    <ul id="comment-nav-tab" class="comments-nav comments-nav-tabs">
                         <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <li class="<%= inject_item.locals.active %>">
@@ -23,11 +23,11 @@
                         <% } %>
                     </ul>
 
-                    <div class="tab-content">
+                    <div class="comments-tab-content">
                         <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <div id="comments-<%= inject_item.locals.class %>" 
-                                class="tab-pane <%= inject_item.locals.active %>">
+                                class="comments-tab-pane <%= inject_item.locals.active %>">
                                 <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
                                 <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
                             </div>
@@ -36,29 +36,29 @@
                 </div>
                 <%- js('js/tab') %>
             <% } else if (theme.comments.style == 'dropdown') { %>
-                <div class="dropdown">
-                    <div class="selector">
-                        <div class="custom-dropdown" id="comment-nav-dropdown">
-                            <button class="dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
-                                <span class="dropdown-label">
-                                    <span class="dropdown-text"></span>
+                <div class="comments-dropdown">
+                    <div class="comments-selector">
+                        <div class="comments-custom-dropdown" id="comment-nav-dropdown">
+                            <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="comments-dropdown-label">
+                                    <span class="comments-dropdown-text"></span>
                                 </span>
-                                <span class="dropdown-arrow">
+                                <span class="comments-dropdown-arrow">
                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                                         <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
                                 </span>
                             </button>
-                            <div class="dropdown-menu" role="listbox" id="comment-nav-menu">
+                            <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
                                 <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                                     <% const inject_item = theme.view_injects.comment[i] %>
-                                    <div class="dropdown-item <%= inject_item.locals.active ? 'active' : '' %>" 
+                                    <div class="comments-dropdown-item <%= inject_item.locals.active ? 'active' : '' %>" 
                                          role="option" 
                                          data-value="<%= inject_item.locals.class %>"
                                          data-text="<%= inject_item.locals.text %>">
-                                        <span class="dropdown-item-text"><%= inject_item.locals.text %></span>
+                                        <span class="comments-dropdown-item-text"><%= inject_item.locals.text %></span>
                                         <% if (inject_item.locals.active) { %>
-                                            <span class="dropdown-check">
+                                            <span class="comments-dropdown-check">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                                     <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
@@ -70,11 +70,11 @@
                         </div>
                     </div>
 
-                    <div class="dropdown-content">
+                    <div class="comments-dropdown-content">
                         <% for (var i = 0; i < theme.view_injects.comment.length; i++) { %>
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <div id="comments-<%= inject_item.locals.class %>" 
-                                class="dropdown-pane <%= inject_item.locals.active %>">
+                                class="comments-dropdown-pane <%= inject_item.locals.active %>">
                                 <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
                                 <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
                             </div>
