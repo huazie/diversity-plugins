@@ -17,7 +17,7 @@
   "author": "huazie",
   "license": "MIT",
   "dependencies": {
-    "hexo-generator-comments": "^1.0.6"
+    "hexo-generator-comments": "^1.1.1"
   },
   "devDependencies": {
     "hexo": "^7.2.0"
