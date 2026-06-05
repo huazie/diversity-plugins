@@ -15,6 +15,7 @@ A collection of Hexo Diversity theme plugins designed to provide more functional
 - [hexo-comments-giscus](./packages/hexo-comments-giscus/README_EN.md) - Hexo Giscus comment plugin, supporting integration of Giscus comment system
 - [hexo-comments-twikoo](./packages/hexo-comments-twikoo/README_EN.md) - Hexo Twikoo comment plugin, supporting integration of Twikoo comment system
 - [hexo-comments-gitment](./packages/hexo-comments-gitment/README_EN.md) - Hexo Gitment comment plugin, supporting integration of Gitment comment system
+- [hexo-comments-waline](./packages/hexo-comments-waline/README_EN.md) - Hexo Waline comment plugin, supporting integration of Waline comment system
 
 ## Installation
 
