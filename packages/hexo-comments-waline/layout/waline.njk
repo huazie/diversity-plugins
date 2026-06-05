@@ -1,0 +1,86 @@
+{{ diversity_data('waline', theme.waline, {
+	js : theme.waline.js_url if theme.waline.js_url else 'https://unpkg.com/@waline/client@v3/dist/waline.js'
+}) }}
+
+<script>
+    const loadWaline = () => {
+        const loadingElement = document.getElementById('loading-waline');
+        loadingElement?.classList.remove('hidden');
+
+        let walineConfig = {};
+        
+        // 先检查 server_url 是否配置
+        if (!conf.waline.server_url || conf.waline.server_url === 'https://your-waline-server.netlify.app/.netlify/functions/comment') {
+            console.error('Waline 错误：请配置 waline.server_url');
+            if (loadingElement) {
+                loadingElement.textContent = '请配置 Waline 服务端地址';
+                loadingElement.classList.add('error');
+            }
+            return;
+        }
+        
+        Diversity.utils.loadComments('.waline-wrap')
+            .then(() => {
+                // 统一处理所有配置变量（在构建对象之前）
+                let walineLang = conf.waline.lang || window.navigator.language;
+                let walinePath;
+                let walineEmoji;
+                let walineWordLimit;
+                
+                // 处理 path 配置
+                if (conf.waline.path === 'pathname') {
+                    walinePath = window.location.pathname;
+                } else if (conf.waline.path === 'url') {
+                    walinePath = window.location.href;
+                } else if (conf.waline.path === 'title') {
+                    walinePath = document.title;
+                } else {
+                    walinePath = conf.waline.path || '';
+                }
+
+                // 构建 walineConfig 对象
+                walineConfig = {
+                    el: '#waline',
+                    serverURL: conf.waline.server_url,
+                    path: walinePath,
+                    lang: walineLang,
+                    emoji: conf.waline.emoji,
+                    dark: conf.waline.dark,
+                    commentSorting: conf.waline.comment_sorting,
+                    meta: conf.waline.meta,
+                    requiredMeta: conf.waline.required_meta,
+                    login: conf.waline.login,
+                    wordLimit: conf.waline.word_limit,
+                    pageSize: conf.waline.page_size,
+                    search: conf.waline.search,
+                    noCopyright: conf.waline.no_copyright,
+                    noRss: conf.waline.no_rss,
+                    reaction: conf.waline.reaction
+                };
+            })
+            .then(() => {
+                // 使用 ES Module 方式加载 Waline（官方推荐方式）
+                return import(conf.waline.js);
+            })
+            .then((module) => {
+                // module 包含 { init, version } 等导出
+                const { init } = module;
+                
+                // 使用 walineConfig 对象初始化
+                init(walineConfig);
+                
+                // 隐藏加载提示
+                loadingElement?.classList.add('hidden');
+            })
+            .catch((error) => {
+                console.error('Waline 加载失败:', error);
+                if (loadingElement) {
+                    loadingElement.textContent = '评论加载失败，请刷新页面重试';
+                    loadingElement.classList.add('error');
+                }
+            });
+    };
+
+    document.addEventListener('page:loaded', loadWaline);
+    document.addEventListener('color-scheme:refresh', loadWaline);
+</script>

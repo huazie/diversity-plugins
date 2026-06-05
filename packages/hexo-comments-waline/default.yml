@@ -1,0 +1,79 @@
+# Waline
+# 一个简单但功能强大的评论系统
+# For more information: https://waline.js.org/
+waline:
+  # 是否启用 Waline 评论系统
+  # Available values: true | false
+  enable: false
+  # 是否启用加载提示
+  # Available values: true | false
+  loading: true
+  # Waline 服务端地址，必须配置
+  # Waline server URL, required
+  server_url: https://your-waline-server.netlify.app/.netlify/functions/comment
+  # Waline JS 文件 URL
+  # Waline JS file URL
+  js_url: https://unpkg.com/@waline/client@v3/dist/waline.js
+  # Waline CSS 文件 URL
+  # Waline CSS file URL
+  css_url: https://unpkg.com/@waline/client@v3/dist/waline.css
+  # 当前文章的唯一标识，用于区分不同页面的评论。需保证唯一性。
+  # Unique identifier for the current article to distinguish comments across pages. Must be unique.
+  # 可选值: pathname (window.location.pathname) | url (window.location.href) | title (document.title) | 自定义路径
+  # Available values: pathname | url | title | custom path
+  path: pathname
+  # 评论区语言
+  # Available values: zh-CN | zh-TW | en | ja | ko etc.
+  lang: zh-CN
+  # 表情包设置，支持数组或 false 禁用
+  # Emoji settings, supports array or false to disable
+  # 参考: https://waline.js.org/guide/features/emoji.html
+  # 默认值: ['https://unpkg.com/@waline/emojis/weibo']
+  emoji: 
+  # 暗黑模式适配
+  # 支持以下类型:
+  # - 'auto': 自动跟随系统主题（基于 prefers-color-scheme 媒体查询）
+  # - CSS 选择器字符串: 当指定的选择器匹配时启用暗黑模式
+  #   示例: 'html[data-theme="dark"]' 或 '.dark-mode'
+  # - boolean: true (强制开启) | false (强制关闭)
+  # Available values: false | true | 'auto' | CSS selector string
+  # Examples: 'auto' | 'html[data-theme="dark"]' | '.dark-mode' | true | false
+  dark: auto
+  # 评论排序方式
+  # Available values: latest | oldest | 'hottest'
+  # latest: 最新评论在前（默认） | oldest: 最早评论在前 | hottest: 按热度排序
+  comment_sorting: latest  
+  # 评论时需要填写的信息字段
+  # Available values: nick | mail | link
+  # 默认值: ['nick', 'mail', 'link']
+  meta: ['nick', 'mail', 'link']
+  # 必填的字段数组
+  # Available values: nick | mail | link
+  # 示例: ['nick', 'mail']
+  required_meta: []
+  # 登录配置
+  # Available values: enable | disable | force
+  # enable: 启用登录（用户可选择登录或匿名评论）
+  # disable: 禁用登录（所有评论均为匿名）
+  # force: 强制登录（用户必须登录才能评论）
+  login: enable
+  # 评论字数限制
+  # 可以是数字（最大字数）或数组 [最小字数, 最大字数]
+  # 设置为 false 禁用字数限制
+  # 示例: 100 (限制最多100字) | [0, 100] (限制0-100字) | false (不限制)
+  word_limit: false
+  # 每页评论条数
+  # 控制每页显示的评论数量
+  page_size: 10
+  # 表情包搜索功能
+  # 是否启用表情包搜索框
+  # Available values: true | false
+  search: false
+  # 是否隐藏页脚版权信息。默认值: false
+  no_copyright: false
+  # 是否隐藏 RSS 订阅链接。默认值: false
+  no_rss: false
+  # 表情反应功能
+  # 是否启用评论表情反应（点赞、点踩等）
+  # Available values: true | false | 自定义反应表情图片地址数组【参考：https://waline.js.org/guide/features/reaction.html】
+  reaction: false
