@@ -10,7 +10,7 @@ Hexo multi-comment system generator plugin, supporting integration and switching
 
 | Feature | Description |
 |------|------|
-| **Multi-comment System Support** | Integrate multiple comment systems (Utterances, Gitalk, Giscus, Twikoo, Gitment, etc.) simultaneously |
+| **Multi-comment System Support** | Integrate multiple comment systems (Utterances, Gitalk, Giscus, Twikoo, Gitment, Waline, etc.) simultaneously |
 | **Tab-based Switching** | Elegant tab interface for easy switching between different comment systems |
 | **User Preference Memory** | Intelligently remembers the comment system chosen by visitors, enhancing user experience |
 | **Lazy Loading Support** | Optional lazy loading mechanism to significantly improve page load speed |
@@ -63,7 +63,7 @@ comments:
   - **path** - Custom comment page path (optional, default is `comments`)
   - **darkclass** - Dark theme class name (optional)
   - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based) | `dropdown` (dropdown menu)
-  - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus` | `twikoo` | `gitment`, etc.
+  - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` | `waline`, etc.
   - **storage** - Whether to remember the comment system chosen by visitors. Options: `true` | `false`. Set to `true` to remember the visitor's choice.
   - **lazyload** - Whether to enable lazy loading for comment systems. Options: `true` | `false`
   - **nav** - Adjust the display text or order of navigation elements
@@ -82,6 +82,7 @@ The plugin supports multiple comment systems. Here are the currently supported o
 | **Giscus** | Modern, based on GitHub Discussions | Community discussions, interactive blogs |
 | **Twikoo** | Free self-hosted, simple and secure | Data sovereignty, personal blogs |
 | **Gitment** | Lightweight, based on GitHub Issues | Personal blogs, technical sharing |
+| **Waline** | Lightweight backend, feature-rich | Personal blogs, interactive sites |
 
 ### Installation and Configuration Examples
 
@@ -289,6 +290,62 @@ gitment:
 
 > **Note**: Since Gitment's default OAuth proxy is no longer available, it is **strongly recommended** to configure the `proxy` URL, otherwise users will not be able to log in. We recommend using Netlify Functions to deploy the OAuth proxy, see the [Gitment plugin documentation](../hexo-comments-gitment/README_EN.md) for details.
 
+#### Waline
+
+```bash
+# Install
+npm install hexo-comments-waline --save
+```
+
+```yaml
+# Waline
+# A simple but powerful comment system.
+# For more information: https://waline.js.org/
+waline:
+  enable: false
+  loading: true
+  server_url: https://your-waline-server.netlify.app/.netlify/functions/comment
+  js_url: https://unpkg.com/@waline/client@v3/dist/waline.js
+  css_url: https://unpkg.com/@waline/client@v3/dist/waline.css
+  path: pathname
+  lang: zh-CN
+  emoji:
+  dark: auto
+  comment_sorting: latest
+  meta: ['nick', 'mail', 'link']
+  required_meta: []
+  login: enable
+  word_limit: false
+  page_size: 10
+  search: false
+  no_copyright: false
+  no_rss: false
+  reaction: false
+```
+
+- **waline** - Waline Configuration, For more information: https://waline.js.org/
+  - **enable** - Whether to enable. Available values: `true` | `false`
+  - **loading** - Whether to enable loading indicator, Available values: `true` | `false`
+  - **server_url** - Waline server URL (required), the service address obtained after deploying via Vercel / Netlify / Docker / self-hosted server
+  - **js_url** - Waline JS file CDN URL, can specify a specific version
+  - **css_url** - Waline CSS file CDN URL
+  - **path** - Unique page identifier, used to distinguish comments across different pages. Available values: `pathname` | `url` | `title` | `custom path`
+  - **lang** - Comment area language, built-in support for 30+ languages. Available values: `zh-CN` | `zh-TW` | `en` | `ja` | `ko`, etc. Default `zh-CN`
+  - **emoji** - Emoji settings, supports array or `false` to disable. Reference: [Waline Emoji Documentation](https://waline.js.org/guide/features/emoji.html)
+  - **dark** - Dark mode adaptation. Available values: `false` | `true` | `auto` | CSS selector string (e.g. `html[data-theme="dark"]`)
+  - **comment_sorting** - Comment sorting method. Available values: `latest` (newest first) | `oldest` (oldest first) | `hottest` (most popular first)
+  - **meta** - User information fields required for commenting. Available values: `nick` | `mail` | `link`, default `['nick', 'mail', 'link']`
+  - **required_meta** - Required information fields array. Available values: `nick` | `mail` | `link`, default `[]`
+  - **login** - Login configuration. Available values: `enable` (optional login) | `disable` (no login) | `force` (login required)
+  - **word_limit** - Comment word limit, a number (max words) or array `[min, max]`, set `false` to disable. e.g. `500` or `[10, 500]`
+  - **page_size** - Number of comments per page, default `10`
+  - **search** - Whether to enable emoji search, Available values: `true` | `false`
+  - **no_copyright** - Whether to hide footer copyright info, Available values: `true` | `false`
+  - **no_rss** - Whether to hide RSS subscription link, Available values: `true` | `false`
+  - **reaction** - Emoji reaction function, Available values: `true` | `false` | custom reaction image URL array
+
+> **Note**: Before using Waline, you need to deploy the Waline server first (Vercel one-click deploy is recommended), and fill the obtained address into `server_url`. See [Waline Official Documentation](https://waline.js.org/guide/get-started.html) for details.
+
 ## Theme Integration
 
 ### Supported Template Engines
@@ -431,6 +488,7 @@ This plugin uses modular design and supports adding new comment systems:
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ Stable |
 | hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ Stable |
 | hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ Stable |
+| hexo-comments-waline | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-waline) | ✅ Stable |
 
 ### Light/Dark Mode Toggle
 

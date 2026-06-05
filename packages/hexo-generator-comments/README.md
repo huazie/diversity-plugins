@@ -10,7 +10,7 @@ Hexo 多评论系统生成插件，支持多种评论系统的集成与切换，
 
 | 特性 | 描述 |
 |------|------|
-| **多评论系统支持** | 同时集成多种评论系统（Utterances、Gitalk、Giscus、Twikoo、Gitment 等） |
+| **多评论系统支持** | 同时集成多种评论系统（Utterances、Gitalk、Giscus、Twikoo、Gitment、Waline 等） |
 | **选项卡式切换** | 优雅的选项卡界面，轻松在不同评论系统间切换 |
 | **用户偏好记忆** | 智能记住访客选择的评论系统，提升用户体验 |
 | **懒加载支持** | 可选懒加载机制，显著提高页面加载速度 |
@@ -63,7 +63,7 @@ comments:
   - **path** - 自定义评论页面路径（可选，默认为 `comments`）
   - **darkclass** - 深色主题类名（可选）
   - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：`tabs` 【选项卡】 | `dropdown` 【下拉菜单】
-  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` 等等
+  - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` | `waline` 等等
   - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
   - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`
   - **nav** - 调整导航元素的展示文本或顺序
@@ -82,6 +82,7 @@ comments:
 | **Giscus** | 基于 GitHub Discussions，现代化 | 社区讨论、互动博客 |
 | **Twikoo** | 免费私有部署，简洁安全 | 数据自主可控、个人博客 |
 | **Gitment** | 基于 GitHub Issues，轻量级 | 个人博客、技术分享 |
+| **Waline** | 轻量后端起评，功能丰富 | 个人博客、互动站点 |
 
 ### 评论系统安装和配置示例
 
@@ -290,6 +291,62 @@ gitment:
 
 > **注意**：由于 Gitment 默认的 OAuth 代理已失效，**强烈建议**配置 `proxy` 代理地址，否则用户将无法登录评论。推荐使用 Netlify Functions 部署 OAuth 代理，详见 [Gitment 插件文档](../hexo-comments-gitment/README.md)。
 
+#### Waline
+
+```bash
+# 安装
+npm install hexo-comments-waline --save
+```
+
+```yaml
+# Waline
+# 一个简单但功能强大的评论系统。
+# For more information: https://waline.js.org/
+waline:
+  enable: false
+  loading: true
+  server_url: https://your-waline-server.netlify.app/.netlify/functions/comment
+  js_url: https://unpkg.com/@waline/client@v3/dist/waline.js
+  css_url: https://unpkg.com/@waline/client@v3/dist/waline.css
+  path: pathname
+  lang: zh-CN
+  emoji:
+  dark: auto
+  comment_sorting: latest
+  meta: ['nick', 'mail', 'link']
+  required_meta: []
+  login: enable
+  word_limit: false
+  page_size: 10
+  search: false
+  no_copyright: false
+  no_rss: false
+  reaction: false
+```
+
+- **waline** - Waline 配置，更多信息查看：https://waline.js.org/
+  - **enable** - 是否启用，可选值： `true` | `false`
+  - **loading** - 是否启用加载提示，可选值：`true` | `false`
+  - **server_url** - Waline 服务端地址（必填），Vercel / Netlify / Docker / 自建服务器部署后获得的服务地址
+  - **js_url** - Waline JS 文件 CDN 地址，可指定特定版本
+  - **css_url** - Waline CSS 文件 CDN 地址
+  - **path** - 页面唯一标识，用于区分不同页面的评论。可选值： `pathname` | `url` | `title` | `自定义路径`
+  - **lang** - 评论区语言，内置支持 30+ 种语言。可选值：`zh-CN` | `zh-TW` | `en` | `ja` | `ko` 等，默认 `zh-CN`
+  - **emoji** - 表情包设置，支持数组或 `false` 禁用。参考：[Waline 表情包文档](https://waline.js.org/guide/features/emoji.html)
+  - **dark** - 暗黑模式适配。可选值：`false` | `true` | `auto` | CSS 选择器字符串（如 `html[data-theme="dark"]`）
+  - **comment_sorting** - 评论排序方式。可选值：`latest`（最新在前）| `oldest`（最早在前）| `hottest`（最热在前）
+  - **meta** - 评论时需要填写的信息字段。可选值：`nick` | `mail` | `link`，默认 `['nick', 'mail', 'link']`
+  - **required_meta** - 必填的信息字段数组。可选值：`nick` | `mail` | `link`，默认 `[]`
+  - **login** - 登录配置。可选值：`enable`（可选登录）| `disable`（禁用登录）| `force`（强制登录）
+  - **word_limit** - 评论字数限制，数字（最大字数）或数组 `[最小, 最大]`，设为 `false` 禁用。如 `500` 或 `[10, 500]`
+  - **page_size** - 每页评论条数，默认 `10`
+  - **search** - 是否启用表情包搜索功能，可选值：`true` | `false`
+  - **no_copyright** - 是否隐藏页脚版权信息，可选值：`true` | `false`
+  - **no_rss** - 是否隐藏 RSS 订阅链接，可选值：`true` | `false`
+  - **reaction** - 表情反应功能，可选值：`true` | `false` | 自定义反应图片地址数组
+
+> **注意**：在使用 Waline 之前，需要先部署 Waline 服务端（推荐使用 Vercel 一键部署），将部署后获得的地址填入 `server_url` 即可。详见 [Waline 官方文档](https://waline.js.org/guide/get-started.html)。
+
 ## 主题集成
 
 ### 支持的模板引擎
@@ -432,6 +489,7 @@ comments:
 | hexo-comments-giscus | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-giscus) | ✅ 稳定 |
 | hexo-comments-twikoo | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-twikoo) | ✅ 稳定 |
 | hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ 稳定 |
+| hexo-comments-waline | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-waline) | ✅ 稳定 |
 
 ### 明暗模式切换
 
