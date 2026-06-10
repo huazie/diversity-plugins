@@ -1,4 +1,4 @@
-﻿const { Component } = require('inferno');
+const { Component } = require('inferno');
 
 module.exports = class extends Component {
     render() {
