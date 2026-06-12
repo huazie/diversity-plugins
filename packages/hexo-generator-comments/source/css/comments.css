@@ -157,7 +157,6 @@
   border-top: 2px solid var(--border-focus-color);
   border-bottom-color: transparent;
   z-index: 12;
-  margin-top: -1px;
   -webkit-box-shadow: 0 -2px 3px rgba(0,0,0,0.15);
   box-shadow: 0 -2px 3px rgba(0,0,0,0.15);
 }
