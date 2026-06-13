@@ -6,6 +6,7 @@
   --dropdown-hover-bg: #f5f5f5;
   --border-color: #c5d0dc;
   --border-focus-color: #4c8fbd;
+  --border-focus-color-rgb: 76, 143, 189;
   --loading-border-color: #eee;
   --disabled-color: #999;
   color-scheme: light;
@@ -18,7 +19,8 @@
   --no-selected-bg-color: #444;
   --dropdown-hover-bg: #505050;
   --border-color: #c5d0dc;
-  --border-focus-color: #4c8fbd;
+  --border-focus-color: #3b7ca8;
+  --border-focus-color-rgb: 59, 124, 168;
   --loading-border-color: #f0f6fc;
   --disabled-color: #888;
   color-scheme: dark;
@@ -146,14 +148,14 @@
 @media (hover: hover) {
   .comments-nav-tabs > li > a:hover {
     background: var(--selected-bg-color);
-    color: #4c8fbd;
+    color: var(--border-focus-color);
   }
 }
 
 .comments-nav-tabs > li.active > a {
   cursor: default !important;
   background: var(--selected-bg-color);
-  color: #4c8fbd;
+  color: var(--border-focus-color);
   border-top: 2px solid var(--border-focus-color);
   border-bottom-color: transparent;
   z-index: 12;
@@ -178,7 +180,7 @@
   display: block;
 }
 
-/* Dropdown 相关样式 - 增加 comments- 前缀 */
+/* Dropdown 相关样式 */
 .comments-dropdown {
   position: relative;
 }
@@ -218,12 +220,12 @@
 
 .comments-dropdown-trigger:focus-visible {
   border-color: var(--border-focus-color);
-  box-shadow: 0 0 0 3px rgba(76, 143, 189, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--border-focus-color-rgb), 0.15);
 }
 
 .comments-dropdown-trigger[aria-expanded="true"] {
   border-color: var(--border-focus-color);
-  box-shadow: 0 0 0 3px rgba(76, 143, 189, 0.15);
+  box-shadow: 0 0 0 3px rgba(var(--border-focus-color-rgb), 0.15);
   border-radius: 8px 8px 0 0;
 }
 
@@ -275,6 +277,10 @@
   animation: dropdownFadeIn 0.15s ease;
 }
 
+.dark-theme .comments-dropdown-menu {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .comments-dropdown-menu.show {
   display: block;
 }
@@ -305,14 +311,14 @@
   background-color: var(--dropdown-hover-bg);
 }
 
-.comments-dropdown-item:active {
-  background-color: rgba(76, 143, 189, 0.1);
+.comments-dropdown-item.active {
+  background-color: rgba(var(--border-focus-color-rgb), 0.08);
+  color: var(--border-focus-color);
+  font-weight: 500;
 }
 
-.comments-dropdown-item.active {
-  background-color: rgba(76, 143, 189, 0.08);
-  color: #4c8fbd;
-  font-weight: 500;
+.dark-theme .comments-dropdown-item.active {
+  background-color: rgba(var(--border-focus-color-rgb), 0.15);
 }
 
 .comments-dropdown-item-text {
@@ -331,15 +337,7 @@
   height: 16px;
   flex-shrink: 0;
   margin-left: 8px;
-  color: #4c8fbd;
-}
-
-.dark-theme .comments-dropdown-menu {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-.dark-theme .comments-dropdown-item.active {
-  background-color: rgba(76, 143, 189, 0.15);
+  color: var(--border-focus-color);
 }
 
 /* 响应式适配 */
