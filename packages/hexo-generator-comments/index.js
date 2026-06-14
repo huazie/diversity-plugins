@@ -29,6 +29,9 @@ hexo.on('ready', () => {
 
 // 在生成器解析前执行
 hexo.extend.filter.register('before_generate', () => {
+    // 注册插件的多语言文件
+    require('./lib/i18n')(hexo, __dirname);
+
     // 添加辅助函数（Helper）
     require('./lib/helper')(hexo, utils);
 

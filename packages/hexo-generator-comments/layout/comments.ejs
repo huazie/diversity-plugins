@@ -6,7 +6,7 @@
         <% if (theme.view_injects.comment.length === 1) { %>
             <% const inject_item = theme.view_injects.comment[0] %>
                 <% if (inject_item.locals.showLoading) { %>
-                    <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
+                    <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : __('comments.loading')}) %>
                 <% } %>
             <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
         <% } else if (theme.view_injects.comment.length > 1) { %>
@@ -28,7 +28,7 @@
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <div id="comments-<%= inject_item.locals.class %>" 
                                 class="comments-tab-pane <%= inject_item.locals.active %>">
-                                <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
+                                <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : __('comments.loading')}) %>
                                 <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
                             </div>
                         <% } %>
@@ -75,7 +75,7 @@
                             <% const inject_item = theme.view_injects.comment[i] %>
                             <div id="comments-<%= inject_item.locals.class %>" 
                                 class="comments-dropdown-pane <%= inject_item.locals.active %>">
-                                <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) %>
+                                <%- partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : __('comments.loading')}) %>
                                 <%- partial(inject_item.layout, inject_item.locals, inject_item.options) %>
                             </div>
                         <% } %>
