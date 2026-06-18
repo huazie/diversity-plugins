@@ -37,6 +37,26 @@ function process(file) {
         }
         return;
     }
+    if (!doc) {
+        // 查找主题下是否已经处理过相同的资源文件
+        const themeName = this.config.theme;
+        // 统一处理 path，确保没有多余的斜杠
+        const cleanPath = path.replace(/^\/+/, '').replace(/\\/g, '/');
+        let tDoc = Asset.findById(`themes/${themeName}/source/${cleanPath}`);
+        if (!tDoc) {
+            tDoc = Asset.findById(`node_modules/hexo-theme-${themeName}/source/${cleanPath}`);
+        }
+        // 兼容 hexo 7.2.0 及之前的版本【WINDOWS下路径为反斜杠】
+        if (!tDoc) {
+            const winPath = cleanPath.replace(/\//g, '\\');
+            tDoc = Asset.findById(`themes\\${themeName}\\source\\${winPath}`);
+            if (!tDoc) {
+                tDoc = Asset.findById(`node_modules\\hexo-theme-${themeName}\\source\\${winPath}`);
+            }
+        }
+        // 如果找到，则不需要再添加资源了    
+        if (tDoc) return;
+    }
     return Asset.save({
         _id: id,
         path,
