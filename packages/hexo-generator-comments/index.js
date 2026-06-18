@@ -23,8 +23,6 @@ hexo.on('ready', () => {
     const { name, version } = require('./package.json');
     // 在 Hexo 初始化完成后输出插件信息
     hexo.log.info(`[${hexo.config.theme}] ${name} v${version}`);
-    // 处理 layout 和 source 目录文件
-    comment.process();
 }, 1);
 
 // 在生成器解析前执行
@@ -37,4 +35,9 @@ hexo.extend.filter.register('before_generate', () => {
 
     // 添加主题注入过滤器处理 theme_inject
     require('./lib/injects')(hexo, utils);
+
+    // 处理插件的 layout 和 source 目录文件
+    // Box.process() 返回 Promise，Hexo 的 execFilter 会 await 它
+    // 这样确保所有资源文件在生成器运行前处理完毕，避免后台异步导致的重复生成
+    return comment.process();
 }, 0);
