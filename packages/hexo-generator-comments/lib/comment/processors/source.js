@@ -55,7 +55,10 @@ function process(file) {
             }
         }
         // 如果找到，则不需要再添加资源了    
-        if (tDoc) return;
+        if (tDoc) {
+            this.log.warn(`主题[${themeName}]中资源文件[source/${path}] 已存在，评论插件跳过处理`);
+            return;
+        }
     }
     return Asset.save({
         _id: id,
