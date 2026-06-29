@@ -260,15 +260,19 @@
         }
 
         & a.gitment-editor-login-link,
-        & a.gitment-editor-login-link:visited,
-        & a.gitment-editor-login-link:hover {
+        & a.gitment-editor-login-link:visited {
             color: var(--text-color) !important;
+        }
+        & a.gitment-editor-login-link:hover {
+            color: var(--gm-btn-primary-hover-bg) !important;
         }
 
         & a.gitment-editor-logout-link,
-        & a.gitment-editor-logout-link:visited,
-        & a.gitment-editor-logout-link:hover {
+        & a.gitment-editor-logout-link:visited {
             color: var(--gm-text-secondary-color) !important;
+        }
+        & a.gitment-editor-logout-link:hover {
+            color: var(--gm-btn-primary-disabled-bg) !important;
         }
 
         /* Footer */
@@ -401,7 +405,52 @@
 }) }}
 
 <script>
+(function() {
     const loadGitment = () => {
+        // 尝试从 localStorage 读取已存储的 token
+        let preinitToken = null;
+        try {
+            preinitToken = Diversity.data.get('gitment-comments-token');
+        } catch (e) {}
+
+        // ===== XHR 劫持 =====
+        // 尝试从隐藏 iframe 获取真正原生的 XMLHttpRequest.open。
+        if (!preinitToken && conf.gitment.proxy) {
+            var NativeXHR, nativeOpen;
+            try {
+                var frame = document.createElement('iframe');
+                frame.style.display = 'none';
+                frame.src = 'about:blank';
+                document.body.appendChild(frame);
+                NativeXHR = frame.contentWindow.XMLHttpRequest;
+                nativeOpen = NativeXHR.prototype.open;
+                // 不能 removeChild！NativeXHR 实例绑定在 iframe 的 document 上，
+                // 删除 iframe 会导致 document detached，后续 send() 报 NetworkError。
+            } catch(e) {
+                // iframe 不可用，回退当前页面原型
+                NativeXHR = window.XMLHttpRequest;
+                nativeOpen = NativeXHR.prototype.open;
+            }
+            if (!nativeOpen) {
+                console.warn('[Gitment] XHR hijack skipped: native open unavailable');
+                return;
+            }
+
+            window.XMLHttpRequest = function PatchedXHR() {
+                var xhr = new NativeXHR();
+                xhr.open = function(method, url) {
+                    if (url && url.indexOf('gh-oauth.imsun.net') !== -1) {
+                        return nativeOpen.call(this, method, conf.gitment.proxy);
+                    }
+                    return nativeOpen.call(this, method, url);
+                };
+                return xhr;
+            };
+            ['UNSENT', 'OPENED', 'HEADERS_RECEIVED', 'LOADING', 'DONE'].forEach(function(k) {
+                window.XMLHttpRequest[k] = NativeXHR[k];
+            });
+        }
+
         const loadingElement = document.getElementById('loading-gitment');
         // 配色方案刷新，重新加载评论
         // 加载提示被隐藏，需要再次显示
@@ -444,17 +493,17 @@
                 if (conf.gitment.labels && Array.isArray(conf.gitment.labels) && conf.gitment.labels.length > 0)
                     confgObj.labels = conf.gitment.labels;
 
-                if (conf.gitment.proxy) {
-                    const origOpen = XMLHttpRequest.prototype.open;
-                    XMLHttpRequest.prototype.open = function(method, url, ...args) {
-                        if (url === 'https://gh-oauth.imsun.net') {
-                            return origOpen.call(this, method, conf.gitment.proxy, ...args);
-                        }
-                        return origOpen.call(this, method, url, ...args);
-                    };
+                // 如果有 token，直接注入，表示通过外部进行 OAuth 流程【Diversity Comments 使用】
+                if (preinitToken) {
+                    confgObj.oauth.token = preinitToken;
                 }
+
                 const gitment = new Gitment(confgObj);
                 gitment.render(document.querySelector('.gitment-wrap'));
+
+                if (loadingElement && document.querySelector('.gitment-container')) {
+                    loadingElement.classList.add('hidden');
+                }
             });
 
         // Gitment加载检测（Gitment通过DOM渲染，非iframe方案）
@@ -474,5 +523,6 @@
 
     document.addEventListener('page:loaded', loadGitment);
     document.addEventListener('color-scheme:refresh', loadGitment);
+})();
 </script>
 
