@@ -96,7 +96,14 @@
 }) %>
 
 <script>
+(function() {
     const loadGitalk = () => {
+        // 尝试从 localStorage 读取已存储的 token（Gitalk 使用 GT_ACCESS_TOKEN）
+        var preinitToken = null;
+        try {
+            preinitToken = localStorage.getItem('GT_ACCESS_TOKEN');
+        } catch (e) {}
+
         const loadingElement = document.getElementById('loading-gitalk');
         // 配色方案刷新，重新加载评论
         // 加载提示被隐藏，需要再次显示
@@ -117,7 +124,7 @@
                     gitalkId = window.location.href;
                 else if (issueTerm === 'title')
                     gitalkId = window.document.title;
-                else if (Diversity.validate.test('pNum', issueTerm)) {
+                else if (Diversity.validate && Diversity.validate.test('pNum', issueTerm)) {
                     number = parseInt(issueTerm, 10);
                 }
             })
@@ -136,10 +143,22 @@
                     proxy: conf.gitalk.proxy,
                     distractionFreeMode: conf.gitalk.distraction_free_mode
                 }
+
+                // 如果已存储 token，直接传给 Gitalk，表示通过外部进行 OAuth 流程【Diversity Comments 使用】
+                if (preinitToken) {
+                    confgObj.token = preinitToken;
+                }
+
                 if (conf.gitalk.language)
                     confgObj.language = conf.gitalk.language;
+
                 const gitalk = new Gitalk(confgObj);
                 gitalk.render(document.querySelector('.gitalk-wrap'));
+
+                // 渲染完成后隐藏 loading
+                if (loadingElement && document.querySelector('.gt-container')) {
+                    loadingElement.classList.add('hidden');
+                }
             });
 
         // Gitalk加载检测（Gitalk通过DOM渲染，非iframe方案）
@@ -159,4 +178,5 @@
 
     document.addEventListener('page:loaded', loadGitalk);
     document.addEventListener('color-scheme:refresh', loadGitalk);
+})();
 </script>
