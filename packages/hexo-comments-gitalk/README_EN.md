@@ -96,6 +96,9 @@ gitalk:
 | `url` | Use full page URL as issue title | When domain information is needed |
 | `title` | Use page title as issue title | When you want more friendly issue titles |
 | `[issue-number]` | Specify specific issue number | Manual comment management |
+| `custom-string` | Use string directly as issue title | Aggregate comments from multiple pages into one issue |
+
+> **Note**: Besides the built-in mapping methods above, you can also specify any arbitrary string as `issue_term`. All pages matching that string will share the same GitHub Issue.
 
 **language Options**
 

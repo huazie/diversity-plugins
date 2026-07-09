@@ -96,6 +96,9 @@ gitalk:
 | `url` | 使用页面完整 URL 作为 issue 标题 | 需要包含域名信息时 |
 | `title` | 使用页面标题作为 issue 标题 | 希望 issue 标题更友好 |
 | `[issue-number]` | 指定特定的 issue 编号 | 手动管理评论 |
+| `自定义字符串` | 直接使用字符串作为 issue 标题 | 将多个页面的评论聚合到同一个 issue |
+
+> **注意**：除了上述内置映射方式外，你还可以指定任意字符串作为 `issue_term`，所有匹配该字符串的页面将共享同一个 GitHub Issue。
 
 **language 语言选项**
 

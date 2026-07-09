@@ -132,9 +132,10 @@ module.exports = class extends Component {
                                 gitalkId = window.location.href;
                             else if (issueTerm === 'title')
                                 gitalkId = window.document.title;
-                            else if (Diversity.validate && Diversity.validate.test('pNum', issueTerm)) {
+                            else if (Diversity.validate && Diversity.validate.test('pNum', issueTerm))
                                 number = parseInt(issueTerm, 10);
-                            }
+                            else 
+                                gitalkId = issueTerm;
                         })
                         .then(() => {
                             if (gitalkId)

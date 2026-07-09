@@ -34,7 +34,8 @@ gitalk:
   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
   # 指定GitHub issue的匹配规则
   # 其中 pathname | url | title 用来匹配 issue 的标签，`issue number` 是 issue的编号（一个正数）
-  # Available values: pathname | url | title | `issue number`
+  # 也可以指定任意字符串作为 issue_term，所有匹配该字符串的页面将共享同一个 GitHub Issue
+  # Available values: pathname | url | title | `issue number` | any custom string
   issue_term: pathname
   # Gitalk 的显示语言取决于用户的浏览器或系统环境。
   # Gitalk's display language depends on user's browser or system environment
