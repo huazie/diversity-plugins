@@ -3,11 +3,35 @@
 }) %>
 
 <script>
+(function() {
+    // Giscus 加载完成 → 隐藏 loading
+    // Giscus OAuth 完成后会重新加载 iframe，触发 message 消息
+    window.addEventListener('message', (e) => {
+        if (!e.data || typeof e.data !== 'object') return;
+        // Giscus 加载完成（数据中存在 giscus 字段）→ 隐藏 loading
+        if (e.data.giscus) {
+            document.getElementById('loading-giscus')?.classList.add('hidden');
+        }
+    });
+
     const loadGiscus = () => {
         const loadingElement = document.getElementById('loading-giscus');
         // 配色方案刷新，重新加载评论
         // 加载提示被隐藏，需要再次显示
         loadingElement?.classList.remove('hidden');
+
+        // 清除旧的 Giscus iframe（如果存在）
+        const wrap = document.querySelector('.giscus-wrap');
+        if (wrap) {
+            const oldIframe = wrap.querySelector('iframe.giscus-frame');
+            if (oldIframe) {
+                oldIframe.remove();
+            }
+            const oldScript = wrap.querySelector('script[src*="giscus.app"]');
+            if (oldScript) {
+                oldScript.remove();
+            }
+        }
 
         let lang;
         // 加载评论模块
@@ -17,8 +41,8 @@
                 if (!lang)
                     lang = window.navigator.language;
             })
-            .then(() => Diversity.utils.getScript(conf.giscus.js, {
-                attributes: {
+            .then(() => {
+                const attrs = {
                     async                   : true,
                     crossOrigin             : 'anonymous',
                     'data-repo'             : conf.giscus.repo,
@@ -34,20 +58,15 @@
                     'data-lang'             : lang,
                     'data-input-position'   : conf.giscus.input_position,
                     'data-loading'          : conf.giscus.data_loading
-                },
-                parentNode: document.querySelector('.giscus-wrap')
-            }));
-
-        // Giscus加载
-        window.addEventListener('message', (e) => {
-            if (e.data && e.data.giscus) {
-                // 检测到Giscus iframe发送了消息，且数据中存在giscus
-                // 则认为Giscus评论已加载，隐藏加载提示
-                loadingElement?.classList.add('hidden');
-            }
-        });
+                };
+                return Diversity.utils.getScript(conf.giscus.js, {
+                    attributes: attrs,
+                    parentNode: document.querySelector('.giscus-wrap')
+                });
+            });
     }
 
     document.addEventListener('page:loaded', loadGiscus);
     document.addEventListener('color-scheme:refresh', loadGiscus);
+})();
 </script>
