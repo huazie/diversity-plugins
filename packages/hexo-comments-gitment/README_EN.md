@@ -75,6 +75,15 @@ gitment:
   max_comment_height: 250
   # OAuth proxy URL (optional), the default proxy gh-oauth.imsun.net is no longer available, deploy your own
   proxy:
+  # Enable Gitmint enhancement (optional), Gitmint is a Gitment-compatible alternative
+  # that fixes multiple Gitment issues. When enabled, CSS/JS/CommentClass will be replaced
+  gitmint: false
+  # Gitmint JS URL (optional), only effective when gitmint: true
+  gitmint_js:
+  # Gitmint CSS URL (optional), only effective when gitmint: true
+  gitmint_css:
+  # Comment UI language, only effective when gitmint: true, e.g. zh-CN, en-US (optional, default en-US)
+  lang: 
 ```
 
 > **Important**: Replace the placeholders in the configuration with your actual GitHub application information
@@ -98,6 +107,10 @@ gitment:
 | `per_page` | Number | `20` | No | Number of comments per page |
 | `max_comment_height` | Number | `250` | No | Max height of comments (px), over which comments will be folded |
 | `proxy` | String | - | No | OAuth proxy URL, for resolving authentication issues |
+| `gitmint` | Boolean | `false` | No | Enable Gitmint enhancement, mutually exclusive with Gitment |
+| `gitmint_js` | String | CDN | No | Gitmint JS URL, only effective when gitmint: true |
+| `gitmint_css` | String | CDN | No | Gitmint CSS URL, only effective when gitmint: true |
+| `lang` | String | `en-US` | No | Comment UI language (Gitmint only), e.g. zh-CN, en-US |
 
 ### Advanced Configuration Options
 
@@ -124,6 +137,24 @@ Once deployed, configure the proxy address:
 gitment:
   proxy: https://your-proxy-server.com
 ```
+
+**Gitmint Enhancement**
+
+[Gitmint](https://www.npmjs.com/package/gitmint) is a Gitment-compatible alternative that fixes multiple Gitment issues (e.g., OAuth login failures). When enabled, CSS/JS/CommentClass will be completely switched to Gitmint, mutually exclusive with Gitment.
+
+```yaml
+gitment:
+  # Enable Gitmint enhancement (default: false)
+  gitmint: true
+  # Gitmint JS URL (optional, uses default CDN if not specified)
+  gitmint_js: https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/dist/gitmint.browser.js
+  # Gitmint CSS URL (optional, uses default CDN if not specified)
+  gitmint_css: https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/style/default.css
+  # Comment UI language, only effective when gitmint: true, e.g. zh-CN, en-US (optional, default en-US)
+  lang: 
+```
+
+> **Note**: When Gitmint is enabled, the original Gitment JS/CSS will not be loaded. Other configurations such as `owner`, `repo`, `client_id`, `client_secret` remain unchanged.
 
 ### Supported Template Engines
 

@@ -4,7 +4,11 @@ module.exports = class extends Component {
     render() {
         const { theme, helper } = this.props;
         // 获取资源标签的 HTML 字符串
-        const gitmentCSSData = '<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">';
+        const gitmintEnabled = theme.gitment && theme.gitment.gitmint;
+        const gitmintCSS = gitmintEnabled
+            ? '<link rel="stylesheet" href="' + (theme.gitment.gitmint_css || 'https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/style/default.css') + '">'
+            : '<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">';
+        const gitmentCSSData = gitmintCSS;
 
         const gitmentCSSData1 = 
             `<style>
@@ -459,10 +463,15 @@ module.exports = class extends Component {
                     // 加载提示被隐藏，需要再次显示
                     loadingElement?.classList.remove('hidden');
 
-                    // 加载评论模块
-                    Diversity.utils.loadComments('.gitment-wrap')
-                        .then(() => Diversity.utils.getScript(conf.gitment.js, {
-                            condition: window.Gitment
+                    const useGitmint = conf.gitment.gitmint;
+                    const gitmintJsDefault = 'https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/dist/gitmint.browser.js';
+                    const scriptUrl = useGitmint ? (conf.gitment.gitmint_js || gitmintJsDefault) : conf.gitment.js;
+                    const commentClass = useGitmint ? 'Gitmint' : 'Gitment';
+
+                    const wrapSelector = '.gitment-wrap';
+                    Diversity.utils.loadComments(wrapSelector)
+                        .then(() => Diversity.utils.getScript(scriptUrl, {
+                            condition: window[commentClass]
                         }))
                         .then(() => {
                             let issueTerm = conf.gitment.issue_term;
@@ -495,13 +504,17 @@ module.exports = class extends Component {
                                 confgObj.desc = conf.gitment.desc;
                             if (conf.gitment.labels && Array.isArray(conf.gitment.labels) && conf.gitment.labels.length > 0)
                                 confgObj.labels = conf.gitment.labels;
+                            if (conf.gitment.lang)
+                                confgObj.lang = conf.gitment.lang;
+
                             // 如果有 token，直接注入，表示通过外部进行 OAuth 流程【Diversity Comments 使用】
                             if (preinitToken) {
                                 confgObj.oauth.token = preinitToken;
                             }
 
-                            const gitment = new Gitment(confgObj);
-                            gitment.render(document.querySelector('.gitment-wrap'));
+                            const CommentClass = window[commentClass];
+                            const instance = new CommentClass(confgObj);
+                            instance.render(document.querySelector(wrapSelector));
 
                             if (loadingElement && document.querySelector('.gitment-container')) {
                                 loadingElement.classList.add('hidden');

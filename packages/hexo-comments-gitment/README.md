@@ -75,6 +75,15 @@ gitment:
   max_comment_height: 250
   # OAuth 代理地址（可选），默认代理 gh-oauth.imsun.net 已失效，需自行部署
   proxy:
+  # 是否启用 Gitmint 增强（可选），Gitmint 是 Gitment 的兼容替代品，修复了 Gitment 的多个问题
+  # 启用后 CSS/JS/CommentClass 完全替换为 Gitmint，与 Gitment 互斥
+  gitmint: false
+  # Gitmint JS 地址（可选），仅在 gitmint: true 时生效，不填则使用默认 CDN
+  gitmint_js:
+  # Gitmint CSS 地址（可选），仅在 gitmint: true 时生效，不填则使用默认 CDN
+  gitmint_css:
+  # 评论界面语言，仅在 gitmint: true 时生效，如 zh-CN, en-US 等（可选，默认 en-US）
+  lang: 
 ```
 
 > **重要**：请将配置中的占位符替换为您的实际 GitHub 应用信息
@@ -98,6 +107,10 @@ gitment:
 | `per_page` | Number | `20` | 否 | 评论每页显示数量 |
 | `max_comment_height` | Number | `250` | 否 | 评论最大高度限制（px），超过则折叠 |
 | `proxy` | String | - | 否 | OAuth 代理地址，用于解决认证问题 |
+| `gitmint` | Boolean | `false` | 否 | 是否启用 Gitmint 增强，与 Gitment 互斥 |
+| `gitmint_js` | String | CDN | 否 | Gitmint JS 地址，仅在 gitmint: true 时生效 |
+| `gitmint_css` | String | CDN | 否 | Gitmint CSS 地址，仅在 gitmint: true 时生效 |
+| `lang` | String | `en-US` | 否 | 评论界面语言（仅 Gitmint），如 zh-CN, en-US 等 |
 
 ### 高级配置选项
 
@@ -124,6 +137,24 @@ gitment:
 gitment:
   proxy: https://your-proxy-server.com
 ```
+
+**Gitmint 增强支持**
+
+[Gitmint](https://www.npmjs.com/package/gitmint) 是 Gitment 的兼容替代品，修复了 Gitment 的多个问题（如 OAuth 登录失败等）。启用后 CSS/JS/CommentClass 完全切换为 Gitmint，与 Gitment 互斥。
+
+```yaml
+gitment:
+  # 启用 Gitmint 增强（默认 false）
+  gitmint: true
+  # Gitmint JS 地址（可选，不填则使用默认 CDN）
+  gitmint_js: https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/dist/gitmint.browser.js
+  # Gitmint CSS 地址（可选，不填则使用默认 CDN）
+  gitmint_css: https://cdn.jsdelivr.net/npm/gitmint@0.0.3-update.3/style/default.css
+  # 评论界面语言，仅在 gitmint: true 时生效，如 zh-CN, en-US 等（可选，默认 en-US）
+  lang: 
+```
+
+> **注意**：启用 Gitmint 后原 Gitment 的 JS/CSS 将不再加载，`owner`、`repo`、`client_id`、`client_secret` 等其他配置保持不变。
 
 ### 支持的模板引擎
 

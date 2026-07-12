@@ -51,3 +51,17 @@ gitment:
   # OAuth proxy URL (optional), used to resolve OAuth authentication issues
   # The default proxy gh-oauth.imsun.net is no longer available, you need to deploy your own proxy
   proxy:
+  # 是否启用 Gitmint 增强（可选），Gitmint 是 Gitment 的兼容替代品，修复了 Gitment 的多个问题
+  # 启用后 CSS/JS/CommentClass 完全替换为 Gitmint，与 Gitment 互斥
+  # Enable Gitmint enhancement (optional), Gitmint is a Gitment-compatible alternative
+  # that fixes multiple Gitment issues. When enabled, CSS/JS/CommentClass will be replaced
+  gitmint: false
+  # Gitmint JS 地址（可选），仅在 gitmint: true 时生效，不填则使用默认 CDN
+  # Gitmint JS URL (optional), only effective when gitmint: true
+  gitmint_js:
+  # Gitmint CSS 地址（可选），仅在 gitmint: true 时生效，不填则使用默认 CDN
+  # Gitmint CSS URL (optional), only effective when gitmint: true
+  gitmint_css:
+  # 评论界面语言，仅在 gitmint: true 时生效，如 zh-CN, en-US 等（可选，默认 en-US）
+  # Comment UI language, only effective when gitmint: true, e.g. zh-CN, en-US (optional, default en-US)
+  lang: 
