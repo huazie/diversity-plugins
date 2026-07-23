@@ -35,35 +35,33 @@
                 {{ js('js/tab') }}
             {% elif theme.comments.style == 'dropdown' %}
                 <div class="comments-dropdown">
-                    <div class="comments-selector">
-                        <div class="comments-custom-dropdown" id="comment-nav-dropdown">
-                            <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
-                                <span class="comments-dropdown-label">
-                                    <span class="comments-dropdown-text"></span>
-                                </span>
-                                <span class="comments-dropdown-arrow">
-                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                            </button>
-                            <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
-                                {% for inject_item in theme.view_injects.comment %}
-                                    <div class="comments-dropdown-item {{ 'active' if inject_item.locals.active else '' }}" 
-                                         role="option" 
-                                         data-value="{{ inject_item.locals.class }}"
-                                         data-text="{{ inject_item.locals.text }}">
-                                        <span class="comments-dropdown-item-text">{{ inject_item.locals.text }}</span>
-                                        {% if inject_item.locals.active %}
-                                            <span class="comments-dropdown-check">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </span>
-                                        {% endif %}
-                                    </div>
-                                {% endfor %}
-                            </div>
+                    <div class="comments-custom-dropdown" id="comment-nav-dropdown">
+                        <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="comments-dropdown-label">
+                                <span class="comments-dropdown-text"></span>
+                            </span>
+                            <span class="comments-dropdown-arrow">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
+                            {% for inject_item in theme.view_injects.comment %}
+                                <div class="comments-dropdown-item {{ 'active' if inject_item.locals.active else '' }}" 
+                                        role="option" 
+                                        data-value="{{ inject_item.locals.class }}"
+                                        data-text="{{ inject_item.locals.text }}">
+                                    <span class="comments-dropdown-item-text">{{ inject_item.locals.text }}</span>
+                                    {% if inject_item.locals.active %}
+                                        <span class="comments-dropdown-check">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
 

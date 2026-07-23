@@ -15,36 +15,34 @@ module.exports = class MultiCommentDropdown extends Component {
         return (
             <div class="comment-inner">
                 <div class="comments-dropdown">
-                    <div class="comments-selector">
-                        <div class="comments-custom-dropdown" id="comment-nav-dropdown">
-                            <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
-                                <span class="comments-dropdown-label">
-                                    <span class="comments-dropdown-text"></span>
-                                </span>
-                                <span class="comments-dropdown-arrow">
-                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                        <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                            </button>
-                            <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
-                                {injectItems.map((item) => (
-                                    <div 
-                                        class={`comments-dropdown-item ${item.locals.active ? 'active' : ''}`}
-                                        role="option" 
-                                        data-value={item.locals.class}
-                                        data-text={item.locals.text}>
-                                        <span class="comments-dropdown-item-text">{item.locals.text}</span>
-                                        {item.locals.active && (
-                                            <span class="comments-dropdown-check">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                            </span>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
+                    <div class="comments-custom-dropdown" id="comment-nav-dropdown">
+                        <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="comments-dropdown-label">
+                                <span class="comments-dropdown-text"></span>
+                            </span>
+                            <span class="comments-dropdown-arrow">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
+                            {injectItems.map((item) => (
+                                <div 
+                                    class={`comments-dropdown-item ${item.locals.active ? 'active' : ''}`}
+                                    role="option" 
+                                    data-value={item.locals.class}
+                                    data-text={item.locals.text}>
+                                    <span class="comments-dropdown-item-text">{item.locals.text}</span>
+                                    {item.locals.active && (
+                                        <span class="comments-dropdown-check">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                    )}
+                                </div>
+                            ))}
                         </div>
                     </div>
 
