@@ -1,0 +1,79 @@
+{% set style = theme.comments.style or 'tabs' %}
+
+{{ css('css/comments') }}
+{{ diversity_data('comments', comments_config()) }}
+{{ js('js/diversity') }}
+
+<div class="comment-wrap">
+    <div class="comment-inner">
+        {% if theme.view_injects.comment.length == 1 %}
+            {% set inject_item = theme.view_injects.comment[0] %}
+            {% if inject_item.locals.showLoading %}
+                {{ partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : __('comments.loading')}) }}
+            {% endif %}
+            {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}
+
+        {% elif theme.view_injects.comment.length > 1 %}
+            <div class="comments-tabbable"{% if style == 'dropdown' %} style="display:none"{% endif %}>
+                <ul id="comment-nav-tab" class="comments-nav comments-nav-tabs">
+                    {% for item in theme.view_injects.comment %}
+                        <li class="{{ item.locals.active }}">
+                            <a data-toggle="tab" href="#comments-{{ item.locals.class }}" data-comments="{{ item.locals.class }}">
+                                {{ item.locals.text }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="comments-dropdown"{% if style == 'tabs' %} style="display:none"{% endif %}>
+                <div class="comments-custom-dropdown" id="comment-nav-dropdown">
+                    <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
+                        <span class="comments-dropdown-label">
+                            <span class="comments-dropdown-text"></span>
+                        </span>
+                        <span class="comments-dropdown-arrow">
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </button>
+                    <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu">
+                        {% for item in theme.view_injects.comment %}
+                            <div class="comments-dropdown-item{{ ' active' if item.locals.active else '' }}"
+                                    role="option"
+                                    data-value="{{ item.locals.class }}"
+                                    data-text="{{ item.locals.text }}">
+                                <span class="comments-dropdown-item-text">{{ item.locals.text }}</span>
+                                {% if item.locals.active %}
+                                    <span class="comments-dropdown-check">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                            <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="comments-tab-content comments-dropdown-content">
+                {% for item in theme.view_injects.comment %}
+                    <div id="comments-{{ item.locals.class }}"
+                         class="comments-tab-pane comments-dropdown-pane{{ ' active' if item.locals.active else '' }}"
+                         data-comments="{{ item.locals.class }}">
+                        {{ partial('_partial/loading', {showLoading : item.locals.showLoading, id : 'loading-' + item.locals.configKey, text : __('comments.loading')}) }}
+                        {{ partial(item.layout, item.locals, item.options) }}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {{ js('js/js.cookie-2.2.1.min') }}
+            {{ js('js/tab') }}
+            {{ js('js/dropdown') }}
+        {% endif %}
+    </div>
+</div>
+
+{{ diversity_injects('pageEnd') }}
