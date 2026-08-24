@@ -91,317 +91,335 @@
 
     .gitment-container {
         color: var(--text-color) !important;
+    }
 
         /* Links */
-        & a,
-        & a:visited {
-            color: var(--text-color) !important;
-            border-bottom: 0;
-        }
-        & a:hover {
-            color: var(--text-color) !important;
-        }
+    .gitment-container a,
+    .gitment-container a:visited {
+        color: var(--text-color) !important;
+        border-bottom: 0;
+    }
+
+    .gitment-container a:hover {
+        color: var(--text-color) !important;
+    }
 
         /* Spinner */
-        & .gitment-spinner-icon {
-            fill: var(--gm-spinner-fill) !important;
-        }
+    .gitment-container .gitment-spinner-icon {
+        fill: var(--gm-spinner-fill) !important;
+    }
 
         /* Header */
-        & .gitment-header {
-            border-color: var(--gm-border-color) !important;
-        }
+    .gitment-container .gitment-header {
+        border-color: var(--gm-border-color) !important;
+    }
 
-        & .gitment-header-issue-link,
-        & .gitment-header-issue-link:visited,
-        & .gitment-header-issue-link:hover {
-            color: var(--gm-text-secondary-color) !important;
-        }
+    .gitment-container .gitment-header-issue-link,
+    .gitment-container .gitment-header-issue-link:visited,
+    .gitment-container .gitment-header-issue-link:hover {
+        color: var(--gm-text-secondary-color) !important;
+    }
 
         /* Buttons */
-        & .gitment-btn {
-            background-color: var(--gm-btn-bg-color) !important;
-            border-color: var(--gm-btn-border-color) !important;
-            color: var(--text-color) !important;
+    .gitment-container .gitment-btn {
+        background-color: var(--gm-btn-bg-color) !important;
+        border-color: var(--gm-btn-border-color) !important;
+        color: var(--text-color) !important;
+    }
 
-            &:hover {
-                background-color: var(--gm-btn-hover-bg-color) !important;
-            }
-        }
+    .gitment-container .gitment-btn:hover {
+        background-color: var(--gm-btn-hover-bg-color) !important;
+    }
 
-        & .gitment-editor-submit,
-        & .gitment-comments-init-btn {
-            color: var(--gm-btn-primary-text) !important;
-            background-color: var(--gm-btn-primary-bg) !important;
+    .gitment-container .gitment-editor-submit,
+    .gitment-container .gitment-comments-init-btn {
+        color: var(--gm-btn-primary-text) !important;
+        background-color: var(--gm-btn-primary-bg) !important;
+    }
 
-            &:hover {
-                background-color: var(--gm-btn-primary-hover-bg) !important;
-            }
+    .gitment-container .gitment-editor-submit:hover,
+    .gitment-container .gitment-comments-init-btn:hover {
+        background-color: var(--gm-btn-primary-hover-bg) !important;
+    }
 
-            &:disabled {
-                color: rgba(255,255,255,0.75) !important;
-                background-color: var(--gm-btn-primary-disabled-bg) !important;
-            }
-        }
+    .gitment-container .gitment-editor-submit:disabled,
+    .gitment-container .gitment-comments-init-btn:disabled {
+        color: rgba(255,255,255,0.75) !important;
+        background-color: var(--gm-btn-primary-disabled-bg) !important;
+    }
 
         /* Like button */
-        & .gitment-comment-like-btn,
-        & .gitment-comment-like-btn svg,
-        & .gitment-header-like-btn svg {
-            color: var(--text-color) !important;
-            fill: var(--text-color) !important;
-        }
+    .gitment-container .gitment-comment-like-btn,
+    .gitment-container .gitment-comment-like-btn svg,
+    .gitment-container .gitment-header-like-btn svg {
+        color: var(--text-color) !important;
+        fill: var(--text-color) !important;
+    }
 
-        & .gitment-comment-like-btn.liked,
-        & .gitment-comment-like-btn.liked svg,
-        & .gitment-header-like-btn.liked svg {
-            color: var(--gm-like-color) !important;
-            fill: var(--gm-like-color) !important;
-        }
+    .gitment-container .gitment-comment-like-btn.liked,
+    .gitment-container .gitment-comment-like-btn.liked svg,
+    .gitment-container .gitment-header-like-btn.liked svg {
+        color: var(--gm-like-color) !important;
+        fill: var(--gm-like-color) !important;
+    }
 
         /* Comment */
-        & .gitment-comment {
-            border-color: var(--gm-border-color) !important;
-        }
+    .gitment-container .gitment-comment {
+        border-color: var(--gm-border-color) !important;
+    }
 
-        & .gitment-comment-main,
-        & .gitment-comment-body {
-            color: var(--gm-comment-body-color) !important;
-        }
+    .gitment-container .gitment-comment-main,
+    .gitment-container .gitment-comment-body {
+        color: var(--gm-comment-body-color) !important;
+    }
 
-        & .gitment-comment-body {
-            background-color: var(--gm-comment-bg-color) !important;
-        }
+    .gitment-container .gitment-comment-body {
+        background-color: var(--gm-comment-bg-color) !important;
+    }
 
-        & .gitment-admin-comment .gitment-comment-body {
-            background-color: var(--gm-admin-comment-bg-color) !important;
-        }
+    .gitment-container .gitment-admin-comment .gitment-comment-body {
+        background-color: var(--gm-admin-comment-bg-color) !important;
+    }
 
-        & .gitment-comment-main {
-            border-color: var(--gm-border-color) !important;
+    .gitment-container .gitment-comment-main {
+        border-color: var(--gm-border-color) !important;
+    }
 
-            &::before {
-                border-right-color: var(--gm-border-color) !important;
-            }
-            &::after {
-                border-right-color: var(--gm-comment-arrow-bg) !important;
-            }
-        }
+    .gitment-container .gitment-comment-main::before {
+        border-right-color: var(--gm-border-color) !important;
+    }
 
-        & .gitment-comment-header {
-            color: var(--gm-comment-header-color) !important;
-            background-color: var(--gm-comment-header-bg) !important;
-        }
+    .gitment-container .gitment-comment-main::after {
+        border-right-color: var(--gm-comment-arrow-bg) !important;
+    }
 
-        & a.gitment-comment-name,
-        & a.gitment-comment-name:visited {
-            color: var(--gm-text-secondary-color) !important;
-        }
+    .gitment-container .gitment-comment-header {
+        color: var(--gm-comment-header-color) !important;
+        background-color: var(--gm-comment-header-bg) !important;
+    }
+
+    .gitment-container a.gitment-comment-name,
+    .gitment-container a.gitment-comment-name:visited {
+        color: var(--gm-text-secondary-color) !important;
+    }
 
         /* Comment body folded */
-        & .gitment-comment-body-folded {
-            &::before {
-                background: -webkit-linear-gradient(top, transparent, var(--gm-fold-gradient-end)) !important;
-                background: linear-gradient(180deg, transparent, var(--gm-fold-gradient-end)) !important;
-            }
-            &::after {
-                color: var(--gm-text-secondary-color) !important;
-                background: var(--gm-fold-gradient-end) !important;
-            }
-        }
+    .gitment-container .gitment-comment-body-folded::before {
+        background: -webkit-linear-gradient(top, transparent, var(--gm-fold-gradient-end)) !important;
+        background: linear-gradient(180deg, transparent, var(--gm-fold-gradient-end)) !important;
+    }
+
+    .gitment-container .gitment-comment-body-folded::after {
+        color: var(--gm-text-secondary-color) !important;
+        background: var(--gm-fold-gradient-end) !important;
+    }
 
         /* Editor */
-        & .gitment-editor-container {
-            color: var(--text-color) !important;
-        }
+    .gitment-container .gitment-editor-container {
+        color: var(--text-color) !important;
+    }
 
-        & .gitment-editor-main {
-            border-color: var(--gm-border-color) !important;
+    .gitment-container .gitment-editor-main {
+        border-color: var(--gm-border-color) !important;
+    }
 
-            &::before {
-                border-right-color: var(--gm-border-color) !important;
-            }
-            &::after {
-                border-right-color: var(--gm-comment-arrow-bg) !important;
-            }
-        }
+    .gitment-container .gitment-editor-main::before {
+        border-right-color: var(--gm-border-color) !important;
+    }
 
-        & .gitment-editor-header {
-            border-bottom-color: var(--gm-border-color) !important;
-        }
+    .gitment-container .gitment-editor-main::after {
+        border-right-color: var(--gm-comment-arrow-bg) !important;
+    }
 
-        & .gitment-editor-tab {
-            color: var(--gm-text-secondary-color) !important;
+    .gitment-container .gitment-editor-header {
+        border-bottom-color: var(--gm-border-color) !important;
+    }
 
-            &.gitment-selected {
-                color: var(--text-color) !important;
-                background-color: var(--gm-bg-color) !important;
-                border-color: var(--gm-border-color) !important;
-            }
-        }
+    .gitment-container .gitment-editor-tab {
+        color: var(--gm-text-secondary-color) !important;
+    }
 
-        & .gitment-editor-body textarea {
-            background-color: var(--gm-header-textarea-bg-color) !important;
-            color: var(--text-color) !important;
-            border-color: var(--gm-header-textarea-border-color) !important;
+    .gitment-container .gitment-editor-tab.gitment-selected {
+        color: var(--text-color) !important;
+        background-color: var(--gm-bg-color) !important;
+        border-color: var(--gm-border-color) !important;
+    }
 
-            &:focus {
-                background-color: var(--gm-header-textarea-bg-color) !important;
-            }
-        }
+    .gitment-container .gitment-editor-body textarea {
+        background-color: var(--gm-header-textarea-bg-color) !important;
+        color: var(--text-color) !important;
+        border-color: var(--gm-header-textarea-border-color) !important;
+    }
 
-        & .gitment-editor-preview {
-            color: var(--text-color) !important;
-            background-color: var(--gm-header-textarea-bg-color) !important;
-        }
+    .gitment-container .gitment-editor-body textarea:focus {
+        background-color: var(--gm-header-textarea-bg-color) !important;
+    }
 
-        & .gitment-editor-footer-tip {
-            color: var(--gm-text-secondary-color) !important;
-        }
+    .gitment-container .gitment-editor-preview {
+        color: var(--text-color) !important;
+        background-color: var(--gm-header-textarea-bg-color) !important;
+    }
 
-        & a.gitment-editor-footer-tip:hover {
-            color: var(--gm-footer-tip-hover-color) !important;
-        }
+    .gitment-container .gitment-editor-footer-tip {
+        color: var(--gm-text-secondary-color) !important;
+    }
 
-        & a.gitment-editor-login-link,
-        & a.gitment-editor-login-link:visited {
-            color: var(--text-color) !important;
-        }
-        & a.gitment-editor-login-link:hover {
-            color: var(--gm-btn-primary-hover-bg) !important;
-        }
+    .gitment-container a.gitment-editor-footer-tip:hover {
+        color: var(--gm-footer-tip-hover-color) !important;
+    }
 
-        & a.gitment-editor-logout-link,
-        & a.gitment-editor-logout-link:visited {
-            color: var(--gm-text-secondary-color) !important;
-        }
-        & a.gitment-editor-logout-link:hover {
-            color: var(--gm-btn-primary-disabled-bg) !important;
-        }
+    .gitment-container a.gitment-editor-login-link,
+    .gitment-container a.gitment-editor-login-link:visited {
+        color: var(--text-color) !important;
+    }
+
+    .gitment-container a.gitment-editor-login-link:hover {
+        color: var(--gm-btn-primary-hover-bg) !important;
+    }
+
+    .gitment-container a.gitment-editor-logout-link,
+    .gitment-container a.gitment-editor-logout-link:visited {
+        color: var(--gm-text-secondary-color) !important;
+    }
+
+    .gitment-container a.gitment-editor-logout-link:hover {
+        color: var(--gm-btn-primary-disabled-bg) !important;
+    }
 
         /* Footer */
-        & .gitment-footer {
-            border-color: var(--gm-border-color) !important;
-        }
+    .gitment-container .gitment-footer {
+        border-color: var(--gm-border-color) !important;
+    }
 
-        & a.gitment-footer-project-link,
-        & a.gitment-footer-project-link:visited {
-            color: var(--text-color) !important;
-        }
+    .gitment-container a.gitment-footer-project-link,
+    .gitment-container a.gitment-footer-project-link:visited {
+        color: var(--text-color) !important;
+    }
 
         /* Comments list */
-        & .gitment-comments-empty,
-        & .gitment-comments-loading,
-        & .gitment-comments-error,
-        & .gitment-comments-null {
-            color: var(--text-color) !important;
-        }
+    .gitment-container .gitment-comments-empty,
+    .gitment-container .gitment-comments-loading,
+    .gitment-container .gitment-comments-error,
+    .gitment-container .gitment-comments-null {
+        color: var(--text-color) !important;
+    }
 
         /* Pagination */
-        & .gitment-comments-page-item {
-            color: var(--text-color) !important;
-            border-color: var(--gm-border-color) !important;
+    .gitment-container .gitment-comments-page-item {
+        color: var(--text-color) !important;
+        border-color: var(--gm-border-color) !important;
+    }
 
-            &:hover,
-            &.gitment-selected {
-                background-color: var(--gm-bg-secondary-color) !important;
-            }
-        }
+    .gitment-container .gitment-comments-page-item:hover,
+    .gitment-container .gitment-comments-page-item.gitment-selected {
+        background-color: var(--gm-bg-secondary-color) !important;
+    }
 
         /* Markdown content */
-        & .gitment-markdown {
-            color: var(--text-color) !important;
+    .gitment-container .gitment-markdown {
+        color: var(--text-color) !important;
+    }
 
-            & a {
-                color: var(--text-color) !important;
-            }
+    .gitment-container .gitment-markdown a {
+        color: var(--text-color) !important;
+    }
 
-            & hr {
-                background-color: var(--gm-hr-color) !important;
-                border-bottom-color: var(--gm-hr-color) !important;
-            }
+    .gitment-container .gitment-markdown hr {
+        background-color: var(--gm-hr-color) !important;
+        border-bottom-color: var(--gm-hr-color) !important;
+    }
 
-            & h1,
-            & h2 {
-                border-bottom-color: var(--gm-h1-h2-border) !important;
-            }
+    .gitment-container .gitment-markdown h1,
+    .gitment-container .gitment-markdown h2 {
+        border-bottom-color: var(--gm-h1-h2-border) !important;
+    }
 
-            & h1, & h2, & h3, & h4, & h5, & h6 {
-                color: var(--text-color) !important;
-            }
+    .gitment-container .gitment-markdown h1,
+    .gitment-container .gitment-markdown h2,
+    .gitment-container .gitment-markdown h3,
+    .gitment-container .gitment-markdown h4,
+    .gitment-container .gitment-markdown h5,
+    .gitment-container .gitment-markdown h6 {
+        color: var(--text-color) !important;
+    }
 
-            & h6 {
-                color: var(--gm-text-secondary-color) !important;
-            }
+    .gitment-container .gitment-markdown h6 {
+        color: var(--gm-text-secondary-color) !important;
+    }
 
-            & blockquote {
-                color: var(--gm-blockquote-color) !important;
-                border-left-color: var(--gm-blockquote-border) !important;
-            }
+    .gitment-container .gitment-markdown blockquote {
+        color: var(--gm-blockquote-color) !important;
+        border-left-color: var(--gm-blockquote-border) !important;
+    }
 
-            & code {
-                background-color: var(--gm-code-bg) !important;
-                color: var(--text-color) !important;
-            }
+    .gitment-container .gitment-markdown code {
+        background-color: var(--gm-code-bg) !important;
+        color: var(--text-color) !important;
+    }
 
-            & pre,
-            & .highlight pre {
-                background-color: var(--gm-code-block-bg) !important;
-            }
+    .gitment-container .gitment-markdown pre,
+    .gitment-container .gitment-markdown .highlight pre {
+        background-color: var(--gm-code-block-bg) !important;
+    }
 
-            & pre > code {
-                background-color: transparent !important;
-            }
+    .gitment-container .gitment-markdown pre > code {
+        background-color: transparent !important;
+    }
 
-            & table tr {
-                background-color: var(--gm-bg-color) !important;
-                border-top-color: var(--gm-table-border) !important;
+    .gitment-container .gitment-markdown table tr {
+        background-color: var(--gm-bg-color) !important;
+        border-top-color: var(--gm-table-border) !important;
+    }
 
-                &:nth-child(2n) {
-                    background-color: var(--gm-bg-secondary-color) !important;
-                }
-            }
+    .gitment-container .gitment-markdown table tr:nth-child(2n) {
+        background-color: var(--gm-bg-secondary-color) !important;
+    }
 
-            & table th,
-            & table td {
-                border-color: var(--gm-table-border) !important;
-            }
+    .gitment-container .gitment-markdown table th,
+    .gitment-container .gitment-markdown table td {
+        border-color: var(--gm-table-border) !important;
+    }
 
-            & kbd {
-                color: var(--gm-kbd-text) !important;
-                background-color: var(--gm-bg-tertiary-color) !important;
-                border-color: var(--gm-kbd-border) !important;
-                border-bottom-color: var(--gm-kbd-border-bottom) !important;
-                box-shadow: var(--gm-kbd-shadow) !important;
-            }
+    .gitment-container .gitment-markdown kbd {
+        color: var(--gm-kbd-text) !important;
+        background-color: var(--gm-bg-tertiary-color) !important;
+        border-color: var(--gm-kbd-border) !important;
+        border-bottom-color: var(--gm-kbd-border-bottom) !important;
+        box-shadow: var(--gm-kbd-shadow) !important;
+    }
 
-            & .pl-s, & .pl-pds,
-            & .pl-s .pl-pse .pl-s1,
-            & .pl-sr, & .pl-sr .pl-cce,
-            & .pl-sr .pl-sre,
-            & .pl-sr .pl-sra {
-                color: var(--text-color) !important;
-            }
+    .gitment-container .gitment-markdown .pl-s,
+    .gitment-container .gitment-markdown .pl-pds,
+    .gitment-container .gitment-markdown .pl-s .pl-pse .pl-s1,
+    .gitment-container .gitment-markdown .pl-sr,
+    .gitment-container .gitment-markdown .pl-sr .pl-cce,
+    .gitment-container .gitment-markdown .pl-sr .pl-sre,
+    .gitment-container .gitment-markdown .pl-sr .pl-sra {
+        color: var(--text-color) !important;
+    }
 
-            & .pl-smi, & .pl-s .pl-s1, & .pl-mi, & .pl-mb {
-                color: var(--text-color) !important;
-            }
+    .gitment-container .gitment-markdown .pl-smi,
+    .gitment-container .gitment-markdown .pl-s .pl-s1,
+    .gitment-container .gitment-markdown .pl-mi,
+    .gitment-container .gitment-markdown .pl-mb {
+        color: var(--text-color) !important;
+    }
 
-            & .pl-ii, & .pl-c2 {
-                color: #f8f8f8 !important;
-            }
+    .gitment-container .gitment-markdown .pl-ii,
+    .gitment-container .gitment-markdown .pl-c2 {
+        color: #f8f8f8 !important;
+    }
 
-            & img {
-                background-color: var(--gm-bg-color) !important;
-            }
-        }
+    .gitment-container .gitment-markdown img {
+        background-color: var(--gm-bg-color) !important;
+    }
 
         /* GitHub icon avatar */
-        & .gitment-editor-avatar .gitment-github-icon {
-            fill: var(--gm-github-icon-fill) !important;
-            background-color: var(--gm-github-icon-bg) !important;
-        }
+    .gitment-container .gitment-editor-avatar .gitment-github-icon {
+        fill: var(--gm-github-icon-fill) !important;
+        background-color: var(--gm-github-icon-bg) !important;
     }
+
 </style>
 
 <%- diversity_data('gitment', theme.gitment, {
