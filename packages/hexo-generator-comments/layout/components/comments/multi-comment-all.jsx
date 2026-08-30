@@ -3,7 +3,8 @@ const Loading = require('../common/loading.jsx');
 
 /**
  * 多评论系统 All-in-One 组件
- * 同时渲染 tabs 和 dropdown 导航（用 display:none 切换），共享同一内容区域
+ * 保留原 tabs/dropdown 双渲染写法（inline style 显隐），
+ * style 为 both 时额外渲染 mode-toggle 前端切换
  * 对应 layout/comments-all.ejs 的 JSX 实现
  */
 module.exports = class MultiCommentAll extends Component {
@@ -11,10 +12,12 @@ module.exports = class MultiCommentAll extends Component {
         const { theme, helper } = this.props;
         const injectItems = theme.view_injects.comment;
         const style = (theme.comments && theme.comments.style) || 'tabs';
+        const isBoth = (style === 'both');
 
         const tabJSTag = helper.js('js/tab').toString();
         const dropdownJSTag = helper.js('js/dropdown').toString();
         const cookieJSTag = helper.js('js/js.cookie-2.2.1.min').toString();
+        const modeToggleJSTag = isBoth ? helper.js('js/mode-toggle').toString() : '';
 
         if (injectItems.length === 1) {
             const item = injectItems[0];
@@ -50,7 +53,7 @@ module.exports = class MultiCommentAll extends Component {
                 </div>
 
                 {/* Dropdown 导航 */}
-                <div class="comments-dropdown" style={style === 'tabs' ? 'display:none' : ''}>
+                <div class="comments-dropdown" style={style === 'tabs' || isBoth ? 'display:none' : ''}>
                     <div class="comments-custom-dropdown" id="comment-nav-dropdown">
                         <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
                             <span class="comments-dropdown-label">
@@ -85,6 +88,22 @@ module.exports = class MultiCommentAll extends Component {
 
                 {/* 共享内容区域（同时加 tabs 和 dropdown 的 class） */}
                 <div class="comments-tab-content comments-dropdown-content">
+                    {isBoth && (
+                        <div class="comments-mode-toggle">
+                            <button class="comments-mode-toggle-btn active" data-mode="tabs" title="tabs">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M2 2.5h12v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2.5z" stroke="currentColor" stroke-width="1.2"/>
+                                    <path d="M2 5h12" stroke="currentColor" stroke-width="1.2"/>
+                                </svg>
+                            </button>
+                            <button class="comments-mode-toggle-btn" data-mode="dropdown" title="dropdown">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                                    <path d="M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    )}
                     {injectItems.map((item) => {
                         const CommentComponent = require(`../../${item.layout}`);
 
@@ -106,7 +125,7 @@ module.exports = class MultiCommentAll extends Component {
                     })}
                 </div>
 
-                <div dangerouslySetInnerHTML={{ __html: cookieJSTag + tabJSTag + dropdownJSTag }}></div>
+                <div dangerouslySetInnerHTML={{ __html: cookieJSTag + tabJSTag + dropdownJSTag + modeToggleJSTag }}></div>
             </div>
         );
     }

@@ -3,12 +3,14 @@
   --text-color: #222;
   --selected-bg-color: #fff;
   --unselected-bg-color: #eee;
+  --mode-toggle-bg-color: #f0f0f0;
+  --mode-toggle-active-color: #fff;
   --dropdown-hover-bg: #f5f5f5;
   --border-color: #c5d0dc;
   --border-focus-color: #4c8fbd;
   --border-focus-color-rgb: 76, 143, 189;
   --loading-border-color: #eee;
-  --disabled-color: #999;
+  --svg-color: #1f2328;
   color-scheme: light;
 }
 
@@ -17,13 +19,20 @@
   --text-color: #fff;
   --selected-bg-color: #222;
   --unselected-bg-color: #444;
+  --mode-toggle-bg-color: #3a3a3a;
+  --mode-toggle-active-color: #fff;
   --dropdown-hover-bg: #505050;
   --border-color: #c5d0dc;
   --border-focus-color: #3b7ca8;
   --border-focus-color-rgb: 59, 124, 168;
   --loading-border-color: #f0f6fc;
-  --disabled-color: #888;
+  --svg-color: #f0f6fc;
   color-scheme: dark;
+}
+
+/* 评论区域 SVG 默认颜色（跟随主题，可被更具体的规则覆盖） */
+svg {
+  color: var(--svg-color);
 }
 
 .comment-wrap {
@@ -86,12 +95,6 @@
   .comments-nav > li > a:hover {
     background-color: var(--unselected-bg-color);
   }
-}
-
-.comments-nav > li > a.disabled {
-  color: var(--disabled-color);
-  pointer-events: none;
-  background-color: transparent;
 }
 
 .comments-tabbable {
@@ -330,6 +333,90 @@
   color: var(--border-focus-color);
 }
 
+/* both 模式：悬浮切换按钮（定位在共享内容区右上角，通过 :has() 自动检测，无需 wrapper） */
+.comments-tab-content:has(.comments-mode-toggle) {
+  padding-top: 40px;
+  position: relative;
+}
+
+.comments-mode-toggle {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 100;
+  display: inline-flex;
+  gap: 0;
+  background: var(--mode-toggle-bg-color);
+  border-radius: 20px;
+  padding: 3px;
+}
+
+/* 滑动指示器 */
+.comments-mode-toggle::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 16px;
+  background: var(--border-focus-color);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+/* 暗色主题适配 */
+.dark-theme .comments-mode-toggle {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 滑块位置由切换条自身 mode-tabs / mode-dropdown class 控制（无 wrapper） */
+.comments-mode-toggle.mode-tabs::before {
+  transform: translateX(0);
+}
+
+.comments-mode-toggle.mode-dropdown::before {
+  transform: translateX(26px);
+}
+
+.comments-mode-toggle-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--mode-toggle-active-color);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.comments-mode-toggle-btn svg {
+  flex-shrink: 0;
+}
+
+.comments-mode-toggle-btn:hover:not(.active) {
+  opacity: 0.85;
+}
+
+.comments-mode-toggle-btn.active {
+  opacity: 1;
+  color: var(--mode-toggle-active-color);
+  background: transparent;
+  box-shadow: none;
+}
+
+.comments-mode-toggle-btn.active svg {
+  color: var(--mode-toggle-active-color);
+}
+
 /* 响应式适配 */
 @media (max-width: 768px) {
   .comments-dropdown-trigger {
@@ -389,8 +476,6 @@
 
 .loading-indicator.hidden {
   opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
   pointer-events: none;
 }
 

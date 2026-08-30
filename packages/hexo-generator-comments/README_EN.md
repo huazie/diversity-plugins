@@ -11,7 +11,7 @@ Hexo multi-comment system generator plugin, supporting integration and switching
 | Feature | Description |
 |------|------|
 | **Multi-comment System Support** | Integrate multiple comment systems (Utterances, Gitalk, Giscus, Twikoo, Gitment, Waline, etc.) simultaneously |
-| **Tab-based Switching** | Elegant tab interface for easy switching between different comment systems |
+| **Multiple Display Modes** | Supports tabs, dropdown, and dual-mode switching (both), flexibly adapting to different scenarios |
 | **User Preference Memory** | Intelligently remembers the comment system chosen by visitors, enhancing user experience |
 | **Lazy Loading Support** | Optional lazy loading mechanism to significantly improve page load speed |
 | **Theme Agnostic** | Perfectly compatible with any Hexo theme, seamless integration |
@@ -61,8 +61,8 @@ comments:
   - **title** - Custom comment title (optional, default is "Comments")
   - **layout** - Custom comment layout file name (optional, without extension)
   - **path** - Custom comment page path (optional, default is `comments`)
-  - **darkclass** - Dark theme class name (optional)
-  - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based) | `dropdown` (dropdown menu)
+  - **darkclass** - Dark theme class name (optional). When your theme marks dark mode by adding this class to `<html>` (documentElement), the plugin automatically detects it and syncs the comment area's color scheme (see "Light/Dark Mode Adaptation" below).
+  - **style** - When multiple comment systems are enabled, choose a default display style. Options: `tabs` (tab-based) | `dropdown` (dropdown menu) | `both` (dual-mode with one-click switching)
   - **active** - Choose a default comment system to display. Options: `utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` | `waline`, etc.
   - **storage** - Whether to remember the comment system chosen by visitors. Options: `true` | `false`. Set to `true` to remember the visitor's choice.
   - **lazyload** - Whether to enable lazy loading for comment systems. Options: `true` | `false`
@@ -421,7 +421,7 @@ comments: false  # Disable comments
 ### Compatibility Features
 
 - ✅ **Theme Agnostic**: Compatible with all Hexo themes using EJS, Nunjucks, and other template engines
-- ✅ **Dark Mode**: Supports dark/light theme switching
+- ✅ **Dark Mode**: Built-in `.dark-theme` style block with unified CSS variable management for light/dark color adaptation
 - ✅ **Responsive Design**: Perfectly supports multi-device display
 
 ## How It Works
@@ -490,11 +490,15 @@ This plugin uses modular design and supports adding new comment systems:
 | hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ Stable |
 | hexo-comments-waline | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-waline) | ✅ Stable |
 
-### Light/Dark Mode Toggle
+### Light/Dark Mode Adaptation
 
-The `toggleColorScheme` method provided by `Diversity.utils` in `Diversity.js` enables light/dark mode switching.
+The comment area has built-in dark mode support, managed via the `.dark-theme` style block and CSS variables for unified light/dark color adaptation — works out of the box and adapts automatically.
 
-Add the following call in your Hexo theme's color scheme switching logic:
+The plugin determines whether dark mode is active by the following priority (see `Diversity.utils.isDarkMode()` in `Diversity.js`):
+
+1. **System preference**: follows the OS `prefers-color-scheme: dark` automatically;
+2. **Site dark class**: if your theme toggles dark mode by adding a custom class to `<html>`, specify that class via the `darkclass` option and the plugin will detect it automatically;
+3. **Manual toggle**: call `Diversity.utils.toggleColorScheme()` in your theme's color scheme switching logic. It toggles the `dark-theme` class on `<html>` and dispatches a `color-scheme:refresh` event, so the comment area UI updates accordingly.
 
 ```javascript
 // Toggle color scheme for comment area

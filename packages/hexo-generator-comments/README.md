@@ -11,7 +11,7 @@ Hexo 多评论系统生成插件，支持多种评论系统的集成与切换，
 | 特性 | 描述 |
 |------|------|
 | **多评论系统支持** | 同时集成多种评论系统（Utterances、Gitalk、Giscus、Twikoo、Gitment、Waline 等） |
-| **选项卡式切换** | 优雅的选项卡界面，轻松在不同评论系统间切换 |
+| **多展示模式** | 支持选项卡（tabs）、下拉菜单（dropdown）及双模式切换（both），灵活适配不同场景 |
 | **用户偏好记忆** | 智能记住访客选择的评论系统，提升用户体验 |
 | **懒加载支持** | 可选懒加载机制，显著提高页面加载速度 |
 | **主题无关性** | 完美兼容任何 Hexo 主题，无缝集成 |
@@ -61,8 +61,8 @@ comments:
   - **title** - 自定义评论标题（可选，默认为"Comments"）
   - **layout** - 自定义评论布局文件名（可选，不包含扩展名）
   - **path** - 自定义评论页面路径（可选，默认为 `comments`）
-  - **darkclass** - 深色主题类名（可选）
-  - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：`tabs` 【选项卡】 | `dropdown` 【下拉菜单】
+  - **darkclass** - 深色主题类名（可选）。当主题通过在 `<html>`（documentElement）上添加该类名来标识深色模式时，插件会自动识别并同步评论区域的明暗状态（详见下方「明暗模式适配」）
+  - **style** - 多个评论系统启用时，选择一个默认展示风格。可选值：`tabs` 【选项卡】 | `dropdown` 【下拉菜单】 | `both` 【双模式，支持用户一键切换】
   - **active** - 选择一个默认显示的评论系统。可选值：`utterances` | `gitalk` | `giscus` | `twikoo` | `gitment` | `waline` 等等
   - **storage** - 是否记住访客选择的评论系统，可选值： `true` | `false`。设置为 `true` 意味着记住访客选择的评论系统。
   - **lazyload** - 是否懒加载评论系统，可选值： `true` | `false`
@@ -422,7 +422,7 @@ comments: false  # 禁用评论
 ### 兼容性特性
 
 - ✅ **主题无关**：与支持所有使用 EJS、Nunjucks 等模板引擎的 Hexo 主题兼容
-- ✅ **深色模式**：支持深色/浅色主题切换
+- ✅ **深色模式**：内置 `.dark-theme` 样式块，通过 CSS 变量统一管理明暗色彩，一键适配
 - ✅ **响应式设计**：完美支持多终端设备显示
 
 ## 工作原理
@@ -491,11 +491,15 @@ comments:
 | hexo-comments-gitment | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-gitment) | ✅ 稳定 |
 | hexo-comments-waline | [GitHub](https://github.com/huazie/diversity-plugins/packages/hexo-comments-waline) | ✅ 稳定 |
 
-### 明暗模式切换
+### 明暗模式适配
 
-`Diversity.js` 中 `Diversity.utils` 提供的 `toggleColorScheme` 方法可以实现明暗模式切换。
+评论区域已内置深色模式支持，通过 `.dark-theme` 样式块与 CSS 变量统一管理明暗色彩，开箱即用、自动适配。
 
-在你接入的 Hexo 主题的切换明暗模式的代码逻辑中，添加如下调用：
+插件按以下优先级判断当前是否处于深色模式（详见 `Diversity.js` 的 `Diversity.utils.isDarkMode()`）：
+
+1. **系统偏好**：跟随操作系统的 `prefers-color-scheme: dark` 自动生效；
+2. **站点深色类名**：若主题通过在 `<html>` 上添加自定义类名切换深色模式，可在配置中以 `darkclass` 指定该类名，插件会自动识别；
+3. **手动切换**：在主题切换明暗模式的逻辑中调用 `Diversity.utils.toggleColorScheme()`，它会在 `<html>` 上切换 `dark-theme` 类并广播 `color-scheme:refresh` 事件，评论区域样式随之更新。
 
 ```javascript
 // 切换评论区域的明暗模式

@@ -76,6 +76,80 @@
                     </div>
                 </div>
                 {{ js('js/dropdown') }}
+            {% elif theme.comments.style == 'both' %}
+                <!-- Tabs 导航 -->
+                <div class="comments-tabbable">
+                    <ul id="comment-nav-tab" class="comments-nav comments-nav-tabs">
+                        {% for inject_item in theme.view_injects.comment %}
+                            <li class="{{ inject_item.locals.active }}">
+                                <a data-toggle="tab" href="#comments-{{ inject_item.locals.class }}" data-comments="{{ inject_item.locals.class }}">
+                                    {{ inject_item.locals.text }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Dropdown 选择器 -->
+                <div class="comments-dropdown" style="display:none">
+                    <div class="comments-custom-dropdown" id="comment-nav-dropdown">
+                        <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
+                            <span class="comments-dropdown-label">
+                                <span class="comments-dropdown-text"></span>
+                            </span>
+                            <span class="comments-dropdown-arrow">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                    <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="comments-dropdown-menu" role="listbox" id="comment-nav-menu-both">
+                            {% for inject_item in theme.view_injects.comment %}
+                                <div class="comments-dropdown-item {{ 'active' if inject_item.locals.active else '' }}" 
+                                        role="option" 
+                                        data-value="{{ inject_item.locals.class }}"
+                                        data-text="{{ inject_item.locals.text }}">
+                                    <span class="comments-dropdown-item-text">{{ inject_item.locals.text }}</span>
+                                    {% if inject_item.locals.active %}
+                                        <span class="comments-dropdown-check">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 共享评论内容面板（tabs 和 dropdown 共用） -->
+                <div class="comments-tab-content comments-dropdown-content">
+                    <div class="comments-mode-toggle">
+                        <button class="comments-mode-toggle-btn active" data-mode="tabs" title="tabs">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 2.5h12v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2.5z" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M2 5h12" stroke="currentColor" stroke-width="1.2"/>
+                            </svg>
+                        </button>
+                        <button class="comments-mode-toggle-btn" data-mode="dropdown" title="dropdown">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    {% for inject_item in theme.view_injects.comment %}
+                        <div id="comments-{{ inject_item.locals.class }}" 
+                            class="comments-tab-pane comments-dropdown-pane {{ inject_item.locals.active }}">
+                            {{ partial('_partial/loading', {showLoading : inject_item.locals.showLoading, id : 'loading-' + inject_item.locals.configKey, text : 'Loading comments...'}) }}
+                            {{ partial(inject_item.layout, inject_item.locals, inject_item.options) }}
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ js('js/tab') }}
+                {{ js('js/dropdown') }}
+                {{ js('js/mode-toggle') }}
             {% endif %}
             {{ js('js/js.cookie-2.2.1.min') }}
         {% endif %}

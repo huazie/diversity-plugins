@@ -1,4 +1,5 @@
 {% set style = theme.comments.style or 'tabs' %}
+{% set isBoth = (style == 'both') %}
 
 {{ css('css/comments') }}
 {{ diversity_data('comments', comments_config()) }}
@@ -26,7 +27,7 @@
                 </ul>
             </div>
 
-            <div class="comments-dropdown"{% if style == 'tabs' %} style="display:none"{% endif %}>
+            <div class="comments-dropdown"{% if style == 'tabs' or isBoth %} style="display:none"{% endif %}>
                 <div class="comments-custom-dropdown" id="comment-nav-dropdown">
                     <button class="comments-dropdown-trigger" id="comment-nav-button" aria-haspopup="listbox" aria-expanded="false">
                         <span class="comments-dropdown-label">
@@ -59,6 +60,22 @@
             </div>
 
             <div class="comments-tab-content comments-dropdown-content">
+                {% if isBoth %}
+                    <div class="comments-mode-toggle">
+                        <button class="comments-mode-toggle-btn active" data-mode="tabs" title="tabs">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M2 2.5h12v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V2.5z" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M2 5h12" stroke="currentColor" stroke-width="1.2"/>
+                            </svg>
+                        </button>
+                        <button class="comments-mode-toggle-btn" data-mode="dropdown" title="dropdown">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                                <path d="M5 7l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                {% endif %}
                 {% for item in theme.view_injects.comment %}
                     <div id="comments-{{ item.locals.class }}"
                          class="comments-tab-pane comments-dropdown-pane{{ ' active' if item.locals.active else '' }}"
@@ -72,6 +89,9 @@
             {{ js('js/js.cookie-2.2.1.min') }}
             {{ js('js/tab') }}
             {{ js('js/dropdown') }}
+            {% if isBoth %}
+                {{ js('js/mode-toggle') }}
+            {% endif %}
         {% endif %}
     </div>
 </div>
