@@ -90,7 +90,7 @@ module.exports = class MultiCommentBoth extends Component {
                                     <Loading
                                         showLoading={locals.showLoading}
                                         id={`loading-${locals.configKey}`}
-                                        text="Loading comments..."
+                                        text={helper.__('comments.loading')}
                                     />
                                 )}
                                 <CommentComponent {...locals} />
