@@ -25,4 +25,4 @@ Hexo Diversity 主题插件集合，旨在为 Hexo 博客提供更多功能和�
 
 ## 许可证
 
-[MIT](LICENSE) © [huazie](https://github.com/huazie)
+本项目基于 MIT 许可证开源 - 查看 [LICENSE](LICENSE) 文件了解更多细节

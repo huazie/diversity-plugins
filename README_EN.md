@@ -27,4 +27,4 @@ We welcome contributions! Please feel free to submit Pull Requests or create Iss
 
 ## License
 
-[MIT](LICENSE) © [huazie](https://github.com/huazie)
+This project is open source under the MIT License - see the [LICENSE](LICENSE) file for details.
